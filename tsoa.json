@@ -1,0 +1,23 @@
+{
+  "entryFile": "src/server.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/controllers/*.controller.ts"],
+  "spec": {
+    "outputDirectory": "public",
+    "specVersion": 3,
+    "name": "Rise Motive API",
+    "description": "Backend API for Rise Motive Ltd",
+    "version": "1.0.0",
+    "securityDefinitions": {
+      "bearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "routes": {
+    "routesDir": "src/routes",
+    "authenticationModule": "src/middlewares/auth.middleware.ts"
+  }
+}

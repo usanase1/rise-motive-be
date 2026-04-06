@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// ─── TASKERS ────────────────────────────────────────────────
+model Tasker {
+  id          Int              @id @default(autoincrement())
+  name        String
+  phone       String           @unique
+  email       String?
+  specialties String
+  isActive    Boolean          @default(true)
+  createdAt   DateTime         @default(now())
+
+  requests    ServiceRequest[]
+}
+
+// ─── SERVICE REQUESTS (RM TaskSpot) ─────────────────────────
+model ServiceRequest {
+  id             Int              @id @default(autoincrement())
+  trackingCode   String           @unique
+  customerName   String
+  customerPhone  String
+  serviceCategory ServiceCategory
+  service        String           // specific service within category
+  description    String           @db.Text
+  documentUrl    String?          // optional file upload
+  preferredDate  String?
+  location       String
+  status         RequestStatus    @default(PENDING)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  taskerId       Int?
+  tasker         Tasker?          @relation(fields: [taskerId], references: [id])
+
+  statusHistory  StatusHistory[]
+  smsLogs        SmsLog[]
+}
+
+// ─── TRAINING APPLICATIONS (RM TaskSpot - Part II) ──────────
+model TrainingApplication {
+  id               Int              @id @default(autoincrement())
+  fullName         String
+  phone            String
+  email            String?
+  selectedCourse   TrainingCourse
+  preferredSchedule String?
+  experienceLevel  ExperienceLevel  @default(BEGINNER)
+  status           ApplicationStatus @default(PENDING)
+  createdAt        DateTime         @default(now())
+}
+
+// ─── STATUS HISTORY (tracking timeline) ─────────────────────
+model StatusHistory {
+  id               Int             @id @default(autoincrement())
+  status           RequestStatus
+  note             String?
+  createdAt        DateTime        @default(now())
+
+  serviceRequestId Int
+  serviceRequest   ServiceRequest  @relation(fields: [serviceRequestId], references: [id])
+}
+
+// ─── SMS LOGS ────────────────────────────────────────────────
+model SmsLog {
+  id               Int             @id @default(autoincrement())
+  phone            String
+  message          String          @db.Text
+  status           String          // "sent" | "failed"
+  createdAt        DateTime        @default(now())
+
+  serviceRequestId Int?
+  serviceRequest   ServiceRequest? @relation(fields: [serviceRequestId], references: [id])
+}
+
+// ─── PRODUCTS (RM ProSpot) ───────────────────────────────────
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?  @db.Text
+  price       String?  // "Price on request" or actual price
+  category    String
+  imageUrl    String?
+  inStock     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  orders      Order[]
+}
+
+// ─── ORDERS (RM ProSpot) ─────────────────────────────────────
+model Order {
+  id            Int         @id @default(autoincrement())
+  trackingCode  String      @unique
+  customerName  String
+  customerPhone String
+  address       String
+  quantity      Int         @default(1)
+  paymentMethod String?     // confirmed later via phone/VISA
+  note          String?     @db.Text
+  status        OrderStatus @default(PENDING)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  productId     Int
+  product       Product     @relation(fields: [productId], references: [id])
+}
+
+// ─── INFO POSTS (RM InfoSpot) ────────────────────────────────
+model InfoPost {
+  id          Int          @id @default(autoincrement())
+  title       String
+  description String       @db.Text
+  category    InfoCategory
+  deadline    String?
+  location    String?
+  applyLink   String?      // external link e.g. mifotra.gov.rw
+  contactInfo String?      // e.g. "0795344768"
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+}
+
+// ─── ENUMS ───────────────────────────────────────────────────
+
+enum ServiceCategory {
+  E_GOVERNMENT          // IREMBO, RRA, RDB, RURA, MIFOTRA
+  APPLICATIONS_DOCS     // CV, proposals, reports, book writing
+  CREATIVE_MEDIA        // Photography, videography, design
+  WEB_DIGITAL           // Website dev, online setup
+  LEGAL_OFFICIAL        // Notary, court filing, legal advisory
+}
+
+enum RequestStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum InfoCategory {
+  JOB
+  SCHOLARSHIP
+  COMPETITION
+  COMMUNITY
+  ADVISORY
+}
+
+enum TrainingCourse {
+  COMPUTER_FOUNDATIONS
+  MICROSOFT_OFFICE
+  GOOGLE_TOOLS
+  E_GOVERNMENT_TOOLS
+  DIGITAL_CONTENT_CREATION
+  GRAPHIC_DESIGN
+  AI_AND_DIGITAL_TOOLS
+  BASIC_PROGRAMMING
+}
+
+enum ExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+// ─── ADMIN / STAFF ───────────────────────────────────────────
+model Admin {
+  id        Int       @id @default(autoincrement())
+  fullName  String
+  email     String    @unique
+  password  String
+  role      AdminRole @default(ADMIN)
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+}

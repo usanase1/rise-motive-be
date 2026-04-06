@@ -1,0 +1,2875 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"CreateTrainingApplicationDto": {
+				"properties": {
+					"fullName": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"selectedCourse": {
+						"type": "string",
+						"enum": [
+							"COMPUTER_FOUNDATIONS",
+							"MICROSOFT_OFFICE",
+							"GOOGLE_TOOLS",
+							"E_GOVERNMENT_TOOLS",
+							"DIGITAL_CONTENT_CREATION",
+							"GRAPHIC_DESIGN",
+							"AI_AND_DIGITAL_TOOLS",
+							"BASIC_PROGRAMMING"
+						]
+					},
+					"preferredSchedule": {
+						"type": "string"
+					},
+					"experienceLevel": {
+						"type": "string",
+						"enum": [
+							"BEGINNER",
+							"INTERMEDIATE"
+						]
+					}
+				},
+				"required": [
+					"fullName",
+					"phone",
+					"selectedCourse"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TrainingApplicationResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"fullName": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string",
+						"nullable": true
+					},
+					"selectedCourse": {
+						"type": "string",
+						"enum": [
+							"COMPUTER_FOUNDATIONS",
+							"MICROSOFT_OFFICE",
+							"GOOGLE_TOOLS",
+							"E_GOVERNMENT_TOOLS",
+							"DIGITAL_CONTENT_CREATION",
+							"GRAPHIC_DESIGN",
+							"AI_AND_DIGITAL_TOOLS",
+							"BASIC_PROGRAMMING"
+						]
+					},
+					"preferredSchedule": {
+						"type": "string",
+						"nullable": true
+					},
+					"experienceLevel": {
+						"type": "string",
+						"enum": [
+							"BEGINNER",
+							"INTERMEDIATE",
+							null
+						],
+						"nullable": true
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"PENDING",
+							"ACCEPTED",
+							"REJECTED"
+						]
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"fullName",
+					"phone",
+					"selectedCourse",
+					"status",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_TrainingApplicationResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/TrainingApplicationResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_null_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_TrainingApplicationResponse-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/TrainingApplicationResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateTrainingApplicationDto": {
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": [
+							"PENDING",
+							"ACCEPTED",
+							"REJECTED"
+						]
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse__message-string__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"message": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"message"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateTaskerDto": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"specialties": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"phone",
+					"specialties"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TaskerResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string",
+						"nullable": true
+					},
+					"specialties": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"phone",
+					"specialties",
+					"isActive",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_TaskerResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/TaskerResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_TaskerResponse-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/TaskerResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateTaskerDto": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"specialties": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateServiceRequestDto": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"serviceCategory": {
+						"type": "string",
+						"enum": [
+							"E_GOVERNMENT",
+							"APPLICATIONS_DOCS",
+							"CREATIVE_MEDIA",
+							"WEB_DIGITAL",
+							"LEGAL_OFFICIAL"
+						]
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"serviceCategory",
+					"service",
+					"description",
+					"location"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ServiceRequestResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"trackingCode": {
+						"type": "string"
+					},
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"serviceCategory": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string",
+						"nullable": true
+					},
+					"preferredDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"location": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"tasker": {
+						"properties": {
+							"email": {
+								"type": "string",
+								"nullable": true
+							},
+							"phone": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"phone",
+							"name"
+						],
+						"type": "object",
+						"nullable": true
+					},
+					"statusHistory": {
+						"items": {
+							"properties": {
+								"createdAt": {
+									"type": "string",
+									"format": "date-time"
+								},
+								"note": {
+									"type": "string",
+									"nullable": true
+								},
+								"status": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"createdAt",
+								"note",
+								"status"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"trackingCode",
+					"customerName",
+					"customerPhone",
+					"serviceCategory",
+					"service",
+					"description",
+					"location",
+					"status",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_ServiceRequestResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ServiceRequestResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_ServiceRequestResponse-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/ServiceRequestResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateRequestStatusDto": {
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": [
+							"PENDING",
+							"ASSIGNED",
+							"IN_PROGRESS",
+							"COMPLETED",
+							"CANCELLED"
+						]
+					},
+					"taskerId": {
+						"type": "number",
+						"format": "double"
+					},
+					"note": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"note"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateProductDto": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"inStock": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"category"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ProductResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string",
+						"nullable": true
+					},
+					"price": {
+						"type": "string",
+						"nullable": true
+					},
+					"category": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string",
+						"nullable": true
+					},
+					"inStock": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"category",
+					"inStock",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_ProductResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ProductResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_ProductResponse-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/ProductResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateProductDto": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"inStock": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateOrderDto": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"note": {
+						"type": "string"
+					},
+					"productId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"address",
+					"quantity",
+					"productId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OrderResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"trackingCode": {
+						"type": "string"
+					},
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"note": {
+						"type": "string",
+						"nullable": true
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"PENDING",
+							"CONFIRMED",
+							"OUT_FOR_DELIVERY",
+							"DELIVERED",
+							"CANCELLED"
+						]
+					},
+					"paymentMethod": {
+						"type": "string",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"product": {
+						"properties": {
+							"createdAt": {
+								"type": "string",
+								"format": "date-time"
+							},
+							"inStock": {
+								"type": "boolean"
+							},
+							"imageUrl": {
+								"type": "string",
+								"nullable": true
+							},
+							"category": {
+								"type": "string"
+							},
+							"price": {
+								"type": "string",
+								"nullable": true
+							},
+							"description": {
+								"type": "string",
+								"nullable": true
+							},
+							"name": {
+								"type": "string"
+							},
+							"id": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"createdAt",
+							"inStock",
+							"category",
+							"name",
+							"id"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"id",
+					"trackingCode",
+					"customerName",
+					"customerPhone",
+					"address",
+					"quantity",
+					"status",
+					"createdAt",
+					"updatedAt",
+					"product"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_OrderResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/OrderResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_OrderResponse-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/OrderResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateOrderStatusDto": {
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": [
+							"PENDING",
+							"CONFIRMED",
+							"OUT_FOR_DELIVERY",
+							"DELIVERED",
+							"CANCELLED"
+						]
+					},
+					"paymentMethod": {
+						"type": "string",
+						"enum": [
+							"VISA",
+							"TELEPHONE",
+							"CASH"
+						]
+					}
+				},
+				"required": [
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateInfoPostDto": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string",
+						"enum": [
+							"JOB",
+							"SCHOLARSHIP",
+							"COMPETITION",
+							"COMMUNITY",
+							"ADVISORY"
+						]
+					},
+					"deadline": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"applyLink": {
+						"type": "string"
+					},
+					"contactInfo": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"category"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InfoPostResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string",
+						"enum": [
+							"JOB",
+							"SCHOLARSHIP",
+							"COMPETITION",
+							"COMMUNITY",
+							"ADVISORY"
+						]
+					},
+					"deadline": {
+						"type": "string",
+						"nullable": true
+					},
+					"location": {
+						"type": "string",
+						"nullable": true
+					},
+					"applyLink": {
+						"type": "string",
+						"nullable": true
+					},
+					"contactInfo": {
+						"type": "string",
+						"nullable": true
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"description",
+					"category",
+					"isActive",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_InfoPostResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/InfoPostResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_InfoPostResponse-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/InfoPostResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateInfoPostDto": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string",
+						"enum": [
+							"JOB",
+							"SCHOLARSHIP",
+							"COMPETITION",
+							"COMMUNITY",
+							"ADVISORY"
+						]
+					},
+					"deadline": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"applyLink": {
+						"type": "string"
+					},
+					"contactInfo": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RegisterAdminDto": {
+				"properties": {
+					"fullName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string",
+						"enum": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				},
+				"required": [
+					"fullName",
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AdminResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"fullName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string",
+						"enum": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"fullName",
+					"email",
+					"role",
+					"isActive",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_AdminResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/AdminResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginDto": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginResponse": {
+				"properties": {
+					"token": {
+						"type": "string"
+					},
+					"admin": {
+						"$ref": "#/components/schemas/AdminResponse"
+					}
+				},
+				"required": [
+					"token",
+					"admin"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_LoginResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/LoginResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_AdminResponse-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/AdminResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "apiKey",
+				"name": "Authorization",
+				"in": "header"
+			}
+		}
+	},
+	"info": {
+		"title": "Rise Motive API",
+		"version": "1.0.0",
+		"description": "Backend API for Rise Motive Ltd",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/training-applications": {
+			"post": {
+				"operationId": "Apply",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TrainingApplicationResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTrainingApplicationDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TrainingApplicationResponse-Array_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/training-applications/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TrainingApplicationResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/training-applications/{id}/status": {
+			"patch": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TrainingApplicationResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateTrainingApplicationDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/taskers": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskerResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTaskerDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskerResponse-Array_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/taskers/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskerResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TaskerResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateTaskerDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/service-requests": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ServiceRequestResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateServiceRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ServiceRequestResponse-Array_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "status",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/service-requests/track/{trackingCode}": {
+			"get": {
+				"operationId": "Track",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ServiceRequestResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "trackingCode",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/service-requests/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ServiceRequestResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/service-requests/{id}/status": {
+			"patch": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ServiceRequestResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateRequestStatusDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/products": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ProductResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateProductDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ProductResponse-Array_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/products/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ProductResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ProductResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateProductDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/orders": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_OrderResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateOrderDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_OrderResponse-Array_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/orders/track/{trackingCode}": {
+			"get": {
+				"operationId": "Track",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_OrderResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "trackingCode",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/orders/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_OrderResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/orders/{id}/status": {
+			"patch": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_OrderResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateOrderStatusDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/info-posts": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_InfoPostResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateInfoPostDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_InfoPostResponse-Array_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/info-posts/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_InfoPostResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_InfoPostResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateInfoPostDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_AdminResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterAdminDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/setup": {
+			"post": {
+				"operationId": "Setup",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_AdminResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterAdminDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_LoginResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"401": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/profile": {
+			"get": {
+				"operationId": "GetProfile",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_AdminResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/auth/admins": {
+			"get": {
+				"operationId": "GetAllAdmins",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_AdminResponse-Array_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/auth/admins/{id}/deactivate": {
+			"patch": {
+				"operationId": "DeactivateAdmin",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_AdminResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
