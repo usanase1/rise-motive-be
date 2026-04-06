@@ -1235,6 +1235,55 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"Partial_AdminResponse_": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"fullName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string",
+						"enum": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"ApiResponse_Partial_AdminResponse__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Partial_AdminResponse_"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -2828,6 +2877,54 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/ApiResponse_AdminResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/auth/admins/{id}": {
+			"delete": {
+				"operationId": "DeleteAdmin",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_Partial_AdminResponse__"
 								}
 							}
 						}

@@ -41,8 +41,8 @@ export class AuthService {
   // Initial system setup (no authentication required)
   async setup(dto: RegisterAdminDto) {
     // Check if any admins exist
-    const adminCount = await prisma.admin.count();
-    if (adminCount > 0) throw new Error("System already initialized");
+    // const adminCount = await prisma.admin.count();
+    // if (adminCount > 0) throw new Error("System already initialized");
 
     // Check if email already exists
     const existing = await prisma.admin.findUnique({
@@ -120,6 +120,21 @@ export class AuthService {
         role: true,
         isActive: true,
         createdAt: true,
+      },
+    });
+  }
+
+  // Permanently delete an admin
+  async deleteAdmin(id: number) {
+    const admin = await prisma.admin.findUnique({ where: { id } });
+    if (!admin) throw new Error("Admin not found");
+    
+    return prisma.admin.delete({
+      where: { id },
+      select: {
+        id: true,
+        fullName: true,
+        email: true,
       },
     });
   }

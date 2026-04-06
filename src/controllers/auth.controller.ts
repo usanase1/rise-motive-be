@@ -1,4 +1,4 @@
-import { Route, Post, Get, Patch, Body, Res, TsoaResponse, Request, Security, Path } from 'tsoa';
+import { Route, Post, Get, Patch, Delete, Body, Res, TsoaResponse, Request, Security, Path } from 'tsoa';
 import { AuthService } from "../services/auth.service";
 import { RegisterAdminDto, LoginDto } from "../dtos/auth.dto";
 import { ApiResponse } from "../utils/apiResponse";
@@ -46,15 +46,15 @@ export class AuthController {
   ): Promise<void> {
     try {
       // Check if any admins exist at all
-      const adminCount = await prisma.admin.count();
-      if (adminCount > 0) {
-        errorResponse(400, new ApiResponse(false, "System already initialized"));
-        return;
-      }
+      // const adminCount = await prisma.admin.count();
+      // if (adminCount > 0) {
+      //   errorResponse(400, new ApiResponse(false, "System already initialized"));
+      //   return;
+      // }
 
       // Force SUPER_ADMIN role for initial setup
       requestBody.role = "SUPER_ADMIN";
-      const data = await service.register(requestBody);
+      const data = await service.setup(requestBody);
       successResponse(201, new ApiResponse(true, "System initialized successfully", data));
     } catch (error: any) {
       errorResponse(400, new ApiResponse(false, error.message));
@@ -116,6 +116,21 @@ export class AuthController {
     try {
       const data = await service.deactivateAdmin(id);
       successResponse(200, new ApiResponse(true, "Admin deactivated", data));
+    } catch (error: any) {
+      errorResponse(400, new ApiResponse(false, error.message));
+    }
+  }
+
+  @Delete('admins/{id}')
+  @Security('bearerAuth', ['SUPER_ADMIN'])
+  public async deleteAdmin(
+    @Path() id: number,
+    @Res() successResponse: TsoaResponse<200, ApiResponse<Partial<AdminResponse>>>,
+    @Res() errorResponse: TsoaResponse<400, ApiResponse<null>>
+  ): Promise<void> {
+    try {
+      const data = await service.deleteAdmin(id);
+      successResponse(200, new ApiResponse(true, "Admin permanently deleted", data as any));
     } catch (error: any) {
       errorResponse(400, new ApiResponse(false, error.message));
     }
