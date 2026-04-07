@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "nodemon --exec tsx src/server.ts",
-    "build": "tsoa spec-and-routes && tsc",
+    "build": "npx prisma generate && tsoa spec-and-routes && tsc",
     "tsoa": "tsoa spec-and-routes",
     "start": "node dist/server.js",
     "seed:super-admin": "tsx src/scripts/create-super-admin.ts"
