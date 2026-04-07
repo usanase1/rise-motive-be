@@ -27,3 +27,13 @@ export class LoginDto {
   @IsString()
   password!: string;
 }
+
+export class VerifyEmailDto {
+  @IsNotEmpty()
+  @IsEmail()
+  email!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  otpCode!: string;
+}

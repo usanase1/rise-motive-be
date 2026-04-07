@@ -2,9 +2,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import prisma from "../config/prisma";
 import { RegisterAdminDto, LoginDto } from "../dtos/auth.dto";
+import { EmailService } from "./email.service";
 
 const JWT_SECRET = process.env.JWT_SECRET || "rise-motive-secret";
 const JWT_EXPIRES_IN = "7d";
+const emailService = new EmailService();
 
 export class AuthService {
 
@@ -32,6 +34,13 @@ export class AuthService {
         role: "ADMIN", // Always ADMIN for regular registration
       },
     });
+
+    emailService.sendWelcomeEmail({
+      fullName: dto.fullName,
+      email: dto.email,
+      password: dto.password, // Only time they will see this unhashed
+      role: dto.role ?? "ADMIN",
+    }).catch(console.error);
 
     // Remove password from response
     const { password, ...adminWithoutPassword } = admin;
@@ -128,7 +137,7 @@ export class AuthService {
   async deleteAdmin(id: number) {
     const admin = await prisma.admin.findUnique({ where: { id } });
     if (!admin) throw new Error("Admin not found");
-    
+
     return prisma.admin.delete({
       where: { id },
       select: {

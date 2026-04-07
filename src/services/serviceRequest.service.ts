@@ -1,6 +1,11 @@
 import prisma from "../config/prisma";
 import { CreateServiceRequestDto, UpdateRequestStatusDto } from "../dtos/serviceRequest.dto";
 import { generateTrackingCode } from "../utils/generateTrackingCode";
+import { EmailService } from "./email.service";
+import { emailTemplates } from "../utils/emailTemplates";
+import { transporter } from "../config/email";
+
+const emailService = new EmailService();
 
 export class ServiceRequestService {
 
@@ -13,6 +18,7 @@ export class ServiceRequestService {
         trackingCode,
         customerName: dto.customerName,
         customerPhone: dto.customerPhone,
+        customerEmail: dto.customerEmail,
         serviceCategory: dto.serviceCategory,
         service: dto.service,
         description: dto.description,
@@ -32,6 +38,9 @@ export class ServiceRequestService {
         tasker: true,
       },
     });
+
+    // Send email notifications to admin and customer
+    emailService.sendRequestConfirmation(request.id).catch(console.error);
 
     return request;
   }
@@ -103,6 +112,8 @@ export class ServiceRequestService {
         statusHistory: { orderBy: { createdAt: "asc" } },
       },
     });
+
+    emailService.sendStatusUpdate(request.id).catch(console.error);
 
     return request;
   }

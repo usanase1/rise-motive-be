@@ -1,6 +1,9 @@
 import prisma from "../config/prisma";
 import { CreateOrderDto, UpdateOrderStatusDto } from "../dtos/order.dto";
 import { generateTrackingCode } from "../utils/generateTrackingCode";
+import { EmailService } from "./email.service";
+
+const emailService = new EmailService();
 
 export class OrderService {
 
@@ -18,6 +21,7 @@ export class OrderService {
         trackingCode,
         customerName: dto.customerName,
         customerPhone: dto.customerPhone,
+        customerEmail: dto.customerEmail,
         address: dto.address,
         quantity: dto.quantity,
         note: dto.note,
@@ -26,6 +30,8 @@ export class OrderService {
       },
       include: { product: true },
     });
+
+    emailService.sendNewOrderNotification(order.id).catch(console.error);
 
     return order;
   }

@@ -25,6 +25,7 @@ model ServiceRequest {
   trackingCode   String           @unique
   customerName   String
   customerPhone  String
+  customerEmail  String?
   serviceCategory ServiceCategory
   service        String           // specific service within category
   description    String           @db.Text
@@ -98,6 +99,7 @@ model Order {
   trackingCode  String      @unique
   customerName  String
   customerPhone String
+  customerEmail String?
   address       String
   quantity      Int         @default(1)
   paymentMethod String?     // confirmed later via phone/VISA
@@ -182,14 +184,17 @@ enum ApplicationStatus {
 
 // ─── ADMIN / STAFF ───────────────────────────────────────────
 model Admin {
-  id        Int       @id @default(autoincrement())
-  fullName  String
-  email     String    @unique
-  password  String
-  role      AdminRole @default(ADMIN)
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id              Int       @id @default(autoincrement())
+  fullName        String
+  email           String    @unique
+  password        String
+  role            AdminRole @default(ADMIN)
+  isActive        Boolean   @default(true)
+  isEmailVerified Boolean   @default(false)
+  otpCode         String?
+  otpExpiresAt    DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 enum AdminRole {

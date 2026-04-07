@@ -1,5 +1,6 @@
 import { Route, Post, Get, Patch, Delete, Body, Res, TsoaResponse, Request, Security, Path } from 'tsoa';
 import { AuthService } from "../services/auth.service";
+import { validateDto } from "../utils/validateDto";
 import { RegisterAdminDto, LoginDto } from "../dtos/auth.dto";
 import { ApiResponse } from "../utils/apiResponse";
 import prisma from "../config/prisma";
@@ -31,6 +32,7 @@ export class AuthController {
     @Res() errorResponse: TsoaResponse<400, ApiResponse<null>>
   ): Promise<void> {
     try {
+      await validateDto(RegisterAdminDto, requestBody);
       const data = await service.register(requestBody);
       successResponse(201, new ApiResponse(true, "Admin registered successfully", data));
     } catch (error: any) {
@@ -45,6 +47,7 @@ export class AuthController {
     @Res() errorResponse: TsoaResponse<400, ApiResponse<null>>
   ): Promise<void> {
     try {
+      await validateDto(RegisterAdminDto, requestBody);
       // Check if any admins exist at all
       // const adminCount = await prisma.admin.count();
       // if (adminCount > 0) {
@@ -68,6 +71,7 @@ export class AuthController {
     @Res() errorResponse: TsoaResponse<401, ApiResponse<null>>
   ): Promise<void> {
     try {
+      await validateDto(LoginDto, requestBody);
       const data = await service.login(requestBody);
       successResponse(200, new ApiResponse(true, "Login successful", data));
     } catch (error: any) {
