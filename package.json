@@ -9,7 +9,7 @@
     "dev": "nodemon --exec tsx src/server.ts",
     "build": "prisma generate && tsoa spec-and-routes && tsc",
     "tsoa": "tsoa spec-and-routes",
-    "start": "prisma generate && npx prisma migrate resolve --applied 20260404135815_update_full_schema && npx prisma migrate deploy && node dist/server.js",
+    "start": "prisma generate && node dist/server.js",
     "seed:super-admin": "tsx src/scripts/create-super-admin.ts"
   },
   "keywords": [],
