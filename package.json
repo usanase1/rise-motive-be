@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "force-redeploy": "echo 1",
     "postinstall": "prisma generate",
     "dev": "nodemon --exec tsx src/server.ts",
     "build": "prisma generate && tsoa spec-and-routes && tsc",
