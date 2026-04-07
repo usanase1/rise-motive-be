@@ -103,7 +103,9 @@ export class AuthService {
 
     if (!admin) throw new Error("Invalid email or password");
     if (!admin.isActive) throw new Error("Account is deactivated");
-    if (!admin.isEmailVerified) throw new Error("Please verify your email address to log in.");
+    
+    // TEMPORARY: Unblock login if email deliverability fails on Railway
+    // if (!admin.isEmailVerified) throw new Error("Please verify your email address to log in.");
 
     const isPasswordValid = await bcrypt.compare(dto.password, admin.password);
     if (!isPasswordValid) throw new Error("Invalid email or password");
