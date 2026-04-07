@@ -22,6 +22,9 @@ interface LoginResponse {
   admin: AdminResponse;
 }
 
+/**
+ * Authentication and Admin Management — JWT required for protected routes (SUPER_ADMIN/ADMIN roles)
+ */
 @Tags('Authentication')
 @Route('auth')
 export class AuthController {

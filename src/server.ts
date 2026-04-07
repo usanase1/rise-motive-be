@@ -40,7 +40,21 @@ app.get("/", (req, res) => {
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, "../public/swagger.json"), "utf8")
 );
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Inject custom tag descriptions for Swagger UI grouping
+swaggerDocument.tags = [
+  { name: "Authentication", description: "Admin: authentication and system setup — JWT required for protected routes (ADMIN/SUPER_ADMIN role)" },
+  { name: "Products", description: "ProSpot: manage products catalog — JWT required for write access" },
+  { name: "Orders", description: "ProSpot: manage customer orders" },
+  { name: "Information Posts", description: "InfoSpot: manage jobs, scholarships, and opportunities" },
+  { name: "Taskers", description: "TaskSpot: manage service taskers and profiles" },
+  { name: "Service Requests", description: "TaskSpot: manage customer service requests" },
+  { name: "Training Applications", description: "TaskSpot Part II: manage digital skills training applications" }
+];
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+  customSiteTitle: "Rise Motive API Documentation"
+}));
 
 // ── TSOA Routes ─────────────────────────────────────────────
 RegisterRoutes(app);

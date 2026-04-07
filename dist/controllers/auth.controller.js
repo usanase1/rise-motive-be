@@ -19,6 +19,9 @@ const validateDto_1 = require("../utils/validateDto");
 const auth_dto_1 = require("../dtos/auth.dto");
 const apiResponse_1 = require("../utils/apiResponse");
 const service = new auth_service_1.AuthService();
+/**
+ * Authentication and Admin Management — JWT required for protected routes (SUPER_ADMIN/ADMIN roles)
+ */
 let AuthController = class AuthController {
     async register(requestBody, successResponse, errorResponse) {
         try {
