@@ -7,11 +7,53 @@ exports.AuthService = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const prisma_1 = __importDefault(require("../config/prisma"));
+const email_service_1 = require("./email.service");
 const JWT_SECRET = process.env.JWT_SECRET || "rise-motive-secret";
 const JWT_EXPIRES_IN = "7d";
+const emailService = new email_service_1.EmailService();
 class AuthService {
-    // Register a new admin or admin
+    // Register a new admin (requires SUPER_ADMIN authentication)
     async register(dto) {
+        // Check if email already exists
+        const existing = await prisma_1.default.admin.findUnique({
+            where: { email: dto.email },
+        });
+        if (existing)
+            throw new Error("Email already registered");
+        // For regular registration, only allow ADMIN role
+        if (dto.role && dto.role !== "ADMIN") {
+            throw new Error("Only ADMIN role can be registered through this endpoint");
+        }
+        // Hash password
+        const hashedPassword = await bcryptjs_1.default.hash(dto.password, 10);
+        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+        const admin = await prisma_1.default.admin.create({
+            data: {
+                fullName: dto.fullName,
+                email: dto.email,
+                password: hashedPassword,
+                role: "ADMIN", // Always ADMIN for regular registration
+                otpCode,
+                otpExpiresAt,
+            },
+        });
+        emailService.sendWelcomeEmail({
+            fullName: dto.fullName,
+            email: dto.email,
+            password: dto.password, // Only time they will see this unhashed
+            role: dto.role ?? "ADMIN",
+            otpCode,
+        }).catch(console.error);
+        // Remove password from response
+        const { password, ...adminWithoutPassword } = admin;
+        return adminWithoutPassword;
+    }
+    // Initial system setup (no authentication required)
+    async setup(dto) {
+        // Check if any admins exist
+        // const adminCount = await prisma.admin.count();
+        // if (adminCount > 0) throw new Error("System already initialized");
         // Check if email already exists
         const existing = await prisma_1.default.admin.findUnique({
             where: { email: dto.email },
@@ -20,14 +62,25 @@ class AuthService {
             throw new Error("Email already registered");
         // Hash password
         const hashedPassword = await bcryptjs_1.default.hash(dto.password, 10);
+        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
         const admin = await prisma_1.default.admin.create({
             data: {
                 fullName: dto.fullName,
                 email: dto.email,
                 password: hashedPassword,
-                role: dto.role ?? "ADMIN",
+                role: "SUPER_ADMIN",
+                otpCode,
+                otpExpiresAt,
             },
         });
+        emailService.sendWelcomeEmail({
+            fullName: dto.fullName,
+            email: dto.email,
+            password: dto.password,
+            role: "SUPER_ADMIN",
+            otpCode,
+        }).catch(console.error);
         // Remove password from response
         const { password, ...adminWithoutPassword } = admin;
         return adminWithoutPassword;
@@ -41,6 +94,8 @@ class AuthService {
             throw new Error("Invalid email or password");
         if (!admin.isActive)
             throw new Error("Account is deactivated");
+        if (!admin.isEmailVerified)
+            throw new Error("Please verify your email address to log in.");
         const isPasswordValid = await bcryptjs_1.default.compare(dto.password, admin.password);
         if (!isPasswordValid)
             throw new Error("Invalid email or password");
@@ -80,6 +135,21 @@ class AuthService {
             },
         });
     }
+    // Permanently delete an admin
+    async deleteAdmin(id) {
+        const admin = await prisma_1.default.admin.findUnique({ where: { id } });
+        if (!admin)
+            throw new Error("Admin not found");
+        return prisma_1.default.admin.delete({
+            where: { id },
+            select: {
+                id: true,
+                fullName: true,
+                profilePicture: true,
+                email: true,
+            },
+        });
+    }
     // Get logged in admin profile
     async getProfile(id) {
         const admin = await prisma_1.default.admin.findUnique({
@@ -95,6 +165,48 @@ class AuthService {
         });
         if (!admin)
             throw new Error("Admin not found");
+        return admin;
+    }
+    // Verify Email OTP
+    async verifyEmail(dto) {
+        const admin = await prisma_1.default.admin.findUnique({
+            where: { email: dto.email },
+        });
+        if (!admin)
+            throw new Error("Invalid email");
+        if (admin.isEmailVerified)
+            throw new Error("Email is already verified");
+        if (!admin.otpCode || admin.otpCode !== dto.otpCode) {
+            throw new Error("Invalid verification code");
+        }
+        if (admin.otpExpiresAt && admin.otpExpiresAt < new Date()) {
+            throw new Error("Verification code has expired");
+        }
+        await prisma_1.default.admin.update({
+            where: { id: admin.id },
+            data: {
+                isEmailVerified: true,
+                otpCode: null,
+                otpExpiresAt: null,
+            },
+        });
+        return { message: "Email verified successfully. You can now log in." };
+    }
+    // Update Auth Profile
+    async updateProfile(id, dto) {
+        const admin = await prisma_1.default.admin.update({
+            where: { id },
+            data: dto,
+            select: {
+                id: true,
+                fullName: true,
+                profilePicture: true,
+                email: true,
+                role: true,
+                isActive: true,
+                createdAt: true,
+            },
+        });
         return admin;
     }
 }

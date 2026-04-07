@@ -186,6 +186,7 @@ enum ApplicationStatus {
 model Admin {
   id              Int       @id @default(autoincrement())
   fullName        String
+  profilePicture  String?
   email           String    @unique
   password        String
   role            AdminRole @default(ADMIN)

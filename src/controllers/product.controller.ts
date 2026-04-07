@@ -1,4 +1,4 @@
-import { Route, Post, Get, Put, Delete, Body, Path, Query, Res, TsoaResponse } from 'tsoa';
+import { Route, Post, Get, Put, Delete, Body, Path, Query, Res, TsoaResponse, Security } from 'tsoa';
 import { ProductService } from "../services/product.service";
 import { CreateProductDto, UpdateProductDto } from "../dtos/product.dto";
 import { ApiResponse } from "../utils/apiResponse";
@@ -20,6 +20,7 @@ interface ProductResponse {
 export class ProductController {
 
   @Post()
+  @Security('bearerAuth', ['ADMIN', 'SUPER_ADMIN'])
   public async create(
     @Body() requestBody: CreateProductDto,
     @Res() successResponse: TsoaResponse<201, ApiResponse<ProductResponse>>,
@@ -62,6 +63,7 @@ export class ProductController {
   }
 
   @Put('{id}')
+  @Security('bearerAuth', ['ADMIN', 'SUPER_ADMIN'])
   public async update(
     @Path() id: number,
     @Body() requestBody: UpdateProductDto,
@@ -77,6 +79,7 @@ export class ProductController {
   }
 
   @Delete('{id}')
+  @Security('bearerAuth', ['ADMIN', 'SUPER_ADMIN'])
   public async delete(
     @Path() id: number,
     @Res() successResponse: TsoaResponse<200, ApiResponse<{ message: string }>>,

@@ -1115,6 +1115,10 @@
 					"fullName": {
 						"type": "string"
 					},
+					"profilePicture": {
+						"type": "string",
+						"nullable": true
+					},
 					"email": {
 						"type": "string"
 					},
@@ -1214,6 +1218,34 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"VerifyEmailDto": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"otpCode": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"otpCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateProfileDto": {
+				"properties": {
+					"fullName": {
+						"type": "string"
+					},
+					"profilePicture": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"ApiResponse_AdminResponse-Array_": {
 				"properties": {
 					"success": {
@@ -1243,6 +1275,9 @@
 						"format": "double"
 					},
 					"fullName": {
+						"type": "string"
+					},
+					"profilePicture": {
 						"type": "string"
 					},
 					"email": {
@@ -2007,7 +2042,14 @@
 						}
 					}
 				},
-				"security": [],
+				"security": [
+					{
+						"bearerAuth": [
+							"ADMIN",
+							"SUPER_ADMIN"
+						]
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -2128,7 +2170,14 @@
 						}
 					}
 				},
-				"security": [],
+				"security": [
+					{
+						"bearerAuth": [
+							"ADMIN",
+							"SUPER_ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2178,7 +2227,14 @@
 						}
 					}
 				},
-				"security": [],
+				"security": [
+					{
+						"bearerAuth": [
+							"ADMIN",
+							"SUPER_ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2793,6 +2849,48 @@
 				}
 			}
 		},
+		"/auth/verify-email": {
+			"post": {
+				"operationId": "VerifyEmail",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VerifyEmailDto"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/auth/profile": {
 			"get": {
 				"operationId": "GetProfile",
@@ -2827,6 +2925,50 @@
 					}
 				],
 				"parameters": []
+			},
+			"patch": {
+				"operationId": "UpdateProfile",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_AdminResponse_"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateProfileDto"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/auth/admins": {

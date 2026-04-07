@@ -1,7 +1,7 @@
 import { Route, Post, Get, Patch, Delete, Body, Res, TsoaResponse, Request, Security, Path } from 'tsoa';
 import { AuthService } from "../services/auth.service";
 import { validateDto } from "../utils/validateDto";
-import { RegisterAdminDto, LoginDto } from "../dtos/auth.dto";
+import { RegisterAdminDto, LoginDto, VerifyEmailDto, UpdateProfileDto } from "../dtos/auth.dto";
 import { ApiResponse } from "../utils/apiResponse";
 import prisma from "../config/prisma";
 
@@ -10,6 +10,7 @@ const service = new AuthService();
 interface AdminResponse {
   id: number;
   fullName: string;
+  profilePicture?: string | null;
   email: string;
   role: 'SUPER_ADMIN' | 'ADMIN';
   isActive: boolean;
@@ -79,6 +80,21 @@ export class AuthController {
     }
   }
 
+  @Post('verify-email')
+  public async verifyEmail(
+    @Body() requestBody: VerifyEmailDto,
+    @Res() successResponse: TsoaResponse<200, ApiResponse<{ message: string }>>,
+    @Res() errorResponse: TsoaResponse<400, ApiResponse<null>>
+  ): Promise<void> {
+    try {
+      await validateDto(VerifyEmailDto, requestBody);
+      const data = await service.verifyEmail(requestBody);
+      successResponse(200, new ApiResponse(true, data.message, data));
+    } catch (error: any) {
+      errorResponse(400, new ApiResponse(false, error.message));
+    }
+  }
+
   @Get('profile')
   @Security('bearerAuth')
   public async getProfile(
@@ -93,6 +109,26 @@ export class AuthController {
       successResponse(200, new ApiResponse(true, "Profile fetched", data));
     } catch (error: any) {
       errorResponse(404, new ApiResponse(false, error.message));
+    }
+  }
+
+  @Patch('profile')
+  @Security('bearerAuth')
+  public async updateProfile(
+    @Request() request: any,
+    @Body() requestBody: UpdateProfileDto,
+    @Res() successResponse: TsoaResponse<200, ApiResponse<AdminResponse>>,
+    @Res() errorResponse: TsoaResponse<400, ApiResponse<null>>
+  ): Promise<void> {
+    try {
+      const adminId = request.user?.id;
+      if (!adminId) throw new Error("Unauthorized");
+      
+      await validateDto(UpdateProfileDto, requestBody);
+      const data = await service.updateProfile(adminId, requestBody);
+      successResponse(200, new ApiResponse(true, "Profile updated", data));
+    } catch (error: any) {
+      errorResponse(400, new ApiResponse(false, error.message));
     }
   }
 

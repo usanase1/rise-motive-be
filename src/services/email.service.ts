@@ -108,6 +108,7 @@ export class EmailService {
     email: string;
     password: string;
     role: string;
+    otpCode?: string;
   }) {
     const template = emailTemplates.welcomeStaff(data);
     await this.sendEmail(data.email, template.subject, template.html);

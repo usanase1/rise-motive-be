@@ -37,3 +37,13 @@ export class VerifyEmailDto {
   @IsString()
   otpCode!: string;
 }
+
+export class UpdateProfileDto {
+  @IsOptional()
+  @IsString()
+  fullName?: string;
+
+  @IsOptional()
+  @IsString()
+  profilePicture?: string;
+}

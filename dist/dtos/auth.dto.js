@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginDto = exports.RegisterAdminDto = void 0;
+exports.UpdateProfileDto = exports.VerifyEmailDto = exports.LoginDto = exports.RegisterAdminDto = void 0;
 const class_validator_1 = require("class-validator");
 class RegisterAdminDto {
 }
@@ -47,3 +47,29 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], LoginDto.prototype, "password", void 0);
+class VerifyEmailDto {
+}
+exports.VerifyEmailDto = VerifyEmailDto;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], VerifyEmailDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], VerifyEmailDto.prototype, "otpCode", void 0);
+class UpdateProfileDto {
+}
+exports.UpdateProfileDto = UpdateProfileDto;
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "fullName", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "profilePicture", void 0);

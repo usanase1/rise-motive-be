@@ -15,10 +15,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ── Middlewares ──────────────────────────────────────────────
-app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: false })); // Allow images to load cross-origin
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve manual uploads folder
+app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
 
 // ── Health Check ─────────────────────────────────────────────
 app.get("/", (req, res) => {

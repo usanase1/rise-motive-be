@@ -432,6 +432,7 @@ const models: TsoaRoute.Models = {
         "properties": {
             "id": {"dataType":"double","required":true},
             "fullName": {"dataType":"string","required":true},
+            "profilePicture": {"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}]},
             "email": {"dataType":"string","required":true},
             "role": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["SUPER_ADMIN"]},{"dataType":"enum","enums":["ADMIN"]}],"required":true},
             "isActive": {"dataType":"boolean","required":true},
@@ -478,6 +479,24 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "VerifyEmailDto": {
+        "dataType": "refObject",
+        "properties": {
+            "email": {"dataType":"string","required":true},
+            "otpCode": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UpdateProfileDto": {
+        "dataType": "refObject",
+        "properties": {
+            "fullName": {"dataType":"string"},
+            "profilePicture": {"dataType":"string"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ApiResponse_AdminResponse-Array_": {
         "dataType": "refObject",
         "properties": {
@@ -490,7 +509,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_AdminResponse_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"double"},"fullName":{"dataType":"string"},"email":{"dataType":"string"},"role":{"dataType":"union","subSchemas":[{"dataType":"enum","enums":["SUPER_ADMIN"]},{"dataType":"enum","enums":["ADMIN"]}]},"isActive":{"dataType":"boolean"},"createdAt":{"dataType":"datetime"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"double"},"fullName":{"dataType":"string"},"profilePicture":{"dataType":"string"},"email":{"dataType":"string"},"role":{"dataType":"union","subSchemas":[{"dataType":"enum","enums":["SUPER_ADMIN"]},{"dataType":"enum","enums":["ADMIN"]}]},"isActive":{"dataType":"boolean"},"createdAt":{"dataType":"datetime"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ApiResponse_Partial_AdminResponse__": {
@@ -1040,6 +1059,7 @@ export function RegisterRoutes(app: Router) {
                 errorResponse: {"in":"res","name":"400","required":true,"ref":"ApiResponse_null_"},
         };
         app.post('/products',
+            authenticateMiddleware([{"bearerAuth":["ADMIN","SUPER_ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ProductController)),
             ...(fetchMiddlewares<RequestHandler>(ProductController.prototype.create)),
 
@@ -1137,6 +1157,7 @@ export function RegisterRoutes(app: Router) {
                 errorResponse: {"in":"res","name":"400","required":true,"ref":"ApiResponse_null_"},
         };
         app.put('/products/:id',
+            authenticateMiddleware([{"bearerAuth":["ADMIN","SUPER_ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ProductController)),
             ...(fetchMiddlewares<RequestHandler>(ProductController.prototype.update)),
 
@@ -1169,6 +1190,7 @@ export function RegisterRoutes(app: Router) {
                 errorResponse: {"in":"res","name":"400","required":true,"ref":"ApiResponse_null_"},
         };
         app.delete('/products/:id',
+            authenticateMiddleware([{"bearerAuth":["ADMIN","SUPER_ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ProductController)),
             ...(fetchMiddlewares<RequestHandler>(ProductController.prototype.delete)),
 
@@ -1646,6 +1668,38 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsAuthController_verifyEmail: Record<string, TsoaRoute.ParameterSchema> = {
+                requestBody: {"in":"body","name":"requestBody","required":true,"ref":"VerifyEmailDto"},
+                successResponse: {"in":"res","name":"200","required":true,"ref":"ApiResponse__message-string__"},
+                errorResponse: {"in":"res","name":"400","required":true,"ref":"ApiResponse_null_"},
+        };
+        app.post('/auth/verify-email',
+            ...(fetchMiddlewares<RequestHandler>(AuthController)),
+            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.verifyEmail)),
+
+            async function AuthController_verifyEmail(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_verifyEmail, request, response });
+
+                const controller = new AuthController();
+
+              await templateService.apiHandler({
+                methodName: 'verifyEmail',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsAuthController_getProfile: Record<string, TsoaRoute.ParameterSchema> = {
                 request: {"in":"request","name":"request","required":true,"dataType":"object"},
                 successResponse: {"in":"res","name":"200","required":true,"ref":"ApiResponse_AdminResponse_"},
@@ -1668,6 +1722,40 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'getProfile',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsAuthController_updateProfile: Record<string, TsoaRoute.ParameterSchema> = {
+                request: {"in":"request","name":"request","required":true,"dataType":"object"},
+                requestBody: {"in":"body","name":"requestBody","required":true,"ref":"UpdateProfileDto"},
+                successResponse: {"in":"res","name":"200","required":true,"ref":"ApiResponse_AdminResponse_"},
+                errorResponse: {"in":"res","name":"400","required":true,"ref":"ApiResponse_null_"},
+        };
+        app.patch('/auth/profile',
+            authenticateMiddleware([{"bearerAuth":[]}]),
+            ...(fetchMiddlewares<RequestHandler>(AuthController)),
+            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.updateProfile)),
+
+            async function AuthController_updateProfile(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_updateProfile, request, response });
+
+                const controller = new AuthController();
+
+              await templateService.apiHandler({
+                methodName: 'updateProfile',
                 controller,
                 response,
                 next,

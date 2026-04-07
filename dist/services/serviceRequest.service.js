@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ServiceRequestService = void 0;
 const prisma_1 = __importDefault(require("../config/prisma"));
 const generateTrackingCode_1 = require("../utils/generateTrackingCode");
+const email_service_1 = require("./email.service");
+const emailService = new email_service_1.EmailService();
 class ServiceRequestService {
     // Customer submits a new service request
     async createRequest(dto) {
@@ -15,6 +17,7 @@ class ServiceRequestService {
                 trackingCode,
                 customerName: dto.customerName,
                 customerPhone: dto.customerPhone,
+                customerEmail: dto.customerEmail,
                 serviceCategory: dto.serviceCategory,
                 service: dto.service,
                 description: dto.description,
@@ -34,6 +37,8 @@ class ServiceRequestService {
                 tasker: true,
             },
         });
+        // Send email notifications to admin and customer
+        emailService.sendRequestConfirmation(request.id).catch(console.error);
         return request;
     }
     // Customer tracks their request by tracking code
@@ -98,6 +103,7 @@ class ServiceRequestService {
                 statusHistory: { orderBy: { createdAt: "asc" } },
             },
         });
+        emailService.sendStatusUpdate(request.id).catch(console.error);
         return request;
     }
     // Admin deletes a request

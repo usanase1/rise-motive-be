@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderService = void 0;
 const prisma_1 = __importDefault(require("../config/prisma"));
 const generateTrackingCode_1 = require("../utils/generateTrackingCode");
+const email_service_1 = require("./email.service");
+const emailService = new email_service_1.EmailService();
 class OrderService {
     async createOrder(dto) {
         // Verify product exists
@@ -20,6 +22,7 @@ class OrderService {
                 trackingCode,
                 customerName: dto.customerName,
                 customerPhone: dto.customerPhone,
+                customerEmail: dto.customerEmail,
                 address: dto.address,
                 quantity: dto.quantity,
                 note: dto.note,
@@ -28,6 +31,7 @@ class OrderService {
             },
             include: { product: true },
         });
+        emailService.sendNewOrderNotification(order.id).catch(console.error);
         return order;
     }
     async getAllOrders(status) {
