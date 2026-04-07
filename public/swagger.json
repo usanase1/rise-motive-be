@@ -373,15 +373,17 @@
 					},
 					"location": {
 						"type": "string"
+					},
+					"taskerId": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
 					"customerName",
 					"customerPhone",
 					"serviceCategory",
-					"service",
-					"description",
-					"location"
+					"description"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -405,7 +407,8 @@
 						"type": "string"
 					},
 					"service": {
-						"type": "string"
+						"type": "string",
+						"nullable": true
 					},
 					"description": {
 						"type": "string"
@@ -419,7 +422,8 @@
 						"nullable": true
 					},
 					"location": {
-						"type": "string"
+						"type": "string",
+						"nullable": true
 					},
 					"status": {
 						"type": "string"

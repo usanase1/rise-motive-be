@@ -35,7 +35,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateServiceRequestDto.prototype, "serviceCategory", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateServiceRequestDto.prototype, "service", void 0);
@@ -55,10 +55,15 @@ __decorate([
     __metadata("design:type", String)
 ], CreateServiceRequestDto.prototype, "preferredDate", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateServiceRequestDto.prototype, "location", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], CreateServiceRequestDto.prototype, "taskerId", void 0);
 class UpdateRequestStatusDto {
 }
 exports.UpdateRequestStatusDto = UpdateRequestStatusDto;

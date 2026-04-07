@@ -34,10 +34,10 @@ export class EmailService {
       customerName: request.customerName,
       customerPhone: request.customerPhone,
       trackingCode: request.trackingCode,
-      service: request.service,
+      service: request.service || 'Not specified',
       serviceCategory: request.serviceCategory,
       description: request.description,
-      location: request.location,
+      location: request.location || 'Not specified',
       preferredDate: request.preferredDate ?? undefined,
     });
     await this.sendEmail(adminEmail, adminTemplate.subject, adminTemplate.html);
@@ -47,9 +47,9 @@ export class EmailService {
       const customerTemplate = emailTemplates.serviceRequestConfirmation({
         customerName: request.customerName,
         trackingCode: request.trackingCode,
-        service: request.service,
+        service: request.service || 'Not specified',
         description: request.description,
-        location: request.location,
+        location: request.location || 'Not specified',
       });
       await this.sendEmail(request.customerEmail, customerTemplate.subject, customerTemplate.html);
     }

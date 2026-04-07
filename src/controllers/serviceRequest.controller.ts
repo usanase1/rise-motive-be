@@ -11,11 +11,11 @@ interface ServiceRequestResponse {
   customerName: string;
   customerPhone: string;
   serviceCategory: string;
-  service: string;
+  service: string | null;
   description: string;
   documentUrl?: string | null;
   preferredDate?: string | null;
-  location: string;
+  location: string | null;
   status: string;
   createdAt: Date;
   updatedAt: Date;
