@@ -50,7 +50,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 // ── Start Server ─────────────────────────────────────────────
-app.listen(PORT, () => {
+app.listen(PORT as number, '0.0.0.0', () => {
   console.log(`
   ╔══════════════════════════════════════╗
   ║   Rise Motive API                    ║
