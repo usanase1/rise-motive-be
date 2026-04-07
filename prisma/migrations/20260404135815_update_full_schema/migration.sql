@@ -4,7 +4,7 @@
   - You are about to drop the column `totalAmount` on the `order` table. All the data in the column will be lost.
   - You are about to alter the column `price` on the `product` table. The data in that column could be lost. The data in that column will be cast from `Double` to `VarChar(191)`.
   - You are about to alter the column `service` on the `servicerequest` table. The data in that column could be lost. The data in that column will be cast from `Enum(EnumId(2))` to `VarChar(191)`.
-  - Added the required column `serviceCategory` to the `ServiceRequest` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `serviceCategory` to the `ServiceRequest` table with a default value of 'E_GOVERNMENT' for existing rows.
 
 */
 -- AlterTable
@@ -20,7 +20,7 @@ ALTER TABLE `product` MODIFY `price` VARCHAR(191) NULL;
 
 -- AlterTable
 ALTER TABLE `servicerequest` ADD COLUMN `documentUrl` VARCHAR(191) NULL,
-    ADD COLUMN `serviceCategory` ENUM('E_GOVERNMENT', 'APPLICATIONS_DOCS', 'CREATIVE_MEDIA', 'WEB_DIGITAL', 'LEGAL_OFFICIAL') NOT NULL,
+    ADD COLUMN `serviceCategory` ENUM('E_GOVERNMENT', 'APPLICATIONS_DOCS', 'CREATIVE_MEDIA', 'WEB_DIGITAL', 'LEGAL_OFFICIAL') NOT NULL DEFAULT 'E_GOVERNMENT',
     MODIFY `service` VARCHAR(191) NOT NULL;
 
 -- CreateTable
