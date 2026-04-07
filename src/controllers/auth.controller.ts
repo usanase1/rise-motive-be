@@ -1,4 +1,4 @@
-import { Route, Post, Get, Patch, Delete, Body, Res, TsoaResponse, Request, Security, Path } from 'tsoa';
+import { Route, Post, Get, Patch, Delete, Body, Res, TsoaResponse, Request, Security, Path, Tags } from 'tsoa';
 import { AuthService } from "../services/auth.service";
 import { validateDto } from "../utils/validateDto";
 import { RegisterAdminDto, LoginDto, VerifyEmailDto, UpdateProfileDto } from "../dtos/auth.dto";
@@ -22,6 +22,7 @@ interface LoginResponse {
   admin: AdminResponse;
 }
 
+@Tags('Authentication')
 @Route('auth')
 export class AuthController {
 

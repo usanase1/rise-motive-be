@@ -1,4 +1,4 @@
-import { Route, Post, Get, Patch, Delete, Body, Path, Query, Res, TsoaResponse } from 'tsoa';
+import { Route, Post, Get, Patch, Delete, Body, Path, Query, Res, TsoaResponse, Tags } from 'tsoa';
 import { TrainingApplicationService } from "../services/trainingApplication.service";
 import { CreateTrainingApplicationDto, UpdateTrainingApplicationDto } from "../dtos/trainingApplication.dto";
 import { ApiResponse } from "../utils/apiResponse";
@@ -17,6 +17,7 @@ interface TrainingApplicationResponse {
   createdAt: Date;
 }
 
+@Tags('Training Applications')
 @Route('training-applications')
 export class TrainingApplicationController {
 

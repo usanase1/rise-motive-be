@@ -1371,6 +1371,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Training Applications"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -1411,6 +1414,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Training Applications"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1452,6 +1458,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Training Applications"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1492,6 +1501,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Training Applications"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1534,6 +1546,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Training Applications"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1586,6 +1601,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Taskers"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -1626,6 +1644,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Taskers"
+				],
 				"security": [],
 				"parameters": []
 			}
@@ -1658,6 +1679,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Taskers"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1698,6 +1722,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Taskers"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1748,6 +1775,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Taskers"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1790,6 +1820,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Service Requests"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -1830,6 +1863,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Service Requests"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1871,6 +1907,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Service Requests"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1912,6 +1951,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Service Requests"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1952,6 +1994,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Service Requests"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -1994,6 +2039,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Service Requests"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2046,6 +2094,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Products"
+				],
 				"security": [
 					{
 						"bearerAuth": [
@@ -2093,6 +2144,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Products"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2134,6 +2188,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Products"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2174,6 +2231,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Products"
+				],
 				"security": [
 					{
 						"bearerAuth": [
@@ -2231,6 +2291,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Products"
+				],
 				"security": [
 					{
 						"bearerAuth": [
@@ -2280,6 +2343,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Orders"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -2320,6 +2386,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Orders"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2361,6 +2430,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Orders"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2402,6 +2474,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Orders"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2442,6 +2517,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Orders"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2484,6 +2562,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Orders"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2536,6 +2617,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Information Posts"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -2576,6 +2660,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Information Posts"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2617,6 +2704,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Information Posts"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2657,6 +2747,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Information Posts"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2707,6 +2800,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Information Posts"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -2749,6 +2845,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [
 					{
 						"bearerAuth": [
@@ -2797,6 +2896,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -2839,6 +2941,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -2881,6 +2986,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -2923,6 +3031,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [
 					{
 						"bearerAuth": []
@@ -2957,6 +3068,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [
 					{
 						"bearerAuth": []
@@ -3003,6 +3117,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [
 					{
 						"bearerAuth": [
@@ -3041,6 +3158,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [
 					{
 						"bearerAuth": [
@@ -3089,6 +3209,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Authentication"
+				],
 				"security": [
 					{
 						"bearerAuth": [

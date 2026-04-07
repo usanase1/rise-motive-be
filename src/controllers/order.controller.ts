@@ -1,4 +1,4 @@
-import { Route, Post, Get, Patch, Delete, Body, Path, Query, Res, TsoaResponse } from 'tsoa';
+import { Route, Post, Get, Patch, Delete, Body, Path, Query, Res, TsoaResponse, Tags } from 'tsoa';
 import { OrderService } from "../services/order.service";
 import { CreateOrderDto, UpdateOrderStatusDto } from "../dtos/order.dto";
 import { ApiResponse } from "../utils/apiResponse";
@@ -29,6 +29,7 @@ interface OrderResponse {
   };
 }
 
+@Tags('Orders')
 @Route('orders')
 export class OrderController {
 

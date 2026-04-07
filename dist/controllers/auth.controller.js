@@ -210,5 +210,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "deleteAdmin", null);
 exports.AuthController = AuthController = __decorate([
+    (0, tsoa_1.Tags)('Authentication'),
     (0, tsoa_1.Route)('auth')
 ], AuthController);

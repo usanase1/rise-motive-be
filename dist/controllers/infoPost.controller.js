@@ -113,5 +113,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], InfoPostController.prototype, "delete", null);
 exports.InfoPostController = InfoPostController = __decorate([
+    (0, tsoa_1.Tags)('Information Posts'),
     (0, tsoa_1.Route)('info-posts')
 ], InfoPostController);

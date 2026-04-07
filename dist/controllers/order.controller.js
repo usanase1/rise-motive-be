@@ -131,5 +131,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], OrderController.prototype, "delete", null);
 exports.OrderController = OrderController = __decorate([
+    (0, tsoa_1.Tags)('Orders'),
     (0, tsoa_1.Route)('orders')
 ], OrderController);

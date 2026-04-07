@@ -1,4 +1,4 @@
-import { Route, Post, Get, Patch, Delete, Body, Path, Query, Res, TsoaResponse } from 'tsoa';
+import { Route, Post, Get, Patch, Delete, Body, Path, Query, Res, TsoaResponse, Tags } from 'tsoa';
 import { ServiceRequestService } from "../services/serviceRequest.service";
 import { CreateServiceRequestDto, UpdateRequestStatusDto } from "../dtos/serviceRequest.dto";
 import { ApiResponse } from "../utils/apiResponse";
@@ -31,6 +31,7 @@ interface ServiceRequestResponse {
   }>;
 }
 
+@Tags('Service Requests')
 @Route('service-requests')
 export class ServiceRequestController {
 

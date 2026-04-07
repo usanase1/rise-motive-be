@@ -1,4 +1,4 @@
-import { Route, Post, Get, Put, Delete, Body, Path, Query, Res, TsoaResponse } from 'tsoa';
+import { Route, Post, Get, Put, Delete, Body, Path, Query, Res, TsoaResponse, Tags } from 'tsoa';
 import { InfoPostService } from "../services/infoPost.service";
 import { CreateInfoPostDto, UpdateInfoPostDto } from "../dtos/infoPost.dto";
 import { ApiResponse } from "../utils/apiResponse";
@@ -18,6 +18,7 @@ interface InfoPostResponse {
   createdAt: Date;
 }
 
+@Tags('Information Posts')
 @Route('info-posts')
 export class InfoPostController {
 

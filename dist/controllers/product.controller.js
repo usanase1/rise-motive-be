@@ -116,5 +116,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "delete", null);
 exports.ProductController = ProductController = __decorate([
+    (0, tsoa_1.Tags)('Products'),
     (0, tsoa_1.Route)('products')
 ], ProductController);

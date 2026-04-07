@@ -113,5 +113,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TrainingApplicationController.prototype, "delete", null);
 exports.TrainingApplicationController = TrainingApplicationController = __decorate([
+    (0, tsoa_1.Tags)('Training Applications'),
     (0, tsoa_1.Route)('training-applications')
 ], TrainingApplicationController);

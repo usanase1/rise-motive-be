@@ -1,4 +1,4 @@
-import { Route, Post, Get, Put, Delete, Body, Path, Query, Res, TsoaResponse, Security } from 'tsoa';
+import { Route, Post, Get, Put, Delete, Body, Path, Query, Res, TsoaResponse, Security, Tags } from 'tsoa';
 import { ProductService } from "../services/product.service";
 import { CreateProductDto, UpdateProductDto } from "../dtos/product.dto";
 import { ApiResponse } from "../utils/apiResponse";
@@ -16,6 +16,7 @@ interface ProductResponse {
   createdAt: Date;
 }
 
+@Tags('Products')
 @Route('products')
 export class ProductController {
 

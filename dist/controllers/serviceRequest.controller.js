@@ -131,5 +131,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ServiceRequestController.prototype, "delete", null);
 exports.ServiceRequestController = ServiceRequestController = __decorate([
+    (0, tsoa_1.Tags)('Service Requests'),
     (0, tsoa_1.Route)('service-requests')
 ], ServiceRequestController);

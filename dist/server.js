@@ -76,7 +76,7 @@ app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.defaul
 app.use(errorHandler_1.notFound);
 app.use(errorHandler_1.errorHandler);
 // ── Start Server ─────────────────────────────────────────────
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`
   ╔══════════════════════════════════════╗
   ║   Rise Motive API                    ║

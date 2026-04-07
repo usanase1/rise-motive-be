@@ -112,5 +112,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TaskerController.prototype, "delete", null);
 exports.TaskerController = TaskerController = __decorate([
+    (0, tsoa_1.Tags)('Taskers'),
     (0, tsoa_1.Route)('taskers')
 ], TaskerController);

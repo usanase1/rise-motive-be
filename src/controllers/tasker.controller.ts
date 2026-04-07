@@ -1,4 +1,4 @@
-import { Route, Post, Get, Put, Delete, Body, Path, Res, TsoaResponse } from 'tsoa';
+import { Route, Post, Get, Put, Delete, Body, Path, Res, TsoaResponse, Tags } from 'tsoa';
 import { TaskerService } from "../services/tasker.service";
 import { CreateTaskerDto, UpdateTaskerDto } from "../dtos/tasker.dto";
 import { ApiResponse } from "../utils/apiResponse";
@@ -15,6 +15,7 @@ interface TaskerResponse {
   createdAt: Date;
 }
 
+@Tags('Taskers')
 @Route('taskers')
 export class TaskerController {
 
