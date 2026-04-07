@@ -27,11 +27,11 @@ model ServiceRequest {
   customerPhone  String
   customerEmail  String?
   serviceCategory ServiceCategory
-  service        String           // specific service within category
+  service        String?          // specific service within category
   description    String           @db.Text
   documentUrl    String?          // optional file upload
   preferredDate  String?
-  location       String
+  location       String?
   status         RequestStatus    @default(PENDING)
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt

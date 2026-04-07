@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsEnum, IsString, IsDateString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsEnum, IsString, IsDateString, IsInt } from 'class-validator';
 
 export class CreateServiceRequestDto {
   @IsNotEmpty()
@@ -17,9 +17,9 @@ export class CreateServiceRequestDto {
   @IsEnum(['E_GOVERNMENT', 'APPLICATIONS_DOCS', 'CREATIVE_MEDIA', 'WEB_DIGITAL', 'LEGAL_OFFICIAL'])
   serviceCategory!: 'E_GOVERNMENT' | 'APPLICATIONS_DOCS' | 'CREATIVE_MEDIA' | 'WEB_DIGITAL' | 'LEGAL_OFFICIAL';
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  service!: string;
+  service?: string;
 
   @IsNotEmpty()
   @IsString()
@@ -33,9 +33,13 @@ export class CreateServiceRequestDto {
   @IsDateString()
   preferredDate?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  location!: string;
+  location?: string;
+
+  @IsOptional()
+  @IsInt()
+  taskerId?: number;
 }
 
 export class UpdateRequestStatusDto {
