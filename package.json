@@ -7,7 +7,7 @@
     "force-redeploy": "echo 1",
     "postinstall": "prisma generate",
     "dev": "nodemon --exec tsx src/server.ts",
-    "build": "prisma generate && npx prisma migrate deploy && tsoa spec-and-routes && tsc",
+    "build": "prisma generate && tsoa spec-and-routes && tsc",
     "tsoa": "tsoa spec-and-routes",
     "start": "prisma generate && npx prisma migrate deploy && node dist/server.js",
     "seed:super-admin": "tsx src/scripts/create-super-admin.ts"
