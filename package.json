@@ -7,9 +7,9 @@
     "force-redeploy": "echo 1",
     "postinstall": "prisma generate",
     "dev": "nodemon --exec tsx src/server.ts",
-    "build": "prisma generate && npx prisma migrate resolve --rolled-back 20260404143123_add_email_to_tasker && npx prisma migrate deploy && tsoa spec-and-routes && tsc",
+    "build": "prisma generate && npx prisma migrate deploy && tsoa spec-and-routes && tsc",
     "tsoa": "tsoa spec-and-routes",
-    "start": "prisma generate && node dist/server.js",
+    "start": "prisma generate && npx prisma migrate deploy && node dist/server.js",
     "seed:super-admin": "tsx src/scripts/create-super-admin.ts"
   },
   "keywords": [],
