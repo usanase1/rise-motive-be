@@ -113,4 +113,13 @@ export class EmailService {
     const template = emailTemplates.welcomeStaff(data);
     await this.sendEmail(data.email, template.subject, template.html);
   }
+
+  // When password is changed
+  async sendPasswordChangeNotification(data: {
+    fullName: string;
+    email: string;
+  }) {
+    const template = emailTemplates.passwordChangeNotification(data);
+    await this.sendEmail(data.email, template.subject, template.html);
+  }
 }

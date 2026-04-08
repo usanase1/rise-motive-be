@@ -1238,6 +1238,37 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"ApiResponse__message-string--requiresPasswordChange-boolean__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"requiresPasswordChange": {
+								"type": "boolean"
+							},
+							"message": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"requiresPasswordChange",
+							"message"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"UpdateProfileDto": {
 				"properties": {
 					"fullName": {
@@ -2868,51 +2899,6 @@
 				}
 			}
 		},
-		"/auth/setup": {
-			"post": {
-				"operationId": "Setup",
-				"responses": {
-					"201": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ApiResponse_AdminResponse_"
-								}
-							}
-						}
-					},
-					"204": {
-						"description": "No content"
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ApiResponse_null_"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Authentication"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/RegisterAdminDto"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/auth/login": {
 			"post": {
 				"operationId": "Login",
@@ -3003,6 +2989,111 @@
 				}
 			}
 		},
+		"/auth/verify-otp": {
+			"post": {
+				"operationId": "VerifyOtp",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string--requiresPasswordChange-boolean__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VerifyEmailDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/change-password": {
+			"post": {
+				"operationId": "ChangePassword",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_null_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentication"
+				],
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"newPassword": {
+										"type": "string"
+									},
+									"currentPassword": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"newPassword"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/auth/profile": {
 			"get": {
 				"operationId": "GetProfile",
@@ -3040,7 +3131,9 @@
 					}
 				],
 				"parameters": []
-			},
+			}
+		},
+		"/auth/updateProfile": {
 			"patch": {
 				"operationId": "UpdateProfile",
 				"responses": {

@@ -8,6 +8,7 @@ import * as path from "path";
 
 import { RegisterRoutes } from "./routes/routes";
 import { errorHandler, notFound } from "./middlewares/errorHandler";
+import runMigrations from "./scripts/migrate";
 
 dotenv.config();
 
@@ -64,14 +65,20 @@ app.use(notFound);
 app.use(errorHandler);
 
 // ── Start Server ─────────────────────────────────────────────
-app.listen(PORT as number, '0.0.0.0', () => {
-  console.log(`
-  ╔══════════════════════════════════════╗
-  ║   Rise Motive API                    ║
-  ║   Running on http://localhost:${PORT}   ║
-  ║   Environment: ${process.env.NODE_ENV}          ║
-  ╚══════════════════════════════════════╝
+async function startServer() {
+  await runMigrations();
+  
+  app.listen(PORT as number, '0.0.0.0', () => {
+    console.log(`
+  
+    Rise Motive API
+    Running on http://localhost:${PORT}
+    Environment: ${process.env.NODE_ENV}
+  
   `);
-});
+  });
+}
+
+startServer();
 
 export default app;

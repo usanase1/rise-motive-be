@@ -10,6 +10,16 @@ const emailService = new EmailService();
 
 export class AuthService {
 
+  // Generate random password
+  private generatePassword(): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+    let password = '';
+    for (let i = 0; i < 12; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+  }
+
   // Register a new admin (requires SUPER_ADMIN authentication)
   async register(dto: RegisterAdminDto) {
     // Check if email already exists
@@ -23,8 +33,9 @@ export class AuthService {
       throw new Error("Only ADMIN role can be registered through this endpoint");
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    // Generate auto password
+    const autoPassword = this.generatePassword();
+    const hashedPassword = await bcrypt.hash(autoPassword, 10);
 
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
@@ -34,17 +45,18 @@ export class AuthService {
         fullName: dto.fullName,
         email: dto.email,
         password: hashedPassword,
-        role: "ADMIN", // Always ADMIN for regular registration
+        role: dto.role || "ADMIN",
         otpCode,
         otpExpiresAt,
+        isEmailVerified: false, // Must verify OTP first
       },
     });
 
     emailService.sendWelcomeEmail({
       fullName: dto.fullName,
       email: dto.email,
-      password: dto.password, // Only time they will see this unhashed
-      role: dto.role ?? "ADMIN",
+      password: autoPassword, // Send auto-generated password
+      role: dto.role || "ADMIN",
       otpCode,
     }).catch(console.error);
 
@@ -213,6 +225,68 @@ export class AuthService {
     });
 
     return { message: "Email verified successfully. You can now log in." };
+  }
+
+  // Verify OTP for first login
+  async verifyOtp(dto: VerifyEmailDto) {
+    const admin = await prisma.admin.findUnique({
+      where: { email: dto.email },
+    });
+
+    if (!admin) throw new Error("Invalid email");
+    if (admin.isEmailVerified) throw new Error("Email is already verified");
+    if (!admin.otpCode || admin.otpCode !== dto.otpCode) {
+      throw new Error("Invalid verification code");
+    }
+    if (admin.otpExpiresAt && admin.otpExpiresAt < new Date()) {
+      throw new Error("Verification code has expired");
+    }
+
+    await prisma.admin.update({
+      where: { id: admin.id },
+      data: {
+        isEmailVerified: true,
+        otpCode: null,
+        otpExpiresAt: null,
+      },
+    });
+
+    return { 
+      message: "OTP verified successfully. You can now log in.", 
+      requiresPasswordChange: true 
+    };
+  }
+
+  // Change password (for first login or password reset)
+  async changePassword(adminId: number, newPassword: string, currentPassword?: string) {
+    const admin = await prisma.admin.findUnique({
+      where: { id: adminId },
+    });
+
+    if (!admin) throw new Error("Admin not found");
+
+    // If current password is provided, verify it
+    if (currentPassword) {
+      const isCurrentPasswordValid = await bcrypt.compare(currentPassword, admin.password);
+      if (!isCurrentPasswordValid) throw new Error("Current password is incorrect");
+    }
+
+    // Hash new password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update password
+    await prisma.admin.update({
+      where: { id: adminId },
+      data: { password: hashedNewPassword },
+    });
+
+    // Send email notification about password change
+    emailService.sendPasswordChangeNotification({
+      fullName: admin.fullName,
+      email: admin.email,
+    }).catch(console.error);
+
+    return { message: "Password changed successfully" };
   }
 
   // Update Auth Profile

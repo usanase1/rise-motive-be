@@ -21,7 +21,7 @@ interface ProductResponse {
 export class ProductController {
 
   @Post()
-  @Security('bearerAuth', ['ADMIN', 'SUPER_ADMIN'])
+  @Security('bearerAuth', ['ADMIN'])
   public async create(
     @Body() requestBody: CreateProductDto,
     @Res() successResponse: TsoaResponse<201, ApiResponse<ProductResponse>>,
@@ -64,7 +64,7 @@ export class ProductController {
   }
 
   @Put('{id}')
-  @Security('bearerAuth', ['ADMIN', 'SUPER_ADMIN'])
+  @Security('bearerAuth', ['ADMIN'])
   public async update(
     @Path() id: number,
     @Body() requestBody: UpdateProductDto,
@@ -80,7 +80,7 @@ export class ProductController {
   }
 
   @Delete('{id}')
-  @Security('bearerAuth', ['ADMIN', 'SUPER_ADMIN'])
+  @Security('bearerAuth', ['ADMIN'])
   public async delete(
     @Path() id: number,
     @Res() successResponse: TsoaResponse<200, ApiResponse<{ message: string }>>,

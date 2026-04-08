@@ -45,30 +45,6 @@ export class AuthController {
     }
   }
 
-  @Post('setup')
-  public async setup(
-    @Body() requestBody: RegisterAdminDto,
-    @Res() successResponse: TsoaResponse<201, ApiResponse<AdminResponse>>,
-    @Res() errorResponse: TsoaResponse<400, ApiResponse<null>>
-  ): Promise<void> {
-    try {
-      await validateDto(RegisterAdminDto, requestBody);
-      // Check if any admins exist at all
-      // const adminCount = await prisma.admin.count();
-      // if (adminCount > 0) {
-      //   errorResponse(400, new ApiResponse(false, "System already initialized"));
-      //   return;
-      // }
-
-      // Force SUPER_ADMIN role for initial setup
-      requestBody.role = "SUPER_ADMIN";
-      const data = await service.setup(requestBody);
-      successResponse(201, new ApiResponse(true, "System initialized successfully", data));
-    } catch (error: any) {
-      errorResponse(400, new ApiResponse(false, error.message));
-    }
-  }
-
   @Post('login')
   public async login(
     @Body() requestBody: LoginDto,
@@ -99,6 +75,40 @@ export class AuthController {
     }
   }
 
+  @Post('verify-otp')
+  public async verifyOtp(
+    @Body() requestBody: VerifyEmailDto,
+    @Res() successResponse: TsoaResponse<200, ApiResponse<{ message: string; requiresPasswordChange: boolean }>>,
+    @Res() errorResponse: TsoaResponse<400, ApiResponse<null>>
+  ): Promise<void> {
+    try {
+      await validateDto(VerifyEmailDto, requestBody);
+      const data = await service.verifyOtp(requestBody);
+      successResponse(200, new ApiResponse(true, "OTP verified successfully", data));
+    } catch (error: any) {
+      errorResponse(400, new ApiResponse(false, error.message));
+    }
+  }
+
+  @Post('change-password')
+  @Security('bearerAuth')
+  public async changePassword(
+    @Body() requestBody: { currentPassword?: string; newPassword: string },
+    @Request() request: any,
+    @Res() successResponse: TsoaResponse<200, ApiResponse<{ message: string }>>,
+    @Res() errorResponse: TsoaResponse<400, ApiResponse<null>>
+  ): Promise<void> {
+    try {
+      const adminId = request.user?.id;
+      if (!adminId) throw new Error("Unauthorized");
+      
+      const data = await service.changePassword(adminId, requestBody.newPassword, requestBody.currentPassword);
+      successResponse(200, new ApiResponse(true, data.message, data));
+    } catch (error: any) {
+      errorResponse(400, new ApiResponse(false, error.message));
+    }
+  }
+
   @Get('profile')
   @Security('bearerAuth')
   public async getProfile(
@@ -116,7 +126,7 @@ export class AuthController {
     }
   }
 
-  @Patch('profile')
+  @Patch('updateProfile')
   @Security('bearerAuth')
   public async updateProfile(
     @Request() request: any,
