@@ -7,7 +7,7 @@
     "force-redeploy": "echo 1",
     "postinstall": "prisma generate",
     "dev": "nodemon --exec tsx src/server.ts",
-    "build": "prisma generate && tsoa spec-and-routes && tsc",
+    "build": "prisma generate && tsc",
     "tsoa": "tsoa spec-and-routes",
     "start": "node dist/server.js",
     "start:prod": "prisma generate && npx prisma migrate deploy && node dist/server.js",
