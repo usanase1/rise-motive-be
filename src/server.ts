@@ -8,7 +8,6 @@ import * as path from "path";
 
 import { RegisterRoutes } from "./routes/routes";
 import { errorHandler, notFound } from "./middlewares/errorHandler";
-import runMigrations from "./scripts/migrate";
 
 dotenv.config();
 
@@ -65,9 +64,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 // ── Start Server ─────────────────────────────────────────────
-async function startServer() {
-  await runMigrations();
-  
+function startServer() {
   app.listen(PORT as number, '0.0.0.0', () => {
     console.log(`
   

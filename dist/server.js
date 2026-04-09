@@ -45,7 +45,6 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const routes_1 = require("./routes/routes");
 const errorHandler_1 = require("./middlewares/errorHandler");
-const migrate_1 = __importDefault(require("./scripts/migrate"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -89,8 +88,7 @@ app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.defaul
 app.use(errorHandler_1.notFound);
 app.use(errorHandler_1.errorHandler);
 // ── Start Server ─────────────────────────────────────────────
-async function startServer() {
-    await (0, migrate_1.default)();
+function startServer() {
     app.listen(PORT, '0.0.0.0', () => {
         console.log(`
   
