@@ -11,8 +11,7 @@
     "tsoa": "tsoa spec-and-routes",
     "start": "node dist/server.js",
     "start:prod": "prisma generate && npx prisma migrate deploy && node dist/server.js",
-    "seed:super-admin": "tsx src/scripts/create-super-admin.ts",
-    "create-tables": "tsx src/scripts/create-missing-tables.ts"
+    "seed:super-admin": "tsx src/scripts/create-super-admin.ts"
   },
   "keywords": [],
   "author": "",
