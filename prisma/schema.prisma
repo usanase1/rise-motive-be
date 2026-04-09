@@ -55,6 +55,8 @@ model TrainingApplication {
   experienceLevel  ExperienceLevel  @default(BEGINNER)
   status           ApplicationStatus @default(PENDING)
   createdAt        DateTime         @default(now())
+
+  @@map("trainingapplication")
 }
 
 // ─── STATUS HISTORY (tracking timeline) ─────────────────────
@@ -197,6 +199,8 @@ model Admin {
   otpExpiresAt    DateTime?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+
+  @@map("admin")
 }
 
 enum AdminRole {
