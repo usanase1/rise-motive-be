@@ -1070,7 +1070,7 @@ export function RegisterRoutes(app: Router) {
                 errorResponse: {"in":"res","name":"400","required":true,"ref":"ApiResponse_null_"},
         };
         app.post('/products',
-            authenticateMiddleware([{"bearerAuth":["ADMIN","SUPER_ADMIN"]}]),
+            authenticateMiddleware([{"bearerAuth":["ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ProductController)),
             ...(fetchMiddlewares<RequestHandler>(ProductController.prototype.create)),
 
@@ -1168,7 +1168,7 @@ export function RegisterRoutes(app: Router) {
                 errorResponse: {"in":"res","name":"400","required":true,"ref":"ApiResponse_null_"},
         };
         app.put('/products/:id',
-            authenticateMiddleware([{"bearerAuth":["ADMIN","SUPER_ADMIN"]}]),
+            authenticateMiddleware([{"bearerAuth":["ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ProductController)),
             ...(fetchMiddlewares<RequestHandler>(ProductController.prototype.update)),
 
@@ -1201,7 +1201,7 @@ export function RegisterRoutes(app: Router) {
                 errorResponse: {"in":"res","name":"400","required":true,"ref":"ApiResponse_null_"},
         };
         app.delete('/products/:id',
-            authenticateMiddleware([{"bearerAuth":["ADMIN","SUPER_ADMIN"]}]),
+            authenticateMiddleware([{"bearerAuth":["ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ProductController)),
             ...(fetchMiddlewares<RequestHandler>(ProductController.prototype.delete)),
 

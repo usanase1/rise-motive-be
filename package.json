@@ -1,15 +1,16 @@
 {
   "name": "rise-motive-be",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Rise Motive Backend API",
+  "main": "dist/server.js",
   "scripts": {
     "force-redeploy": "echo 1",
     "postinstall": "prisma generate",
     "dev": "nodemon --exec tsx src/server.ts",
     "build": "prisma generate && tsoa spec-and-routes && tsc",
     "tsoa": "tsoa spec-and-routes",
-    "start": "prisma generate && npx prisma migrate deploy && node dist/server.js",
+    "start": "node dist/server.js",
+    "start:prod": "prisma generate && npx prisma migrate deploy && node dist/server.js",
     "seed:super-admin": "tsx src/scripts/create-super-admin.ts"
   },
   "keywords": [],
@@ -17,7 +18,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@prisma/adapter-mariadb": "^7.6.0",
+    "@prisma/client": "^5.22.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
@@ -42,7 +43,6 @@
     "typescript": "^6.0.2"
   },
   "devDependencies": {
-    "@prisma/client": "^5.22.0",
     "nodemon": "^3.1.14",
     "prisma": "^5.22.0"
   }
