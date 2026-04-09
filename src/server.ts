@@ -9,6 +9,7 @@ import * as path from "path";
 import { RegisterRoutes } from "./routes/routes";
 import { errorHandler, notFound } from "./middlewares/errorHandler";
 import { createSuperAdmin } from "./scripts/create-super-admin";
+import { execSync } from "child_process";
 
 dotenv.config();
 
@@ -66,8 +67,16 @@ app.use(errorHandler);
 
 // ── Start Server ─────────────────────────────────────────────
 async function startServer() {
-  // Create SUPER_ADMIN if not exists (only on production)
+  // Run migrations and seed data (only on production)
   if (process.env.NODE_ENV === 'production') {
+    try {
+      console.log('Running database migrations...');
+      execSync('npx prisma migrate deploy', { stdio: 'inherit' });
+      console.log('Migrations completed successfully!');
+    } catch (error: any) {
+      console.log('Migrations already applied or failed:', error.message);
+    }
+    
     try {
       await createSuperAdmin();
       console.log('SUPER_ADMIN seed completed');

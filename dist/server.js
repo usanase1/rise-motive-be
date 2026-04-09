@@ -46,6 +46,7 @@ const path = __importStar(require("path"));
 const routes_1 = require("./routes/routes");
 const errorHandler_1 = require("./middlewares/errorHandler");
 const create_super_admin_1 = require("./scripts/create-super-admin");
+const child_process_1 = require("child_process");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -90,8 +91,16 @@ app.use(errorHandler_1.notFound);
 app.use(errorHandler_1.errorHandler);
 // ── Start Server ─────────────────────────────────────────────
 async function startServer() {
-    // Create SUPER_ADMIN if not exists (only on production)
+    // Run migrations and seed data (only on production)
     if (process.env.NODE_ENV === 'production') {
+        try {
+            console.log('Running database migrations...');
+            (0, child_process_1.execSync)('npx prisma migrate deploy', { stdio: 'inherit' });
+            console.log('Migrations completed successfully!');
+        }
+        catch (error) {
+            console.log('Migrations already applied or failed:', error.message);
+        }
         try {
             await (0, create_super_admin_1.createSuperAdmin)();
             console.log('SUPER_ADMIN seed completed');
