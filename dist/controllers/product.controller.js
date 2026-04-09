@@ -68,7 +68,7 @@ let ProductController = class ProductController {
 exports.ProductController = ProductController;
 __decorate([
     (0, tsoa_1.Post)(),
-    (0, tsoa_1.Security)('bearerAuth', ['ADMIN', 'SUPER_ADMIN']),
+    (0, tsoa_1.Security)('bearerAuth', ['ADMIN']),
     __param(0, (0, tsoa_1.Body)()),
     __param(1, (0, tsoa_1.Res)()),
     __param(2, (0, tsoa_1.Res)()),
@@ -96,7 +96,7 @@ __decorate([
 ], ProductController.prototype, "getById", null);
 __decorate([
     (0, tsoa_1.Put)('{id}'),
-    (0, tsoa_1.Security)('bearerAuth', ['ADMIN', 'SUPER_ADMIN']),
+    (0, tsoa_1.Security)('bearerAuth', ['ADMIN']),
     __param(0, (0, tsoa_1.Path)()),
     __param(1, (0, tsoa_1.Body)()),
     __param(2, (0, tsoa_1.Res)()),
@@ -107,7 +107,7 @@ __decorate([
 ], ProductController.prototype, "update", null);
 __decorate([
     (0, tsoa_1.Delete)('{id}'),
-    (0, tsoa_1.Security)('bearerAuth', ['ADMIN', 'SUPER_ADMIN']),
+    (0, tsoa_1.Security)('bearerAuth', ['ADMIN']),
     __param(0, (0, tsoa_1.Path)()),
     __param(1, (0, tsoa_1.Res)()),
     __param(2, (0, tsoa_1.Res)()),

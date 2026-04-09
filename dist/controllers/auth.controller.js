@@ -33,24 +33,6 @@ let AuthController = class AuthController {
             errorResponse(400, new apiResponse_1.ApiResponse(false, error.message));
         }
     }
-    async setup(requestBody, successResponse, errorResponse) {
-        try {
-            await (0, validateDto_1.validateDto)(auth_dto_1.RegisterAdminDto, requestBody);
-            // Check if any admins exist at all
-            // const adminCount = await prisma.admin.count();
-            // if (adminCount > 0) {
-            //   errorResponse(400, new ApiResponse(false, "System already initialized"));
-            //   return;
-            // }
-            // Force SUPER_ADMIN role for initial setup
-            requestBody.role = "SUPER_ADMIN";
-            const data = await service.setup(requestBody);
-            successResponse(201, new apiResponse_1.ApiResponse(true, "System initialized successfully", data));
-        }
-        catch (error) {
-            errorResponse(400, new apiResponse_1.ApiResponse(false, error.message));
-        }
-    }
     async login(requestBody, successResponse, errorResponse) {
         try {
             await (0, validateDto_1.validateDto)(auth_dto_1.LoginDto, requestBody);
@@ -65,6 +47,28 @@ let AuthController = class AuthController {
         try {
             await (0, validateDto_1.validateDto)(auth_dto_1.VerifyEmailDto, requestBody);
             const data = await service.verifyEmail(requestBody);
+            successResponse(200, new apiResponse_1.ApiResponse(true, data.message, data));
+        }
+        catch (error) {
+            errorResponse(400, new apiResponse_1.ApiResponse(false, error.message));
+        }
+    }
+    async verifyOtp(requestBody, successResponse, errorResponse) {
+        try {
+            await (0, validateDto_1.validateDto)(auth_dto_1.VerifyEmailDto, requestBody);
+            const data = await service.verifyOtp(requestBody);
+            successResponse(200, new apiResponse_1.ApiResponse(true, "OTP verified successfully", data));
+        }
+        catch (error) {
+            errorResponse(400, new apiResponse_1.ApiResponse(false, error.message));
+        }
+    }
+    async changePassword(requestBody, request, successResponse, errorResponse) {
+        try {
+            const adminId = request.user?.id;
+            if (!adminId)
+                throw new Error("Unauthorized");
+            const data = await service.changePassword(adminId, requestBody.newPassword, requestBody.currentPassword);
             successResponse(200, new apiResponse_1.ApiResponse(true, data.message, data));
         }
         catch (error) {
@@ -136,15 +140,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
-    (0, tsoa_1.Post)('setup'),
-    __param(0, (0, tsoa_1.Body)()),
-    __param(1, (0, tsoa_1.Res)()),
-    __param(2, (0, tsoa_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [auth_dto_1.RegisterAdminDto, Function, Function]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "setup", null);
-__decorate([
     (0, tsoa_1.Post)('login'),
     __param(0, (0, tsoa_1.Body)()),
     __param(1, (0, tsoa_1.Res)()),
@@ -163,6 +158,26 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "verifyEmail", null);
 __decorate([
+    (0, tsoa_1.Post)('verify-otp'),
+    __param(0, (0, tsoa_1.Body)()),
+    __param(1, (0, tsoa_1.Res)()),
+    __param(2, (0, tsoa_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.VerifyEmailDto, Function, Function]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "verifyOtp", null);
+__decorate([
+    (0, tsoa_1.Post)('change-password'),
+    (0, tsoa_1.Security)('bearerAuth'),
+    __param(0, (0, tsoa_1.Body)()),
+    __param(1, (0, tsoa_1.Request)()),
+    __param(2, (0, tsoa_1.Res)()),
+    __param(3, (0, tsoa_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, Function, Function]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "changePassword", null);
+__decorate([
     (0, tsoa_1.Get)('profile'),
     (0, tsoa_1.Security)('bearerAuth'),
     __param(0, (0, tsoa_1.Request)()),
@@ -173,7 +188,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getProfile", null);
 __decorate([
-    (0, tsoa_1.Patch)('profile'),
+    (0, tsoa_1.Patch)('updateProfile'),
     (0, tsoa_1.Security)('bearerAuth'),
     __param(0, (0, tsoa_1.Request)()),
     __param(1, (0, tsoa_1.Body)()),

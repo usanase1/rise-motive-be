@@ -482,6 +482,16 @@ const models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ApiResponse__message-string--requiresPasswordChange-boolean__": {
+        "dataType": "refObject",
+        "properties": {
+            "success": { "dataType": "boolean", "required": true },
+            "message": { "dataType": "string", "required": true },
+            "data": { "dataType": "nestedObjectLiteral", "nestedProperties": { "requiresPasswordChange": { "dataType": "boolean", "required": true }, "message": { "dataType": "string", "required": true } } },
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "UpdateProfileDto": {
         "dataType": "refObject",
         "properties": {
@@ -931,7 +941,7 @@ function RegisterRoutes(app) {
         successResponse: { "in": "res", "name": "201", "required": true, "ref": "ApiResponse_ProductResponse_" },
         errorResponse: { "in": "res", "name": "400", "required": true, "ref": "ApiResponse_null_" },
     };
-    app.post('/products', authenticateMiddleware([{ "bearerAuth": ["ADMIN", "SUPER_ADMIN"] }]), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController)), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController.prototype.create)), async function ProductController_create(request, response, next) {
+    app.post('/products', authenticateMiddleware([{ "bearerAuth": ["ADMIN"] }]), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController)), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController.prototype.create)), async function ProductController_create(request, response, next) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         let validatedArgs = [];
         try {
@@ -1007,7 +1017,7 @@ function RegisterRoutes(app) {
         successResponse: { "in": "res", "name": "200", "required": true, "ref": "ApiResponse_ProductResponse_" },
         errorResponse: { "in": "res", "name": "400", "required": true, "ref": "ApiResponse_null_" },
     };
-    app.put('/products/:id', authenticateMiddleware([{ "bearerAuth": ["ADMIN", "SUPER_ADMIN"] }]), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController)), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController.prototype.update)), async function ProductController_update(request, response, next) {
+    app.put('/products/:id', authenticateMiddleware([{ "bearerAuth": ["ADMIN"] }]), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController)), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController.prototype.update)), async function ProductController_update(request, response, next) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         let validatedArgs = [];
         try {
@@ -1032,7 +1042,7 @@ function RegisterRoutes(app) {
         successResponse: { "in": "res", "name": "200", "required": true, "ref": "ApiResponse__message-string__" },
         errorResponse: { "in": "res", "name": "400", "required": true, "ref": "ApiResponse_null_" },
     };
-    app.delete('/products/:id', authenticateMiddleware([{ "bearerAuth": ["ADMIN", "SUPER_ADMIN"] }]), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController)), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController.prototype.delete)), async function ProductController_delete(request, response, next) {
+    app.delete('/products/:id', authenticateMiddleware([{ "bearerAuth": ["ADMIN"] }]), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController)), ...((0, runtime_1.fetchMiddlewares)(product_controller_1.ProductController.prototype.delete)), async function ProductController_delete(request, response, next) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         let validatedArgs = [];
         try {
@@ -1354,31 +1364,6 @@ function RegisterRoutes(app) {
         }
     });
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    const argsAuthController_setup = {
-        requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "RegisterAdminDto" },
-        successResponse: { "in": "res", "name": "201", "required": true, "ref": "ApiResponse_AdminResponse_" },
-        errorResponse: { "in": "res", "name": "400", "required": true, "ref": "ApiResponse_null_" },
-    };
-    app.post('/auth/setup', ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController)), ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController.prototype.setup)), async function AuthController_setup(request, response, next) {
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        let validatedArgs = [];
-        try {
-            validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_setup, request, response });
-            const controller = new auth_controller_1.AuthController();
-            await templateService.apiHandler({
-                methodName: 'setup',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: undefined,
-            });
-        }
-        catch (err) {
-            return next(err);
-        }
-    });
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     const argsAuthController_login = {
         requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "LoginDto" },
         successResponse: { "in": "res", "name": "200", "required": true, "ref": "ApiResponse_LoginResponse_" },
@@ -1429,6 +1414,57 @@ function RegisterRoutes(app) {
         }
     });
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    const argsAuthController_verifyOtp = {
+        requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "VerifyEmailDto" },
+        successResponse: { "in": "res", "name": "200", "required": true, "ref": "ApiResponse__message-string--requiresPasswordChange-boolean__" },
+        errorResponse: { "in": "res", "name": "400", "required": true, "ref": "ApiResponse_null_" },
+    };
+    app.post('/auth/verify-otp', ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController)), ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController.prototype.verifyOtp)), async function AuthController_verifyOtp(request, response, next) {
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        let validatedArgs = [];
+        try {
+            validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_verifyOtp, request, response });
+            const controller = new auth_controller_1.AuthController();
+            await templateService.apiHandler({
+                methodName: 'verifyOtp',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+            });
+        }
+        catch (err) {
+            return next(err);
+        }
+    });
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    const argsAuthController_changePassword = {
+        requestBody: { "in": "body", "name": "requestBody", "required": true, "dataType": "nestedObjectLiteral", "nestedProperties": { "newPassword": { "dataType": "string", "required": true }, "currentPassword": { "dataType": "string" } } },
+        request: { "in": "request", "name": "request", "required": true, "dataType": "object" },
+        successResponse: { "in": "res", "name": "200", "required": true, "ref": "ApiResponse__message-string__" },
+        errorResponse: { "in": "res", "name": "400", "required": true, "ref": "ApiResponse_null_" },
+    };
+    app.post('/auth/change-password', authenticateMiddleware([{ "bearerAuth": [] }]), ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController)), ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController.prototype.changePassword)), async function AuthController_changePassword(request, response, next) {
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        let validatedArgs = [];
+        try {
+            validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_changePassword, request, response });
+            const controller = new auth_controller_1.AuthController();
+            await templateService.apiHandler({
+                methodName: 'changePassword',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+            });
+        }
+        catch (err) {
+            return next(err);
+        }
+    });
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     const argsAuthController_getProfile = {
         request: { "in": "request", "name": "request", "required": true, "dataType": "object" },
         successResponse: { "in": "res", "name": "200", "required": true, "ref": "ApiResponse_AdminResponse_" },
@@ -1460,7 +1496,7 @@ function RegisterRoutes(app) {
         successResponse: { "in": "res", "name": "200", "required": true, "ref": "ApiResponse_AdminResponse_" },
         errorResponse: { "in": "res", "name": "400", "required": true, "ref": "ApiResponse_null_" },
     };
-    app.patch('/auth/profile', authenticateMiddleware([{ "bearerAuth": [] }]), ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController)), ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController.prototype.updateProfile)), async function AuthController_updateProfile(request, response, next) {
+    app.patch('/auth/updateProfile', authenticateMiddleware([{ "bearerAuth": [] }]), ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController)), ...((0, runtime_1.fetchMiddlewares)(auth_controller_1.AuthController.prototype.updateProfile)), async function AuthController_updateProfile(request, response, next) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         let validatedArgs = [];
         try {

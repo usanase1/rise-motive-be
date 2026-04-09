@@ -368,7 +368,68 @@ exports.emailTemplates = {
 
         <div style="background: #0D2680; padding: 16px; text-align: center;">
           <p style="color: #B0C8FF; margin: 0; font-size: 12px;">
-            © ${new Date().getFullYear()} Rise Motive Ltd | Kigali, Rwanda
+            &copy; ${new Date().getFullYear()} Rise Motive Ltd | Kigali, Rwanda
+          </p>
+        </div>
+      </div>
+    `,
+    }),
+    passwordChangeNotification: (data) => ({
+        subject: `Password Changed Successfully | Rise Motive Security Alert`,
+        html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: #0D2680; padding: 24px; text-align: center;">
+          <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/shield.png" width="32" height="32" alt="shield" />
+          </div>
+          <h1 style="color: white; margin: 0;">Password Changed</h1>
+          <p style="color: #B0C8FF; margin: 8px 0 0;">Security Notification</p>
+        </div>
+
+        <div style="padding: 32px 24px; background: #ffffff;">
+          <h2 style="color: #0D2680;">
+            Hello ${data.fullName}! 
+            <img src="https://img.icons8.com/ios-filled/50/0D2680/hand.png" width="24" height="24" style="vertical-align: middle;" alt="hi"/>
+          </h2>
+          
+          <div style="background: #D1F5E0; border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center;">
+            <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+              <img src="https://img.icons8.com/ios-filled/50/0A5C30/key.png" width="32" height="32" alt="key" />
+            </div>
+            <h3 style="color: #0A5C30; margin: 0 0 8px;">Your Password Has Been Changed</h3>
+            <p style="color: #0A5C30; margin: 0; font-size: 14px;">
+              This action was completed successfully on ${new Date().toLocaleDateString()}
+            </p>
+          </div>
+
+          <p style="color: #444; line-height: 1.6;">
+            Your account password has been <strong>successfully updated</strong>. 
+            This change ensures your account remains secure.
+          </p>
+
+          <div style="background: #FFF8ED; border-left: 4px solid #F59E0B; padding: 14px 16px; border-radius: 4px; margin: 20px 0;">
+            <p style="margin: 0; color: #7A4A00; font-size: 13px; display: flex; align-items: center; gap: 8px;">
+              <img src="https://img.icons8.com/ios-filled/50/F59E0B/info.png" width="20" height="20" alt="info" />
+              <span>If you didn't make this change, please contact us immediately at <strong>0795344768</strong>.</span>
+            </p>
+          </div>
+
+          <div style="color: #444; line-height: 1.6;">
+            For support contact:<br/>
+            <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+              <img src="https://img.icons8.com/ios-filled/50/333333/phone.png" width="16" height="16" alt="phone"/>
+              <strong>0795344768 | 0788625873</strong>
+            </div>
+            <div style="margin-top: 4px; display: flex; align-items: center; gap: 8px;">
+              <img src="https://img.icons8.com/ios-filled/50/333333/new-post.png" width="16" height="16" alt="email"/>
+              <strong>info@risemotive.com</strong>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: #0D2680; padding: 16px; text-align: center;">
+          <p style="color: #B0C8FF; margin: 0; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} Rise Motive Ltd | Kigali, Rwanda
           </p>
         </div>
       </div>

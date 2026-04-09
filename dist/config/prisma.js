@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
-const adapter_mariadb_1 = require("@prisma/adapter-mariadb");
 const dotenv_1 = __importDefault(require("dotenv"));
 // Load environment variables
 dotenv_1.default.config();
@@ -12,7 +11,5 @@ const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
     throw new Error("Missing DATABASE_URL environment variable");
 }
-const prisma = new client_1.PrismaClient({
-    adapter: new adapter_mariadb_1.PrismaMariaDb(databaseUrl),
-});
+const prisma = new client_1.PrismaClient();
 exports.default = prisma;
