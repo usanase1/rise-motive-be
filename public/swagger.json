@@ -2131,8 +2131,7 @@
 				"security": [
 					{
 						"bearerAuth": [
-							"ADMIN",
-							"SUPER_ADMIN"
+							"ADMIN"
 						]
 					}
 				],
@@ -2268,8 +2267,7 @@
 				"security": [
 					{
 						"bearerAuth": [
-							"ADMIN",
-							"SUPER_ADMIN"
+							"ADMIN"
 						]
 					}
 				],
@@ -2328,8 +2326,7 @@
 				"security": [
 					{
 						"bearerAuth": [
-							"ADMIN",
-							"SUPER_ADMIN"
+							"ADMIN"
 						]
 					}
 				],
