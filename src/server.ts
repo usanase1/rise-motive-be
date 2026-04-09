@@ -8,6 +8,7 @@ import * as path from "path";
 
 import { RegisterRoutes } from "./routes/routes";
 import { errorHandler, notFound } from "./middlewares/errorHandler";
+import { createSuperAdmin } from "./scripts/create-super-admin";
 
 dotenv.config();
 
@@ -64,7 +65,17 @@ app.use(notFound);
 app.use(errorHandler);
 
 // ── Start Server ─────────────────────────────────────────────
-function startServer() {
+async function startServer() {
+  // Create SUPER_ADMIN if not exists (only on production)
+  if (process.env.NODE_ENV === 'production') {
+    try {
+      await createSuperAdmin();
+      console.log('SUPER_ADMIN seed completed');
+    } catch (error: any) {
+      console.log('SUPER_ADMIN already exists or seed failed:', error.message);
+    }
+  }
+  
   app.listen(PORT as number, '0.0.0.0', () => {
     console.log(`
   

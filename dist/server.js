@@ -45,6 +45,7 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const routes_1 = require("./routes/routes");
 const errorHandler_1 = require("./middlewares/errorHandler");
+const create_super_admin_1 = require("./scripts/create-super-admin");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -88,7 +89,17 @@ app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.defaul
 app.use(errorHandler_1.notFound);
 app.use(errorHandler_1.errorHandler);
 // ── Start Server ─────────────────────────────────────────────
-function startServer() {
+async function startServer() {
+    // Create SUPER_ADMIN if not exists (only on production)
+    if (process.env.NODE_ENV === 'production') {
+        try {
+            await (0, create_super_admin_1.createSuperAdmin)();
+            console.log('SUPER_ADMIN seed completed');
+        }
+        catch (error) {
+            console.log('SUPER_ADMIN already exists or seed failed:', error.message);
+        }
+    }
     app.listen(PORT, '0.0.0.0', () => {
         console.log(`
   

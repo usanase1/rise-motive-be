@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import prisma from "../config/prisma";
 
-async function createSuperAdmin() {
+export async function createSuperAdmin() {
   try {
     // Check if super admin already exists
     const existingSuperAdmin = await prisma.admin.findFirst({
