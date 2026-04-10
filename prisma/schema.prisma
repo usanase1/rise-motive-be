@@ -3,8 +3,20 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+// Report 
+
+model Report {
+  id          Int      @id @default(autoincrement())
+  title       String
+  summary     String   @db.Text
+  totalUsers  Int      @default(0)
+  totalOrders Int      @default(0)
+  totalTasks  Int      @default(0)
+  totalServices Int    @default(0)
+  createdAt   DateTime @default(now())
 }
 
 // ─── TASKERS ────────────────────────────────────────────────
@@ -17,32 +29,137 @@ model Tasker {
   isActive    Boolean          @default(true)
   createdAt   DateTime         @default(now())
 
-  requests    ServiceRequest[]
 }
 
 // ─── SERVICE REQUESTS (RM TaskSpot) ─────────────────────────
-model ServiceRequest {
-  id             Int              @id @default(autoincrement())
-  trackingCode   String           @unique
+model EGovRequest {
+  id             Int      @id @default(autoincrement())
+  trackingCode   String   @unique
   customerName   String
   customerPhone  String
   customerEmail  String?
-  serviceCategory ServiceCategory
-  service        String?          // specific service within category
-  description    String           @db.Text
-  documentUrl    String?          // optional file upload
+   notifications  Notification[]
+  service        String?
+  description    String   @db.Text
+  documentUrl    String?
   preferredDate  String?
-  location       String?
-  status         RequestStatus    @default(PENDING)
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  status         RequestStatus @default(PENDING)
 
-  taskerId       Int?
-  tasker         Tasker?          @relation(fields: [taskerId], references: [id])
+  tasker         String?
 
-  statusHistory  StatusHistory[]
-  smsLogs        SmsLog[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
+
+model ApplicationDocRequest {
+  id             Int      @id @default(autoincrement())
+  trackingCode   String   @unique
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  service        String?
+  description    String   @db.Text
+  documentUrl    String?
+  preferredDate  String?
+   notifications  Notification[]
+  status         RequestStatus @default(PENDING)
+
+  tasker         String?
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model CreativeMediaRequest {
+  id             Int      @id @default(autoincrement())
+  trackingCode   String   @unique
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  service        String?
+  description    String   @db.Text
+  documentUrl    String?
+  preferredDate  String?
+   notifications  Notification[]
+  status         RequestStatus @default(PENDING)
+
+  tasker         String?
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+
+model WebDigitalRequest {
+  id             Int      @id @default(autoincrement())
+  trackingCode   String   @unique
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  service        String?
+  description    String   @db.Text
+  documentUrl    String?
+  preferredDate  String?
+   notifications  Notification[]
+  status         RequestStatus @default(PENDING)
+
+  tasker         String?
+
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model LegalOfficialRequest {
+  id             Int      @id @default(autoincrement())
+  trackingCode   String   @unique
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  service        String?
+  description    String   @db.Text
+  documentUrl    String?
+  preferredDate  String?
+   notifications  Notification[]
+  status         RequestStatus @default(PENDING)
+
+  tasker         String?
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+
+  title       String
+  message     String
+  type        String   // e.g. "NEW_REQUEST"
+
+  isRead      Boolean  @default(false)
+
+  adminId     Int?
+  admin       Admin?   @relation(fields: [adminId], references: [id])
+
+  egovId      Int?
+  egov        EGovRequest? @relation(fields: [egovId], references: [id])
+
+  appDocId    Int?
+  appDoc      ApplicationDocRequest? @relation(fields: [appDocId], references: [id])
+
+  creativeId  Int?
+  creative    CreativeMediaRequest? @relation(fields: [creativeId], references: [id])
+
+  webId       Int?
+  web         WebDigitalRequest? @relation(fields: [webId], references: [id])
+
+  legalId     Int?
+  legal       LegalOfficialRequest? @relation(fields: [legalId], references: [id])
+
+  createdAt   DateTime @default(now())
+}
+
+
 
 // ─── TRAINING APPLICATIONS (RM TaskSpot - Part II) ──────────
 model TrainingApplication {
@@ -60,27 +177,7 @@ model TrainingApplication {
 }
 
 // ─── STATUS HISTORY (tracking timeline) ─────────────────────
-model StatusHistory {
-  id               Int             @id @default(autoincrement())
-  status           RequestStatus
-  note             String?
-  createdAt        DateTime        @default(now())
 
-  serviceRequestId Int
-  serviceRequest   ServiceRequest  @relation(fields: [serviceRequestId], references: [id])
-}
-
-// ─── SMS LOGS ────────────────────────────────────────────────
-model SmsLog {
-  id               Int             @id @default(autoincrement())
-  phone            String
-  message          String          @db.Text
-  status           String          // "sent" | "failed"
-  createdAt        DateTime        @default(now())
-
-  serviceRequestId Int?
-  serviceRequest   ServiceRequest? @relation(fields: [serviceRequestId], references: [id])
-}
 
 // ─── PRODUCTS (RM ProSpot) ───────────────────────────────────
 model Product {
@@ -131,13 +228,7 @@ model InfoPost {
 
 // ─── ENUMS ───────────────────────────────────────────────────
 
-enum ServiceCategory {
-  E_GOVERNMENT          // IREMBO, RRA, RDB, RURA, MIFOTRA
-  APPLICATIONS_DOCS     // CV, proposals, reports, book writing
-  CREATIVE_MEDIA        // Photography, videography, design
-  WEB_DIGITAL           // Website dev, online setup
-  LEGAL_OFFICIAL        // Notary, court filing, legal advisory
-}
+
 
 enum RequestStatus {
   PENDING
@@ -192,15 +283,16 @@ model Admin {
   profilePicture  String?
   email           String    @unique
   password        String
+
   role            AdminRole @default(ADMIN)
   isActive        Boolean   @default(true)
-  isEmailVerified Boolean   @default(false)
-  otpCode         String?
-  otpExpiresAt    DateTime?
+  notifications   Notification[]
+
+  loginAttempts   Int       @default(0)
+  lockedUntil     DateTime?
+
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-
-  @@map("admin")
 }
 
 enum AdminRole {

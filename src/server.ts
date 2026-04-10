@@ -1,101 +1,58 @@
 import express from "express";
-import cors from "cors";
-import helmet from "helmet";
 import dotenv from "dotenv";
+import cors from "cors";
+import bodyParser from "body-parser";
+
 import swaggerUi from "swagger-ui-express";
-import * as fs from "fs";
-import * as path from "path";
+import swaggerDocument from "../build/swagger.json";
 
 import { RegisterRoutes } from "./routes/routes";
-import { errorHandler, notFound } from "./middlewares/errorHandler";
-import { createSuperAdmin } from "./scripts/create-super-admin";
-import { execSync } from "child_process";
+import { startReportCron } from "./services/CronReport";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// ── Middlewares ──────────────────────────────────────────────
-app.use(helmet({ crossOriginResourcePolicy: false })); // Allow images to load cross-origin
+// ========================
+// Middlewares
+// ========================
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve manual uploads folder
-app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
-
-// ── Health Check ─────────────────────────────────────────────
+// ========================
+// Health check route
+// ========================
 app.get("/", (req, res) => {
   res.json({
-    success: true,
-    message: "Rise Motive API is running 🚀",
-    version: "1.0.0",
-    docs: "/docs",
-    endpoints: {
-      serviceRequests: "/service-requests",
-    },
+    message: "Backend API running ",
+    status: "OK",
   });
 });
 
-// ── Swagger Documentation ────────────────────────────────────
-const swaggerDocument = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "../public/swagger.json"), "utf8")
-);
+// ========================
+// Swagger Docs
+// ========================
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Inject custom tag descriptions for Swagger UI grouping
-swaggerDocument.tags = [
-  { name: "Authentication", description: "Admin: authentication and system setup — JWT required for protected routes (ADMIN/SUPER_ADMIN role)" },
-  { name: "Products", description: "ProSpot: manage products catalog — JWT required for write access" },
-  { name: "Orders", description: "ProSpot: manage customer orders" },
-  { name: "Information Posts", description: "InfoSpot: manage jobs, scholarships, and opportunities" },
-  { name: "Taskers", description: "TaskSpot: manage service taskers and profiles" },
-  { name: "Service Requests", description: "TaskSpot: manage customer service requests" },
-  { name: "Training Applications", description: "TaskSpot Part II: manage digital skills training applications" }
-];
-
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-  customSiteTitle: "Rise Motive API Documentation"
-}));
-
-// ── TSOA Routes ─────────────────────────────────────────────
+// ========================
+// tsoa routes
+// ========================
 RegisterRoutes(app);
 
-// ── Error Handlers ───────────────────────────────────────────
-app.use(notFound);
-app.use(errorHandler);
+// ========================
+// Cron jobs
+// ========================
+startReportCron();
 
-// ── Start Server ─────────────────────────────────────────────
-async function startServer() {
-  // Run migrations and seed data (only on production)
-  if (process.env.NODE_ENV === 'production') {
-    try {
-      console.log('Running database migrations...');
-      execSync('npx prisma migrate deploy', { stdio: 'inherit' });
-      console.log('Migrations completed successfully!');
-    } catch (error: any) {
-      console.log('Migrations already applied or failed:', error.message);
-    }
-    
-    try {
-      await createSuperAdmin();
-      console.log('SUPER_ADMIN seed completed');
-    } catch (error: any) {
-      console.log('SUPER_ADMIN already exists or seed failed:', error.message);
-    }
-  }
-  
-  app.listen(PORT as number, '0.0.0.0', () => {
-    console.log(`
-  
-    Rise Motive API
-    Running on http://localhost:${PORT}
-    Environment: ${process.env.NODE_ENV}
-  
-  `);
-  });
-}
+// ========================
+// Start server
+// ========================
+const PORT = process.env.PORT || 5000;
 
-startServer();
-
-export default app;
+app.listen(PORT, () => {
+  console.log("\n==============================");
+  console.log(` Server running at: http://localhost:${PORT}`);
+  console.log(` Swagger docs at:   http://localhost:${PORT}/docs`);
+  console.log("==============================\n");
+});

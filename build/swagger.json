@@ -1,0 +1,2361 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"_36_Enums.RequestStatus": {
+				"type": "string",
+				"enum": [
+					"PENDING",
+					"ASSIGNED",
+					"IN_PROGRESS",
+					"COMPLETED",
+					"CANCELLED"
+				]
+			},
+			"CreateWebDigitalRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateTaskerRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"specialties": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"phone",
+					"specialties"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateCreativeMediaRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateLegalOfficialRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateEGovRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateApplicationDocRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"_36_Enums.AdminRole": {
+				"type": "string",
+				"enum": [
+					"SUPER_ADMIN",
+					"ADMIN"
+				]
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	},
+	"info": {
+		"title": "rise-motive-be",
+		"version": "1.0.0",
+		"description": "Rise Motive Backend API",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/web-digital": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Web & Digital"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateWebDigitalRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"updatedAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"tasker": {
+														"type": "string"
+													},
+													"status": {
+														"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+													},
+													"preferredDate": {
+														"type": "string"
+													},
+													"documentUrl": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"service": {
+														"type": "string"
+													},
+													"customerEmail": {
+														"type": "string"
+													},
+													"customerPhone": {
+														"type": "string"
+													},
+													"customerName": {
+														"type": "string"
+													},
+													"trackingCode": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"updatedAt",
+													"createdAt",
+													"tasker",
+													"status",
+													"preferredDate",
+													"documentUrl",
+													"description",
+													"service",
+													"customerEmail",
+													"customerPhone",
+													"customerName",
+													"trackingCode"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Web & Digital"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/web-digital/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Web & Digital"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/training": {
+			"post": {
+				"operationId": "Apply",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Training"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Training"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/taskers": {
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Taskers"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Taskers"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTaskerRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/taskers/{id}": {
+			"get": {
+				"operationId": "GetOne",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Taskers"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Taskers"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateTaskerRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Taskers"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/services": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service Requests"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service Requests"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/services/{id}": {
+			"get": {
+				"operationId": "GetOne",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service Requests"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/services/{id}/assign/{taskerId}": {
+			"put": {
+				"operationId": "AssignTasker",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service Requests"
+				],
+				"security": [
+					{
+						"jwt": [
+							"ADMIN",
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "path",
+						"name": "taskerId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/services/{id}/status": {
+			"put": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service Requests"
+				],
+				"security": [
+					{
+						"jwt": [
+							"ADMIN",
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"status": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"status"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reports/generate": {
+			"post": {
+				"operationId": "Generate",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Reports"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/reports": {
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Reports"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/creative-media": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Creative Media"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateCreativeMediaRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"updatedAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"tasker": {
+														"type": "string"
+													},
+													"status": {
+														"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+													},
+													"preferredDate": {
+														"type": "string"
+													},
+													"documentUrl": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"service": {
+														"type": "string"
+													},
+													"customerEmail": {
+														"type": "string"
+													},
+													"customerPhone": {
+														"type": "string"
+													},
+													"customerName": {
+														"type": "string"
+													},
+													"trackingCode": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"updatedAt",
+													"createdAt",
+													"tasker",
+													"status",
+													"preferredDate",
+													"documentUrl",
+													"description",
+													"service",
+													"customerEmail",
+													"customerPhone",
+													"customerName",
+													"trackingCode"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Creative Media"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/creative-media/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Creative Media"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/legal": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Legal & Official"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateLegalOfficialRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"updatedAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"tasker": {
+														"type": "string"
+													},
+													"status": {
+														"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+													},
+													"preferredDate": {
+														"type": "string"
+													},
+													"documentUrl": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"service": {
+														"type": "string"
+													},
+													"customerEmail": {
+														"type": "string"
+													},
+													"customerPhone": {
+														"type": "string"
+													},
+													"customerName": {
+														"type": "string"
+													},
+													"trackingCode": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"updatedAt",
+													"createdAt",
+													"tasker",
+													"status",
+													"preferredDate",
+													"documentUrl",
+													"description",
+													"service",
+													"customerEmail",
+													"customerPhone",
+													"customerName",
+													"trackingCode"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Legal & Official"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/legal/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Legal & Official"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/egov": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"E-Government"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateEGovRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"updatedAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"tasker": {
+														"type": "string"
+													},
+													"status": {
+														"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+													},
+													"preferredDate": {
+														"type": "string"
+													},
+													"documentUrl": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"service": {
+														"type": "string"
+													},
+													"customerEmail": {
+														"type": "string"
+													},
+													"customerPhone": {
+														"type": "string"
+													},
+													"customerName": {
+														"type": "string"
+													},
+													"trackingCode": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"updatedAt",
+													"createdAt",
+													"tasker",
+													"status",
+													"preferredDate",
+													"documentUrl",
+													"description",
+													"service",
+													"customerEmail",
+													"customerPhone",
+													"customerName",
+													"trackingCode"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"E-Government"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/egov/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"E-Government"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"admin": {},
+										"token": {}
+									},
+									"required": [
+										"admin",
+										"token"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/application-docs": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Application Documents"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateApplicationDocRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"updatedAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"tasker": {
+														"type": "string"
+													},
+													"status": {
+														"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+													},
+													"preferredDate": {
+														"type": "string"
+													},
+													"documentUrl": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"service": {
+														"type": "string"
+													},
+													"customerEmail": {
+														"type": "string"
+													},
+													"customerPhone": {
+														"type": "string"
+													},
+													"customerName": {
+														"type": "string"
+													},
+													"trackingCode": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"updatedAt",
+													"createdAt",
+													"tasker",
+													"status",
+													"preferredDate",
+													"documentUrl",
+													"description",
+													"service",
+													"customerEmail",
+													"customerPhone",
+													"customerName",
+													"trackingCode"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Application Documents"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/application-docs/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Application Documents"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/admin": {
+			"get": {
+				"operationId": "GetAllAdmins",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"properties": {
+											"isActive": {
+												"type": "boolean"
+											},
+											"role": {
+												"$ref": "#/components/schemas/_36_Enums.AdminRole"
+											},
+											"email": {
+												"type": "string"
+											},
+											"fullName": {
+												"type": "string"
+											},
+											"id": {
+												"type": "number",
+												"format": "double"
+											},
+											"updatedAt": {
+												"type": "string",
+												"format": "date-time"
+											},
+											"createdAt": {
+												"type": "string",
+												"format": "date-time"
+											}
+										},
+										"required": [
+											"isActive",
+											"role",
+											"email",
+											"fullName",
+											"id",
+											"updatedAt",
+											"createdAt"
+										],
+										"type": "object"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/admin/activate/{id}": {
+			"put": {
+				"operationId": "Activate",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"lockedUntil": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"loginAttempts": {
+											"type": "number",
+											"format": "double"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"role": {
+											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+										},
+										"password": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"profilePicture": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"lockedUntil",
+										"loginAttempts",
+										"isActive",
+										"role",
+										"password",
+										"email",
+										"profilePicture",
+										"fullName",
+										"id",
+										"updatedAt",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/admin/deactivate/{id}": {
+			"put": {
+				"operationId": "Deactivate",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"lockedUntil": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"loginAttempts": {
+											"type": "number",
+											"format": "double"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"role": {
+											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+										},
+										"password": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"profilePicture": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"lockedUntil",
+										"loginAttempts",
+										"isActive",
+										"role",
+										"password",
+										"email",
+										"profilePicture",
+										"fullName",
+										"id",
+										"updatedAt",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
