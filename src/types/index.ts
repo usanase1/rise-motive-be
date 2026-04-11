@@ -2,6 +2,8 @@
 // ENUMS (from Prisma)
 // ===============================
 
+import { CreativeMediaRequest } from "@prisma/client";
+
 export enum RequestStatus {
   PENDING = "PENDING",
   ASSIGNED = "ASSIGNED",
@@ -67,9 +69,22 @@ export interface CreateEGovRequest {
   tasker?: string;
 }
 
+export interface UpdateEGovRequest extends CreateEGovRequest{}
+
 // ===============================
 export interface CreateApplicationDocRequest {
   customerName: string;
+  customerPhone: string;
+  customerEmail?: string;
+  service?: string;
+  description: string;
+  documentUrl?: string;
+  preferredDate?: string;
+  tasker?: string;
+}
+
+export interface UpdateApplicationDocRequest {
+    customerName: string;
   customerPhone: string;
   customerEmail?: string;
   service?: string;
@@ -91,6 +106,8 @@ export interface CreateCreativeMediaRequest {
   tasker?: string;
 }
 
+export interface UpdateCreativeMediaRequest extends CreativeMediaRequest{}
+
 // ===============================
 export interface CreateWebDigitalRequest {
   customerName: string;
@@ -103,6 +120,8 @@ export interface CreateWebDigitalRequest {
   tasker?: string;
 }
 
+export interface UpdateWebDigitalRequest extends CreateWebDigitalRequest{}
+
 // ===============================
 export interface CreateLegalOfficialRequest {
   customerName: string;
@@ -114,6 +133,8 @@ export interface CreateLegalOfficialRequest {
   preferredDate?: string;
   tasker?: string;
 }
+
+export interface UpdateLegalOfficialRequest extends CreateLegalOfficialRequest{}
 
 // ===============================
 // ORDER
@@ -172,10 +193,12 @@ export interface CreateTaskerRequest {
   specialties: string;
   isActive?: boolean;
 }
+
+export interface UpdateTaskerRequest extends CreateTaskerRequest{}
 // ===============================
 // TRAINING
 // ===============================
-export interface CreateTrainingApplicationRequest {
+export interface  CreateTrainingRequest {
   fullName: string;
   phone: string;
   email?: string;
@@ -183,3 +206,5 @@ export interface CreateTrainingApplicationRequest {
   preferredSchedule?: string;
   experienceLevel?: ExperienceLevel;
 }
+
+export interface  UpdateTrainingRequest  extends CreateTrainingRequest{}

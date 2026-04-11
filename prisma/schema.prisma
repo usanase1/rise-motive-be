@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+ 
 }
 
 // Report 
@@ -283,6 +284,7 @@ model Admin {
   profilePicture  String?
   email           String    @unique
   password        String
+   tokenBlacklists TokenBlacklist[]
 
   role            AdminRole @default(ADMIN)
   isActive        Boolean   @default(true)
@@ -298,4 +300,14 @@ model Admin {
 enum AdminRole {
   SUPER_ADMIN
   ADMIN
+}
+
+model TokenBlacklist {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  adminId   Int
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  admin     Admin    @relation(fields: [adminId], references: [id])
 }

@@ -1,16 +1,15 @@
-import { Get, Post, Route, Tags, Body, Path } from "tsoa";
+import { Get, Post, Put, Delete, Route, Tags, Body, Path, SuccessResponse } from "tsoa";
 import { WebDigitalService } from "../services/Web";
-import { CreateWebDigitalRequest } from "../types";
+import { CreateWebDigitalRequest, UpdateWebDigitalRequest } from "../types";
 
 @Route("web-digital")
 @Tags("Web & Digital")
 export class WebDigitalController {
 
   // CREATE
+  @SuccessResponse(201, "Created")
   @Post("/")
-  public async create(
-    @Body() body: CreateWebDigitalRequest
-  ) {
+  public async create(@Body() body: CreateWebDigitalRequest) {
     return WebDigitalService.create(body);
   }
 
@@ -20,11 +19,24 @@ export class WebDigitalController {
     return WebDigitalService.getAll();
   }
 
-  // GET BY ID
+  // GET ONE BY ID
   @Get("/{id}")
-  public async getById(
-    @Path() id: number
-  ) {
+  public async getById(@Path() id: number) {
     return WebDigitalService.getById(id);
+  }
+
+  // UPDATE
+  @Put("/{id}")
+  public async update(
+    @Path() id: number,
+    @Body() body: UpdateWebDigitalRequest
+  ) {
+    return WebDigitalService.update(id, body);
+  }
+
+  // DELETE
+  @Delete("/{id}")
+  public async delete(@Path() id: number) {
+    return WebDigitalService.delete(id);
   }
 }

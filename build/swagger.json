@@ -52,6 +52,162 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"UpdateWebDigitalRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"_36_Enums.ApplicationStatus": {
+				"type": "string",
+				"enum": [
+					"PENDING",
+					"ACCEPTED",
+					"REJECTED"
+				]
+			},
+			"_36_Enums.TrainingCourse": {
+				"type": "string",
+				"enum": [
+					"COMPUTER_FOUNDATIONS",
+					"MICROSOFT_OFFICE",
+					"GOOGLE_TOOLS",
+					"E_GOVERNMENT_TOOLS",
+					"DIGITAL_CONTENT_CREATION",
+					"GRAPHIC_DESIGN",
+					"AI_AND_DIGITAL_TOOLS",
+					"BASIC_PROGRAMMING"
+				]
+			},
+			"_36_Enums.ExperienceLevel": {
+				"type": "string",
+				"enum": [
+					"BEGINNER",
+					"INTERMEDIATE"
+				]
+			},
+			"TrainingCourse": {
+				"enum": [
+					"COMPUTER_FOUNDATIONS",
+					"MICROSOFT_OFFICE",
+					"GOOGLE_TOOLS",
+					"E_GOVERNMENT_TOOLS",
+					"DIGITAL_CONTENT_CREATION",
+					"GRAPHIC_DESIGN",
+					"AI_AND_DIGITAL_TOOLS",
+					"BASIC_PROGRAMMING"
+				],
+				"type": "string"
+			},
+			"ExperienceLevel": {
+				"enum": [
+					"BEGINNER",
+					"INTERMEDIATE"
+				],
+				"type": "string"
+			},
+			"CreateTrainingRequest": {
+				"properties": {
+					"fullName": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"selectedCourse": {
+						"$ref": "#/components/schemas/TrainingCourse"
+					},
+					"preferredSchedule": {
+						"type": "string"
+					},
+					"experienceLevel": {
+						"$ref": "#/components/schemas/ExperienceLevel"
+					}
+				},
+				"required": [
+					"fullName",
+					"phone",
+					"selectedCourse"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateTrainingRequest": {
+				"properties": {
+					"fullName": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"selectedCourse": {
+						"$ref": "#/components/schemas/TrainingCourse"
+					},
+					"preferredSchedule": {
+						"type": "string"
+					},
+					"experienceLevel": {
+						"$ref": "#/components/schemas/ExperienceLevel"
+					}
+				},
+				"required": [
+					"fullName",
+					"phone",
+					"selectedCourse"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApplicationStatus": {
+				"$ref": "#/components/schemas/_36_Enums.ApplicationStatus"
+			},
+			"UpdateStatusBody": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApplicationStatus"
+					}
+				},
+				"required": [
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"CreateTaskerRequest": {
 				"properties": {
 					"name": {
@@ -74,6 +230,187 @@
 					"name",
 					"phone",
 					"specialties"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateTaskerRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"specialties": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"phone",
+					"specialties"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateReportBody": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"summary": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateProductRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"inStock": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"name",
+					"category"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"_36_Enums.OrderStatus": {
+				"type": "string",
+				"enum": [
+					"PENDING",
+					"CANCELLED",
+					"CONFIRMED",
+					"OUT_FOR_DELIVERY",
+					"DELIVERED"
+				]
+			},
+			"UpdateProductRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"inStock": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateOrderRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"paymentMethod": {
+						"type": "string"
+					},
+					"note": {
+						"type": "string"
+					},
+					"productId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"address",
+					"productId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OrderStatus": {
+				"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+			},
+			"UpdateOrderRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"paymentMethod": {
+						"type": "string"
+					},
+					"note": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateOrderStatusBody": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/OrderStatus"
+					}
+				},
+				"required": [
+					"status"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -113,6 +450,131 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"DefaultSelection_Prisma._36_CreativeMediaRequestPayload_": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"tasker": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerName": {
+						"type": "string"
+					},
+					"trackingCode": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"updatedAt",
+					"createdAt",
+					"tasker",
+					"status",
+					"preferredDate",
+					"documentUrl",
+					"description",
+					"service",
+					"customerEmail",
+					"customerPhone",
+					"customerName",
+					"trackingCode"
+				],
+				"type": "object"
+			},
+			"UpdateCreativeMediaRequest": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"tasker": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerName": {
+						"type": "string"
+					},
+					"trackingCode": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"updatedAt",
+					"createdAt",
+					"tasker",
+					"status",
+					"preferredDate",
+					"documentUrl",
+					"description",
+					"service",
+					"customerEmail",
+					"customerPhone",
+					"customerName",
+					"trackingCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"CreateLegalOfficialRequest": {
 				"properties": {
 					"customerName": {
@@ -145,6 +607,119 @@
 					"customerPhone",
 					"description"
 				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateLegalOfficialRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"_36_Enums.InfoCategory": {
+				"type": "string",
+				"enum": [
+					"JOB",
+					"SCHOLARSHIP",
+					"COMPETITION",
+					"COMMUNITY",
+					"ADVISORY"
+				]
+			},
+			"InfoCategory": {
+				"$ref": "#/components/schemas/_36_Enums.InfoCategory"
+			},
+			"CreateInfoPostRequest": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"category": {
+						"$ref": "#/components/schemas/InfoCategory"
+					},
+					"deadline": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"applyLink": {
+						"type": "string"
+					},
+					"contactInfo": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"category"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateInfoPostRequest": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"category": {
+						"$ref": "#/components/schemas/InfoCategory"
+					},
+					"deadline": {
+						"type": "string"
+					},
+					"location": {
+						"type": "string"
+					},
+					"applyLink": {
+						"type": "string"
+					},
+					"contactInfo": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -183,23 +758,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"LoginRequest": {
-				"properties": {
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"email",
-					"password"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"CreateApplicationDocRequest": {
+			"UpdateEGovRequest": {
 				"properties": {
 					"customerName": {
 						"type": "string"
@@ -240,6 +799,169 @@
 					"SUPER_ADMIN",
 					"ADMIN"
 				]
+			},
+			"LoginRequest": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateProfileRequest": {
+				"properties": {
+					"fullName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ChangePasswordRequest": {
+				"properties": {
+					"currentPassword": {
+						"type": "string"
+					},
+					"newPassword": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"currentPassword",
+					"newPassword"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateApplicationDocRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateApplicationDocRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"documentUrl": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					},
+					"tasker": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"customerName",
+					"customerPhone",
+					"description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateAdminBody": {
+				"properties": {
+					"fullName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string",
+						"enum": [
+							"ADMIN",
+							"SUPER_ADMIN"
+						]
+					}
+				},
+				"required": [
+					"fullName",
+					"email",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateAdminBody": {
+				"properties": {
+					"fullName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string",
+						"enum": [
+							"ADMIN",
+							"SUPER_ADMIN"
+						]
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -264,8 +986,8 @@
 			"post": {
 				"operationId": "Create",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -535,17 +1257,249 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Web & Digital"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateWebDigitalRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Web & Digital"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/training": {
 			"post": {
 				"operationId": "Apply",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"experienceLevel": {
+											"$ref": "#/components/schemas/_36_Enums.ExperienceLevel"
+										},
+										"preferredSchedule": {
+											"type": "string"
+										},
+										"selectedCourse": {
+											"$ref": "#/components/schemas/_36_Enums.TrainingCourse"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.ApplicationStatus"
+										}
+									},
+									"required": [
+										"experienceLevel",
+										"preferredSchedule",
+										"selectedCourse",
+										"email",
+										"phone",
+										"fullName",
+										"id",
+										"createdAt",
+										"status"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -559,7 +1513,9 @@
 					"required": true,
 					"content": {
 						"application/json": {
-							"schema": {}
+							"schema": {
+								"$ref": "#/components/schemas/CreateTrainingRequest"
+							}
 						}
 					}
 				}
@@ -571,7 +1527,67 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"experienceLevel": {
+														"$ref": "#/components/schemas/_36_Enums.ExperienceLevel"
+													},
+													"preferredSchedule": {
+														"type": "string"
+													},
+													"selectedCourse": {
+														"$ref": "#/components/schemas/_36_Enums.TrainingCourse"
+													},
+													"email": {
+														"type": "string"
+													},
+													"phone": {
+														"type": "string"
+													},
+													"fullName": {
+														"type": "string"
+													},
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"status": {
+														"$ref": "#/components/schemas/_36_Enums.ApplicationStatus"
+													}
+												},
+												"required": [
+													"experienceLevel",
+													"preferredSchedule",
+													"selectedCourse",
+													"email",
+													"phone",
+													"fullName",
+													"id",
+													"createdAt",
+													"status"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -583,6 +1599,318 @@
 				"parameters": []
 			}
 		},
+		"/training/{id}": {
+			"get": {
+				"operationId": "GetOne",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"experienceLevel": {
+											"$ref": "#/components/schemas/_36_Enums.ExperienceLevel"
+										},
+										"preferredSchedule": {
+											"type": "string"
+										},
+										"selectedCourse": {
+											"$ref": "#/components/schemas/_36_Enums.TrainingCourse"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.ApplicationStatus"
+										}
+									},
+									"required": [
+										"experienceLevel",
+										"preferredSchedule",
+										"selectedCourse",
+										"email",
+										"phone",
+										"fullName",
+										"id",
+										"createdAt",
+										"status"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Training"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"experienceLevel": {
+											"$ref": "#/components/schemas/_36_Enums.ExperienceLevel"
+										},
+										"preferredSchedule": {
+											"type": "string"
+										},
+										"selectedCourse": {
+											"$ref": "#/components/schemas/_36_Enums.TrainingCourse"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.ApplicationStatus"
+										}
+									},
+									"required": [
+										"experienceLevel",
+										"preferredSchedule",
+										"selectedCourse",
+										"email",
+										"phone",
+										"fullName",
+										"id",
+										"createdAt",
+										"status"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Training"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateTrainingRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"experienceLevel": {
+											"$ref": "#/components/schemas/_36_Enums.ExperienceLevel"
+										},
+										"preferredSchedule": {
+											"type": "string"
+										},
+										"selectedCourse": {
+											"$ref": "#/components/schemas/_36_Enums.TrainingCourse"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.ApplicationStatus"
+										}
+									},
+									"required": [
+										"experienceLevel",
+										"preferredSchedule",
+										"selectedCourse",
+										"email",
+										"phone",
+										"fullName",
+										"id",
+										"createdAt",
+										"status"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Training"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/training/{id}/status": {
+			"put": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"experienceLevel": {
+											"$ref": "#/components/schemas/_36_Enums.ExperienceLevel"
+										},
+										"preferredSchedule": {
+											"type": "string"
+										},
+										"selectedCourse": {
+											"$ref": "#/components/schemas/_36_Enums.TrainingCourse"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.ApplicationStatus"
+										}
+									},
+									"required": [
+										"experienceLevel",
+										"preferredSchedule",
+										"selectedCourse",
+										"email",
+										"phone",
+										"fullName",
+										"id",
+										"createdAt",
+										"status"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Training"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateStatusBody"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/taskers": {
 			"get": {
 				"operationId": "GetAll",
@@ -591,7 +1919,59 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"isActive": {
+														"type": "boolean"
+													},
+													"specialties": {
+														"type": "string"
+													},
+													"email": {
+														"type": "string"
+													},
+													"phone": {
+														"type": "string"
+													},
+													"name": {
+														"type": "string"
+													},
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													}
+												},
+												"required": [
+													"isActive",
+													"specialties",
+													"email",
+													"phone",
+													"name",
+													"id",
+													"createdAt"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -605,11 +1985,47 @@
 			"post": {
 				"operationId": "Create",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"isActive": {
+											"type": "boolean"
+										},
+										"specialties": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"isActive",
+										"specialties",
+										"email",
+										"phone",
+										"name",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -639,7 +2055,43 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"isActive": {
+											"type": "boolean"
+										},
+										"specialties": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"isActive",
+										"specialties",
+										"email",
+										"phone",
+										"name",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -667,7 +2119,43 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"isActive": {
+											"type": "boolean"
+										},
+										"specialties": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"isActive",
+										"specialties",
+										"email",
+										"phone",
+										"name",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -692,7 +2180,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CreateTaskerRequest"
+								"$ref": "#/components/schemas/UpdateTaskerRequest"
 							}
 						}
 					}
@@ -705,7 +2193,109 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"isActive": {
+											"type": "boolean"
+										},
+										"specialties": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"isActive",
+										"specialties",
+										"email",
+										"phone",
+										"name",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Taskers"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/taskers/{id}/toggle-active": {
+			"put": {
+				"operationId": "ToggleActive",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"isActive": {
+											"type": "boolean"
+										},
+										"specialties": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"isActive",
+										"specialties",
+										"email",
+										"phone",
+										"name",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -912,7 +2502,51 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"totalServices": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalTasks": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalOrders": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalUsers": {
+											"type": "number",
+											"format": "double"
+										},
+										"summary": {
+											"type": "string"
+										},
+										"title": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"totalServices",
+										"totalTasks",
+										"totalOrders",
+										"totalUsers",
+										"summary",
+										"title",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -938,7 +2572,67 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"totalServices": {
+														"type": "number",
+														"format": "double"
+													},
+													"totalTasks": {
+														"type": "number",
+														"format": "double"
+													},
+													"totalOrders": {
+														"type": "number",
+														"format": "double"
+													},
+													"totalUsers": {
+														"type": "number",
+														"format": "double"
+													},
+													"summary": {
+														"type": "string"
+													},
+													"title": {
+														"type": "string"
+													},
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													}
+												},
+												"required": [
+													"totalServices",
+													"totalTasks",
+													"totalOrders",
+													"totalUsers",
+													"summary",
+													"title",
+													"id",
+													"createdAt"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
@@ -956,12 +2650,1836 @@
 				"parameters": []
 			}
 		},
+		"/reports/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"totalServices": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalTasks": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalOrders": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalUsers": {
+											"type": "number",
+											"format": "double"
+										},
+										"summary": {
+											"type": "string"
+										},
+										"title": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"totalServices",
+										"totalTasks",
+										"totalOrders",
+										"totalUsers",
+										"summary",
+										"title",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Reports"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"totalServices": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalTasks": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalOrders": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalUsers": {
+											"type": "number",
+											"format": "double"
+										},
+										"summary": {
+											"type": "string"
+										},
+										"title": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"totalServices",
+										"totalTasks",
+										"totalOrders",
+										"totalUsers",
+										"summary",
+										"title",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Reports"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateReportBody"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"totalServices": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalTasks": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalOrders": {
+											"type": "number",
+											"format": "double"
+										},
+										"totalUsers": {
+											"type": "number",
+											"format": "double"
+										},
+										"summary": {
+											"type": "string"
+										},
+										"title": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"totalServices",
+										"totalTasks",
+										"totalOrders",
+										"totalUsers",
+										"summary",
+										"title",
+										"id",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Reports"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/products": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"inStock": {
+											"type": "boolean"
+										},
+										"imageUrl": {
+											"type": "string"
+										},
+										"category": {
+											"type": "string"
+										},
+										"price": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"inStock",
+										"imageUrl",
+										"category",
+										"price",
+										"name",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Products"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateProductRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"inStock": {
+														"type": "boolean"
+													},
+													"imageUrl": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string"
+													},
+													"price": {
+														"type": "string"
+													},
+													"name": {
+														"type": "string"
+													},
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"description": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"inStock",
+													"imageUrl",
+													"category",
+													"price",
+													"name",
+													"id",
+													"createdAt",
+													"description"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/products/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"properties": {
+												"orders": {
+													"items": {
+														"properties": {
+															"productId": {
+																"type": "number",
+																"format": "double"
+															},
+															"note": {
+																"type": "string"
+															},
+															"paymentMethod": {
+																"type": "string"
+															},
+															"quantity": {
+																"type": "number",
+																"format": "double"
+															},
+															"address": {
+																"type": "string"
+															},
+															"id": {
+																"type": "number",
+																"format": "double"
+															},
+															"updatedAt": {
+																"type": "string",
+																"format": "date-time"
+															},
+															"createdAt": {
+																"type": "string",
+																"format": "date-time"
+															},
+															"status": {
+																"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+															},
+															"customerEmail": {
+																"type": "string"
+															},
+															"customerPhone": {
+																"type": "string"
+															},
+															"customerName": {
+																"type": "string"
+															},
+															"trackingCode": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"productId",
+															"note",
+															"paymentMethod",
+															"quantity",
+															"address",
+															"id",
+															"updatedAt",
+															"createdAt",
+															"status",
+															"customerEmail",
+															"customerPhone",
+															"customerName",
+															"trackingCode"
+														],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": [
+												"orders"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"inStock": {
+													"type": "boolean"
+												},
+												"imageUrl": {
+													"type": "string"
+												},
+												"category": {
+													"type": "string"
+												},
+												"price": {
+													"type": "string"
+												},
+												"name": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"description": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"inStock",
+												"imageUrl",
+												"category",
+												"price",
+												"name",
+												"id",
+												"createdAt",
+												"description"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"inStock": {
+											"type": "boolean"
+										},
+										"imageUrl": {
+											"type": "string"
+										},
+										"category": {
+											"type": "string"
+										},
+										"price": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"inStock",
+										"imageUrl",
+										"category",
+										"price",
+										"name",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Products"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateProductRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"inStock": {
+											"type": "boolean"
+										},
+										"imageUrl": {
+											"type": "string"
+										},
+										"category": {
+											"type": "string"
+										},
+										"price": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"inStock",
+										"imageUrl",
+										"category",
+										"price",
+										"name",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Products"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/products/{id}/toggle-stock": {
+			"put": {
+				"operationId": "ToggleStock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"inStock": {
+											"type": "boolean"
+										},
+										"imageUrl": {
+											"type": "string"
+										},
+										"category": {
+											"type": "string"
+										},
+										"price": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"inStock",
+										"imageUrl",
+										"category",
+										"price",
+										"name",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Products"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/orders": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"properties": {
+												"product": {
+													"properties": {
+														"inStock": {
+															"type": "boolean"
+														},
+														"imageUrl": {
+															"type": "string"
+														},
+														"category": {
+															"type": "string"
+														},
+														"price": {
+															"type": "string"
+														},
+														"name": {
+															"type": "string"
+														},
+														"id": {
+															"type": "number",
+															"format": "double"
+														},
+														"createdAt": {
+															"type": "string",
+															"format": "date-time"
+														},
+														"description": {
+															"type": "string"
+														}
+													},
+													"required": [
+														"inStock",
+														"imageUrl",
+														"category",
+														"price",
+														"name",
+														"id",
+														"createdAt",
+														"description"
+													],
+													"type": "object"
+												}
+											},
+											"required": [
+												"product"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"productId": {
+													"type": "number",
+													"format": "double"
+												},
+												"note": {
+													"type": "string"
+												},
+												"paymentMethod": {
+													"type": "string"
+												},
+												"quantity": {
+													"type": "number",
+													"format": "double"
+												},
+												"address": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"status": {
+													"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+												},
+												"customerEmail": {
+													"type": "string"
+												},
+												"customerPhone": {
+													"type": "string"
+												},
+												"customerName": {
+													"type": "string"
+												},
+												"trackingCode": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"productId",
+												"note",
+												"paymentMethod",
+												"quantity",
+												"address",
+												"id",
+												"updatedAt",
+												"createdAt",
+												"status",
+												"customerEmail",
+												"customerPhone",
+												"customerName",
+												"trackingCode"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateOrderRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"allOf": [
+													{
+														"properties": {
+															"product": {
+																"properties": {
+																	"inStock": {
+																		"type": "boolean"
+																	},
+																	"imageUrl": {
+																		"type": "string"
+																	},
+																	"category": {
+																		"type": "string"
+																	},
+																	"price": {
+																		"type": "string"
+																	},
+																	"name": {
+																		"type": "string"
+																	},
+																	"id": {
+																		"type": "number",
+																		"format": "double"
+																	},
+																	"createdAt": {
+																		"type": "string",
+																		"format": "date-time"
+																	},
+																	"description": {
+																		"type": "string"
+																	}
+																},
+																"required": [
+																	"inStock",
+																	"imageUrl",
+																	"category",
+																	"price",
+																	"name",
+																	"id",
+																	"createdAt",
+																	"description"
+																],
+																"type": "object"
+															}
+														},
+														"required": [
+															"product"
+														],
+														"type": "object"
+													},
+													{
+														"properties": {
+															"productId": {
+																"type": "number",
+																"format": "double"
+															},
+															"note": {
+																"type": "string"
+															},
+															"paymentMethod": {
+																"type": "string"
+															},
+															"quantity": {
+																"type": "number",
+																"format": "double"
+															},
+															"address": {
+																"type": "string"
+															},
+															"id": {
+																"type": "number",
+																"format": "double"
+															},
+															"updatedAt": {
+																"type": "string",
+																"format": "date-time"
+															},
+															"createdAt": {
+																"type": "string",
+																"format": "date-time"
+															},
+															"status": {
+																"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+															},
+															"customerEmail": {
+																"type": "string"
+															},
+															"customerPhone": {
+																"type": "string"
+															},
+															"customerName": {
+																"type": "string"
+															},
+															"trackingCode": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"productId",
+															"note",
+															"paymentMethod",
+															"quantity",
+															"address",
+															"id",
+															"updatedAt",
+															"createdAt",
+															"status",
+															"customerEmail",
+															"customerPhone",
+															"customerName",
+															"trackingCode"
+														],
+														"type": "object"
+													}
+												]
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
+						"schema": {
+							"$ref": "#/components/schemas/OrderStatus"
+						}
+					}
+				]
+			}
+		},
+		"/orders/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"properties": {
+												"product": {
+													"properties": {
+														"inStock": {
+															"type": "boolean"
+														},
+														"imageUrl": {
+															"type": "string"
+														},
+														"category": {
+															"type": "string"
+														},
+														"price": {
+															"type": "string"
+														},
+														"name": {
+															"type": "string"
+														},
+														"id": {
+															"type": "number",
+															"format": "double"
+														},
+														"createdAt": {
+															"type": "string",
+															"format": "date-time"
+														},
+														"description": {
+															"type": "string"
+														}
+													},
+													"required": [
+														"inStock",
+														"imageUrl",
+														"category",
+														"price",
+														"name",
+														"id",
+														"createdAt",
+														"description"
+													],
+													"type": "object"
+												}
+											},
+											"required": [
+												"product"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"productId": {
+													"type": "number",
+													"format": "double"
+												},
+												"note": {
+													"type": "string"
+												},
+												"paymentMethod": {
+													"type": "string"
+												},
+												"quantity": {
+													"type": "number",
+													"format": "double"
+												},
+												"address": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"status": {
+													"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+												},
+												"customerEmail": {
+													"type": "string"
+												},
+												"customerPhone": {
+													"type": "string"
+												},
+												"customerName": {
+													"type": "string"
+												},
+												"trackingCode": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"productId",
+												"note",
+												"paymentMethod",
+												"quantity",
+												"address",
+												"id",
+												"updatedAt",
+												"createdAt",
+												"status",
+												"customerEmail",
+												"customerPhone",
+												"customerName",
+												"trackingCode"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"properties": {
+												"product": {
+													"properties": {
+														"inStock": {
+															"type": "boolean"
+														},
+														"imageUrl": {
+															"type": "string"
+														},
+														"category": {
+															"type": "string"
+														},
+														"price": {
+															"type": "string"
+														},
+														"name": {
+															"type": "string"
+														},
+														"id": {
+															"type": "number",
+															"format": "double"
+														},
+														"createdAt": {
+															"type": "string",
+															"format": "date-time"
+														},
+														"description": {
+															"type": "string"
+														}
+													},
+													"required": [
+														"inStock",
+														"imageUrl",
+														"category",
+														"price",
+														"name",
+														"id",
+														"createdAt",
+														"description"
+													],
+													"type": "object"
+												}
+											},
+											"required": [
+												"product"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"productId": {
+													"type": "number",
+													"format": "double"
+												},
+												"note": {
+													"type": "string"
+												},
+												"paymentMethod": {
+													"type": "string"
+												},
+												"quantity": {
+													"type": "number",
+													"format": "double"
+												},
+												"address": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"status": {
+													"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+												},
+												"customerEmail": {
+													"type": "string"
+												},
+												"customerPhone": {
+													"type": "string"
+												},
+												"customerName": {
+													"type": "string"
+												},
+												"trackingCode": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"productId",
+												"note",
+												"paymentMethod",
+												"quantity",
+												"address",
+												"id",
+												"updatedAt",
+												"createdAt",
+												"status",
+												"customerEmail",
+												"customerPhone",
+												"customerName",
+												"trackingCode"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateOrderRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"productId": {
+											"type": "number",
+											"format": "double"
+										},
+										"note": {
+											"type": "string"
+										},
+										"paymentMethod": {
+											"type": "string"
+										},
+										"quantity": {
+											"type": "number",
+											"format": "double"
+										},
+										"address": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"productId",
+										"note",
+										"paymentMethod",
+										"quantity",
+										"address",
+										"id",
+										"updatedAt",
+										"createdAt",
+										"status",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/orders/track/{trackingCode}": {
+			"get": {
+				"operationId": "Track",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"properties": {
+												"product": {
+													"properties": {
+														"inStock": {
+															"type": "boolean"
+														},
+														"imageUrl": {
+															"type": "string"
+														},
+														"category": {
+															"type": "string"
+														},
+														"price": {
+															"type": "string"
+														},
+														"name": {
+															"type": "string"
+														},
+														"id": {
+															"type": "number",
+															"format": "double"
+														},
+														"createdAt": {
+															"type": "string",
+															"format": "date-time"
+														},
+														"description": {
+															"type": "string"
+														}
+													},
+													"required": [
+														"inStock",
+														"imageUrl",
+														"category",
+														"price",
+														"name",
+														"id",
+														"createdAt",
+														"description"
+													],
+													"type": "object"
+												}
+											},
+											"required": [
+												"product"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"productId": {
+													"type": "number",
+													"format": "double"
+												},
+												"note": {
+													"type": "string"
+												},
+												"paymentMethod": {
+													"type": "string"
+												},
+												"quantity": {
+													"type": "number",
+													"format": "double"
+												},
+												"address": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"status": {
+													"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+												},
+												"customerEmail": {
+													"type": "string"
+												},
+												"customerPhone": {
+													"type": "string"
+												},
+												"customerName": {
+													"type": "string"
+												},
+												"trackingCode": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"productId",
+												"note",
+												"paymentMethod",
+												"quantity",
+												"address",
+												"id",
+												"updatedAt",
+												"createdAt",
+												"status",
+												"customerEmail",
+												"customerPhone",
+												"customerName",
+												"trackingCode"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "trackingCode",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/orders/{id}/status": {
+			"put": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"properties": {
+												"product": {
+													"properties": {
+														"inStock": {
+															"type": "boolean"
+														},
+														"imageUrl": {
+															"type": "string"
+														},
+														"category": {
+															"type": "string"
+														},
+														"price": {
+															"type": "string"
+														},
+														"name": {
+															"type": "string"
+														},
+														"id": {
+															"type": "number",
+															"format": "double"
+														},
+														"createdAt": {
+															"type": "string",
+															"format": "date-time"
+														},
+														"description": {
+															"type": "string"
+														}
+													},
+													"required": [
+														"inStock",
+														"imageUrl",
+														"category",
+														"price",
+														"name",
+														"id",
+														"createdAt",
+														"description"
+													],
+													"type": "object"
+												}
+											},
+											"required": [
+												"product"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"productId": {
+													"type": "number",
+													"format": "double"
+												},
+												"note": {
+													"type": "string"
+												},
+												"paymentMethod": {
+													"type": "string"
+												},
+												"quantity": {
+													"type": "number",
+													"format": "double"
+												},
+												"address": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"status": {
+													"$ref": "#/components/schemas/_36_Enums.OrderStatus"
+												},
+												"customerEmail": {
+													"type": "string"
+												},
+												"customerPhone": {
+													"type": "string"
+												},
+												"customerName": {
+													"type": "string"
+												},
+												"trackingCode": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"productId",
+												"note",
+												"paymentMethod",
+												"quantity",
+												"address",
+												"id",
+												"updatedAt",
+												"createdAt",
+												"status",
+												"customerEmail",
+												"customerPhone",
+												"customerName",
+												"trackingCode"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateOrderStatusBody"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/creative-media": {
 			"post": {
 				"operationId": "Create",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1231,14 +4749,202 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Creative Media"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateCreativeMediaRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Creative Media"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/legal": {
 			"post": {
 				"operationId": "Create",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1508,14 +5214,725 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Legal & Official"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateLegalOfficialRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Legal & Official"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/info-posts": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"contactInfo": {
+											"type": "string"
+										},
+										"applyLink": {
+											"type": "string"
+										},
+										"location": {
+											"type": "string"
+										},
+										"deadline": {
+											"type": "string"
+										},
+										"category": {
+											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
+										},
+										"title": {
+											"type": "string"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"contactInfo",
+										"applyLink",
+										"location",
+										"deadline",
+										"category",
+										"title",
+										"isActive",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Info Posts"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateInfoPostRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"items": {
+											"items": {
+												"properties": {
+													"contactInfo": {
+														"type": "string"
+													},
+													"applyLink": {
+														"type": "string"
+													},
+													"location": {
+														"type": "string"
+													},
+													"deadline": {
+														"type": "string"
+													},
+													"category": {
+														"$ref": "#/components/schemas/_36_Enums.InfoCategory"
+													},
+													"title": {
+														"type": "string"
+													},
+													"isActive": {
+														"type": "boolean"
+													},
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"description": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"contactInfo",
+													"applyLink",
+													"location",
+													"deadline",
+													"category",
+													"title",
+													"isActive",
+													"id",
+													"createdAt",
+													"description"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"total": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"items",
+										"total"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Info Posts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"schema": {
+							"$ref": "#/components/schemas/InfoCategory"
+						}
+					},
+					{
+						"in": "query",
+						"name": "isActive",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/info-posts/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"contactInfo": {
+											"type": "string"
+										},
+										"applyLink": {
+											"type": "string"
+										},
+										"location": {
+											"type": "string"
+										},
+										"deadline": {
+											"type": "string"
+										},
+										"category": {
+											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
+										},
+										"title": {
+											"type": "string"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"contactInfo",
+										"applyLink",
+										"location",
+										"deadline",
+										"category",
+										"title",
+										"isActive",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Info Posts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"contactInfo": {
+											"type": "string"
+										},
+										"applyLink": {
+											"type": "string"
+										},
+										"location": {
+											"type": "string"
+										},
+										"deadline": {
+											"type": "string"
+										},
+										"category": {
+											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
+										},
+										"title": {
+											"type": "string"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"contactInfo",
+										"applyLink",
+										"location",
+										"deadline",
+										"category",
+										"title",
+										"isActive",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Info Posts"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateInfoPostRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"contactInfo": {
+											"type": "string"
+										},
+										"applyLink": {
+											"type": "string"
+										},
+										"location": {
+											"type": "string"
+										},
+										"deadline": {
+											"type": "string"
+										},
+										"category": {
+											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
+										},
+										"title": {
+											"type": "string"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"contactInfo",
+										"applyLink",
+										"location",
+										"deadline",
+										"category",
+										"title",
+										"isActive",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Info Posts"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/info-posts/{id}/toggle-active": {
+			"put": {
+				"operationId": "ToggleActive",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"contactInfo": {
+											"type": "string"
+										},
+										"applyLink": {
+											"type": "string"
+										},
+										"location": {
+											"type": "string"
+										},
+										"deadline": {
+											"type": "string"
+										},
+										"category": {
+											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
+										},
+										"title": {
+											"type": "string"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"description": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"contactInfo",
+										"applyLink",
+										"location",
+										"deadline",
+										"category",
+										"title",
+										"isActive",
+										"id",
+										"createdAt",
+										"description"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Info Posts"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/egov": {
 			"post": {
 				"operationId": "Create",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1785,6 +6202,194 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"E-Government"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateEGovRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"E-Government"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/auth/login": {
@@ -1797,7 +6402,58 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"admin": {},
+										"admin": {
+											"properties": {
+												"lockedUntil": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"loginAttempts": {
+													"type": "number",
+													"format": "double"
+												},
+												"role": {
+													"$ref": "#/components/schemas/_36_Enums.AdminRole"
+												},
+												"profilePicture": {
+													"type": "string"
+												},
+												"isActive": {
+													"type": "boolean"
+												},
+												"email": {
+													"type": "string"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												}
+											},
+											"required": [
+												"lockedUntil",
+												"loginAttempts",
+												"role",
+												"profilePicture",
+												"isActive",
+												"email",
+												"fullName",
+												"id",
+												"updatedAt",
+												"createdAt"
+											],
+											"type": "object"
+										},
 										"token": {}
 									},
 									"required": [
@@ -1827,12 +6483,215 @@
 				}
 			}
 		},
+		"/auth/profile": {
+			"get": {
+				"operationId": "GetProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"role": {
+											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"email": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"role",
+										"isActive",
+										"email",
+										"fullName",
+										"id",
+										"updatedAt",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			},
+			"put": {
+				"operationId": "UpdateProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"role": {
+											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"email": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"role",
+										"isActive",
+										"email",
+										"fullName",
+										"id",
+										"updatedAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateProfileRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/change-password": {
+			"put": {
+				"operationId": "ChangePassword",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"message"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ChangePasswordRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/logout": {
+			"post": {
+				"operationId": "Logout",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"message"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
 		"/application-docs": {
 			"post": {
 				"operationId": "Create",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -2102,6 +6961,194 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Application Documents"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateApplicationDocRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Application Documents"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/admin": {
@@ -2115,11 +7162,11 @@
 								"schema": {
 									"items": {
 										"properties": {
-											"isActive": {
-												"type": "boolean"
-											},
 											"role": {
 												"$ref": "#/components/schemas/_36_Enums.AdminRole"
+											},
+											"isActive": {
+												"type": "boolean"
 											},
 											"email": {
 												"type": "string"
@@ -2141,8 +7188,8 @@
 											}
 										},
 										"required": [
-											"isActive",
 											"role",
+											"isActive",
 											"email",
 											"fullName",
 											"id",
@@ -2168,11 +7215,234 @@
 					}
 				],
 				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateAdmin",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"role": {
+											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"email": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"role",
+										"isActive",
+										"email",
+										"fullName",
+										"id",
+										"updatedAt",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateAdminBody"
+							}
+						}
+					}
+				}
 			}
 		},
-		"/admin/activate/{id}": {
+		"/admin/{id}": {
+			"get": {
+				"operationId": "GetAdminById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"role": {
+											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"email": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"role",
+										"isActive",
+										"email",
+										"fullName",
+										"id",
+										"updatedAt",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
 			"put": {
-				"operationId": "Activate",
+				"operationId": "UpdateAdmin",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"role": {
+											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+										},
+										"isActive": {
+											"type": "boolean"
+										},
+										"email": {
+											"type": "string"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										}
+									},
+									"required": [
+										"role",
+										"isActive",
+										"email",
+										"fullName",
+										"id",
+										"updatedAt",
+										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAdminBody"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteAdmin",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -2188,19 +7458,19 @@
 											"type": "number",
 											"format": "double"
 										},
-										"isActive": {
-											"type": "boolean"
-										},
 										"role": {
 											"$ref": "#/components/schemas/_36_Enums.AdminRole"
 										},
 										"password": {
 											"type": "string"
 										},
-										"email": {
+										"profilePicture": {
 											"type": "string"
 										},
-										"profilePicture": {
+										"isActive": {
+											"type": "boolean"
+										},
+										"email": {
 											"type": "string"
 										},
 										"fullName": {
@@ -2222,15 +7492,70 @@
 									"required": [
 										"lockedUntil",
 										"loginAttempts",
-										"isActive",
 										"role",
 										"password",
-										"email",
 										"profilePicture",
+										"isActive",
+										"email",
 										"fullName",
 										"id",
 										"updatedAt",
 										"createdAt"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/admin/activate/{id}": {
+			"put": {
+				"operationId": "Activate",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"isActive": {
+											"type": "boolean"
+										},
+										"fullName": {
+											"type": "string"
+										},
+										"id": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"isActive",
+										"fullName",
+										"id"
 									],
 									"type": "object"
 								}
@@ -2271,28 +7596,8 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"lockedUntil": {
-											"type": "string",
-											"format": "date-time"
-										},
-										"loginAttempts": {
-											"type": "number",
-											"format": "double"
-										},
 										"isActive": {
 											"type": "boolean"
-										},
-										"role": {
-											"$ref": "#/components/schemas/_36_Enums.AdminRole"
-										},
-										"password": {
-											"type": "string"
-										},
-										"email": {
-											"type": "string"
-										},
-										"profilePicture": {
-											"type": "string"
 										},
 										"fullName": {
 											"type": "string"
@@ -2300,28 +7605,12 @@
 										"id": {
 											"type": "number",
 											"format": "double"
-										},
-										"updatedAt": {
-											"type": "string",
-											"format": "date-time"
-										},
-										"createdAt": {
-											"type": "string",
-											"format": "date-time"
 										}
 									},
 									"required": [
-										"lockedUntil",
-										"loginAttempts",
 										"isActive",
-										"role",
-										"password",
-										"email",
-										"profilePicture",
 										"fullName",
-										"id",
-										"updatedAt",
-										"createdAt"
+										"id"
 									],
 									"type": "object"
 								}

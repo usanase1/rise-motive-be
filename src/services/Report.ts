@@ -1,28 +1,56 @@
-import prisma from "../lib/prisma";
+import { prisma } from "../lib/prisma";
 
 export class ReportService {
+  // GENERATE (CREATE)
   static async generateDailyReport() {
-    const totalOrders = await prisma.order.count();
-    const totalServices = await prisma.serviceRequest.count();
-    const totalUsers = await prisma.admin.count();
+    const [totalOrders, totalServices] = await Promise.all([
+      prisma.order.count(),
+      //prisma.serviceRequest.count(),
+      prisma.admin.count(),
+    ]);
 
-    const report = await prisma.report.create({
+    return prisma.report.create({
       data: {
         title: "Daily System Report",
         summary: `System snapshot generated automatically`,
         totalOrders,
         totalServices,
-        totalUsers,
         totalTasks: 0,
       },
     });
+  }
 
+  // GET ALL
+  static async getReports() {
+    const [items, total] = await Promise.all([
+      prisma.report.findMany({
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.report.count(),
+    ]);
+
+    return { total, items };
+  }
+
+  // GET ONE BY ID
+  static async getById(id: number) {
+    const report = await prisma.report.findUnique({ where: { id } });
+    if (!report) throw new Error("Report not found");
     return report;
   }
 
-  static async getReports() {
-    return prisma.report.findMany({
-      orderBy: { createdAt: "desc" },
+  // UPDATE (e.g. patch title or summary manually)
+  static async update(id: number, data: { title?: string; summary?: string }) {
+    await ReportService.getById(id); // 404 guard
+    return prisma.report.update({
+      where: { id },
+      data,
     });
+  }
+
+  // DELETE
+  static async delete(id: number) {
+    await ReportService.getById(id); // 404 guard
+    return prisma.report.delete({ where: { id } });
   }
 }
