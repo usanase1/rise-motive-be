@@ -35,7 +35,7 @@ interface UpdateProductRequest {
 @Tags("Products")
 export class ProductController {
   // CREATE
-  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
+ // @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @SuccessResponse(201, "Created")
   @Post("/")
   public async create(@Body() body: CreateProductRequest) {
