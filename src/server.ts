@@ -10,6 +10,7 @@ import swaggerDocument from "../build/swagger.json";
 
 import { RegisterRoutes } from "./routes/routes";
 import { startReportCron } from "./services/CronReport";
+import { ApplicationDocService } from "./services/Application";
 
 dotenv.config();
 
@@ -19,18 +20,26 @@ const app = express();
 // Middlewares
 // ========================
 
-app.post("/upload", upload.single("file"), (req, res) => {
-  try {
-    const fileUrl = req.file ? `/uploads/${req.file.filename}` : null;
+// CREATE + UPLOAD (uses your service)
+app.post(
+  "/application-docs",
+  upload.single("documentUrl"), //  matches frontend
+  async (req, res) => {
+    try {
+      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
 
-    res.status(200).json({
-      message: "File uploaded successfully",
-      fileUrl,
-    });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-});
+      const result = await ApplicationDocService.create({
+        ...req.body,
+        documentUrl: fileUrl, //  pass to service
+      });
+
+      res.status(201).json(result);
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  },
+);
 
 app.use(cors());
 

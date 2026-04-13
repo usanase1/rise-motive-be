@@ -15,6 +15,7 @@ export class ApplicationDocService {
     const result = await prisma.applicationDocRequest.create({
       data: {
         ...data,
+        documentUrl: data.documentUrl || null, // ADD THIS
         trackingCode: ApplicationDocService.generateTrackingCode(),
       },
     });
