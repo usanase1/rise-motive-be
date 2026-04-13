@@ -1,9 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import bodyParser from "body-parser";
 import path from "path";
-import { upload } from "./lib/upload"; //
+import { upload } from "./lib/upload";
 
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../build/swagger.json";
@@ -23,9 +22,6 @@ const app = express();
 // ========================
 // Middlewares
 // ========================
-
-// cors
-
 app.use(
   cors({
     origin: ["http://localhost:5173"],
@@ -34,127 +30,99 @@ app.use(
   }),
 );
 
-// CREATE + UPLOAD (uses on upload application service)
-app.post(
-  "/application-docs",
-  upload.single("documentUrl"), //  matches frontend
-  async (req, res) => {
-    try {
-      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
-
-      const result = await ApplicationDocService.create({
-        ...req.body,
-        documentUrl: fileUrl, //  pass to service
-      });
-
-      res.status(201).json(result);
-    } catch (err: any) {
-      console.error(err);
-      res.status(500).json({ error: err.message });
-    }
-  },
-);
-
-// upload file for government
-
-app.post(
-  "/web-digital",
-  upload.single("documentUrl"), //  matches frontend
-  async (req, res) => {
-    try {
-      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
-
-      const result = await WebDigitalService.create({
-        ...req.body,
-        documentUrl: fileUrl, //  pass to service
-      });
-
-      res.status(201).json(result);
-    } catch (err: any) {
-      console.error(err);
-      res.status(500).json({ error: err.message });
-    }
-  },
-);
-
-// upload creative media
-
-app.post(
-  "/creative-media",
-  upload.single("documentUrl"), //  matches frontend
-  async (req, res) => {
-    try {
-      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
-
-      const result = await CreativeMediaService.create({
-        ...req.body,
-        documentUrl: fileUrl, //  pass to service
-      });
-
-      res.status(201).json(result);
-    } catch (err: any) {
-      console.error(err);
-      res.status(500).json({ error: err.message });
-    }
-  },
-);
-
-// legal
-
-app.post(
-  "/legal",
-  upload.single("documentUrl"), //  matches frontend
-  async (req, res) => {
-    try {
-      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
-
-      const result = await LegalOfficialService.create({
-        ...req.body,
-        documentUrl: fileUrl, //  pass to service
-      });
-
-      res.status(201).json(result);
-    } catch (err: any) {
-      console.error(err);
-      res.status(500).json({ error: err.message });
-    }
-  },
-);
-
-// egovernment
-
-app.post(
-  "/egov",
-  upload.single("documentUrl"), //  matches frontend
-  async (req, res) => {
-    try {
-      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
-
-      const result = await EGovService.create({
-        ...req.body,
-        documentUrl: fileUrl, //  pass to service
-      });
-
-      res.status(201).json(result);
-    } catch (err: any) {
-      console.error(err);
-      res.status(500).json({ error: err.message });
-    }
-  },
-);
-
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
+
+// Only needed for local files — keep it for other static assets
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // ========================
-// Health check route
+// Helper to get Cloudinary URL
+// ========================
+// multer-storage-cloudinary puts the full URL in req.file.path
+function getFileUrl(file?: Express.Multer.File): string | undefined {
+  if (!file) return undefined;
+  return (file as any).path; //  this is the full Cloudinary https:// URL
+}
+
+// ========================
+// Upload Routes (outside tsoa — multipart/form-data)
+// ========================
+
+app.post(
+  "/application-docs",
+  upload.single("documentUrl"),
+  async (req, res) => {
+    try {
+      const result = await ApplicationDocService.create({
+        ...req.body,
+        documentUrl: getFileUrl(req.file), //  Cloudinary URL
+      });
+      res.status(201).json(result);
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  },
+);
+
+app.post("/web-digital", upload.single("documentUrl"), async (req, res) => {
+  try {
+    const result = await WebDigitalService.create({
+      ...req.body,
+      documentUrl: getFileUrl(req.file), //  Cloudinary URL
+    });
+    res.status(201).json(result);
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post("/creative-media", upload.single("documentUrl"), async (req, res) => {
+  try {
+    const result = await CreativeMediaService.create({
+      ...req.body,
+      documentUrl: getFileUrl(req.file), //  Cloudinary URL
+    });
+    res.status(201).json(result);
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post("/legal", upload.single("documentUrl"), async (req, res) => {
+  try {
+    const result = await LegalOfficialService.create({
+      ...req.body,
+      documentUrl: getFileUrl(req.file), //  Cloudinary URL
+    });
+    res.status(201).json(result);
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post("/egov", upload.single("documentUrl"), async (req, res) => {
+  try {
+    const result = await EGovService.create({
+      ...req.body,
+      documentUrl: getFileUrl(req.file), //  Cloudinary URL
+    });
+    res.status(201).json(result);
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ========================
+// Health check
 // ========================
 app.get("/", (req, res) => {
-  res.json({
-    message: "Backend API running ",
-    status: "OK",
-  });
+  res.json({ message: "Backend API running", status: "OK" });
 });
 
 // ========================
@@ -167,22 +135,18 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // ========================
 RegisterRoutes(app);
 
-// the error codes
-
+// ========================
+// Error handler
+// ========================
 app.use((err: any, req: any, res: any, next: any) => {
   if (err?.name === "ValidateError") {
-    console.error(" Validation Error:", err.fields);
-
-    return res.status(400).json({
-      message: "Validation Failed",
-      errors: err.fields,
-    });
+    console.error("Validation Error:", err.fields);
+    return res
+      .status(400)
+      .json({ message: "Validation Failed", errors: err.fields });
   }
-
-  console.error(" Server Error:", err);
-  res.status(500).json({
-    message: "Internal Server Error",
-  });
+  console.error("Server Error:", err);
+  res.status(500).json({ message: "Internal Server Error" });
 });
 
 // ========================
@@ -194,7 +158,6 @@ startReportCron();
 // Start server
 // ========================
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
   console.log("\n==============================");
   console.log(` Server running at: http://localhost:${PORT}`);
