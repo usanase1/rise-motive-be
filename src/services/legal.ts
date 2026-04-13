@@ -15,6 +15,7 @@ export class LegalOfficialService {
     const result = await prisma.legalOfficialRequest.create({
       data: {
         ...data,
+        documentUrl: data.documentUrl || null, // ADD THIS
         trackingCode: LegalOfficialService.generateTrackingCode(),
       },
     });

@@ -12,6 +12,7 @@ export class CreativeMediaService {
     const result = await prisma.creativeMediaRequest.create({
       data: {
         ...data,
+        documentUrl: data.documentUrl || null, // ADD THIS
         trackingCode: CreativeMediaService.generateTrackingCode(),
       },
     });

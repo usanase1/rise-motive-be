@@ -12,6 +12,7 @@ export class EGovService {
     const result = await prisma.eGovRequest.create({
       data: {
         ...data,
+        documentUrl: data.documentUrl || null, // ADD THIS
         trackingCode: EGovService.generateTrackingCode(),
       },
     });

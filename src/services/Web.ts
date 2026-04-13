@@ -16,6 +16,7 @@ export class WebDigitalService {
     const result = await prisma.webDigitalRequest.create({
       data: {
         ...data,
+        documentUrl: data.documentUrl || null, // ADD THIS
         trackingCode: WebDigitalService.generateTrackingCode(),
       },
     });

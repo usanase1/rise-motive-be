@@ -11,6 +11,10 @@ import swaggerDocument from "../build/swagger.json";
 import { RegisterRoutes } from "./routes/routes";
 import { startReportCron } from "./services/CronReport";
 import { ApplicationDocService } from "./services/Application";
+import { EGovService } from "./services/Egov";
+import { CreativeMediaService } from "./services/Media";
+import { WebDigitalService } from "./services/Web";
+import { LegalOfficialService } from "./services/legal";
 
 dotenv.config();
 
@@ -30,7 +34,7 @@ app.use(
   }),
 );
 
-// CREATE + UPLOAD (uses on upload service)
+// CREATE + UPLOAD (uses on upload application service)
 app.post(
   "/application-docs",
   upload.single("documentUrl"), //  matches frontend
@@ -39,6 +43,94 @@ app.post(
       const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
 
       const result = await ApplicationDocService.create({
+        ...req.body,
+        documentUrl: fileUrl, //  pass to service
+      });
+
+      res.status(201).json(result);
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  },
+);
+
+// upload file for government
+
+app.post(
+  "/web-digital",
+  upload.single("documentUrl"), //  matches frontend
+  async (req, res) => {
+    try {
+      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+
+      const result = await WebDigitalService.create({
+        ...req.body,
+        documentUrl: fileUrl, //  pass to service
+      });
+
+      res.status(201).json(result);
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  },
+);
+
+// upload creative media
+
+app.post(
+  "/creative-media",
+  upload.single("documentUrl"), //  matches frontend
+  async (req, res) => {
+    try {
+      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+
+      const result = await CreativeMediaService.create({
+        ...req.body,
+        documentUrl: fileUrl, //  pass to service
+      });
+
+      res.status(201).json(result);
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  },
+);
+
+// legal
+
+app.post(
+  "/legal",
+  upload.single("documentUrl"), //  matches frontend
+  async (req, res) => {
+    try {
+      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+
+      const result = await LegalOfficialService.create({
+        ...req.body,
+        documentUrl: fileUrl, //  pass to service
+      });
+
+      res.status(201).json(result);
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  },
+);
+
+// egovernment
+
+app.post(
+  "/egov",
+  upload.single("documentUrl"), //  matches frontend
+  async (req, res) => {
+    try {
+      const fileUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+
+      const result = await EGovService.create({
         ...req.body,
         documentUrl: fileUrl, //  pass to service
       });
