@@ -2,6 +2,7 @@ import {
   Get,
   Post,
   Put,
+  Patch,
   Delete,
   Route,
   Tags,
@@ -18,26 +19,22 @@ import {
 @Route("legal")
 @Tags("Legal & Official")
 export class LegalOfficialController {
-  // CREATE
   @SuccessResponse(201, "Created")
   @Post("/")
   public async create(@Body() body: CreateLegalOfficialRequest) {
     return LegalOfficialService.create(body);
   }
 
-  // GET ALL
   @Get("/")
   public async getAll() {
     return LegalOfficialService.getAll();
   }
 
-  // GET ONE BY ID
   @Get("/{id}")
   public async getById(@Path() id: number) {
     return LegalOfficialService.getById(id);
   }
 
-  // UPDATE
   @Put("/{id}")
   public async update(
     @Path() id: number,
@@ -46,7 +43,14 @@ export class LegalOfficialController {
     return LegalOfficialService.update(id, body);
   }
 
-  // DELETE
+  @Patch("/{id}/status")
+  public async updateStatus(
+    @Path() id: number,
+    @Body() body: { status: string },
+  ) {
+    return LegalOfficialService.updateStatus(id, body.status);
+  }
+
   @Delete("/{id}")
   public async delete(@Path() id: number) {
     return LegalOfficialService.delete(id);

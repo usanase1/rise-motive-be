@@ -62,7 +62,7 @@ model ApplicationDocRequest {
   description    String   @db.Text
   documentUrl    String?
   preferredDate  String?
-   notifications  Notification[]
+  notifications  Notification[]
   status         RequestStatus @default(PENDING)
 
   tasker         String?
@@ -81,7 +81,7 @@ model CreativeMediaRequest {
   description    String   @db.Text
   documentUrl    String?
   preferredDate  String?
-   notifications  Notification[]
+  notifications  Notification[]
   status         RequestStatus @default(PENDING)
 
   tasker         String?

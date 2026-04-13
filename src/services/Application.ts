@@ -1,4 +1,5 @@
 import { prisma } from "../lib/prisma";
+import { sendTrackingEmail } from "../utils/email";
 import { randomBytes } from "crypto";
 import {
   CreateApplicationDocRequest,
@@ -6,49 +7,61 @@ import {
 } from "../types";
 
 export class ApplicationDocService {
-  // helper to generate a unique tracking code
   private static generateTrackingCode(): string {
-    return `APP-${randomBytes(4).toString("hex").toUpperCase()}`; // e.g. APP-3F9A1C2B
+    return `APP-${randomBytes(4).toString("hex").toUpperCase()}`;
   }
 
-  // CREATE
   static async create(data: CreateApplicationDocRequest) {
-    return prisma.applicationDocRequest.create({
+    const result = await prisma.applicationDocRequest.create({
       data: {
         ...data,
         trackingCode: ApplicationDocService.generateTrackingCode(),
       },
     });
+
+    if (result.customerEmail) {
+      await sendTrackingEmail(
+        result.customerEmail,
+        result.customerName,
+        result.trackingCode,
+        "Application Documents",
+      ).catch(console.error);
+    }
+
+    return result;
   }
 
-  // GET ALL
   static async getAll() {
     const [items, total] = await Promise.all([
-      prisma.applicationDocRequest.findMany({
-        orderBy: { createdAt: "desc" },
-      }),
+      prisma.applicationDocRequest.findMany({ orderBy: { createdAt: "desc" } }),
       prisma.applicationDocRequest.count(),
     ]);
-
     return { total, items };
   }
 
-  // GET ONE BY ID
   static async getById(id: number) {
-    return prisma.applicationDocRequest.findUnique({ where: { id } });
-  }
-
-  // UPDATE
-  static async update(id: number, data: UpdateApplicationDocRequest) {
-    return prisma.applicationDocRequest.update({
+    const item = await prisma.applicationDocRequest.findUnique({
       where: { id },
-      data,
     });
+    if (!item) throw new Error("Application doc request not found");
+    return item;
   }
 
-  // DELETE
+  static async update(id: number, data: UpdateApplicationDocRequest) {
+    await ApplicationDocService.getById(id);
+    return prisma.applicationDocRequest.update({ where: { id }, data });
+  }
+
   static async delete(id: number) {
+    await ApplicationDocService.getById(id);
     return prisma.applicationDocRequest.delete({ where: { id } });
   }
-  // ... rest unchanged
+
+  static async updateStatus(id: number, status: string) {
+    await ApplicationDocService.getById(id);
+    return prisma.applicationDocRequest.update({
+      where: { id },
+      data: { status: status as any },
+    });
+  }
 }

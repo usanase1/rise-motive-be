@@ -4,22 +4,10 @@
 
 import { CreativeMediaRequest } from "@prisma/client";
 
-export enum RequestStatus {
-  PENDING = "PENDING",
-  ASSIGNED = "ASSIGNED",
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED",
-  CANCELLED = "CANCELLED",
-}
+//  Re-export from Prisma — single source of truth
+export { RequestStatus, OrderStatus, ApplicationStatus } from "@prisma/client";
 
-export enum OrderStatus {
-  PENDING = "PENDING",
-  CONFIRMED = "CONFIRMED",
-  OUT_FOR_DELIVERY = "OUT_FOR_DELIVERY",
-  DELIVERED = "DELIVERED",
-  CANCELLED = "CANCELLED",
-}
-
+// Local enums not in Prisma
 export enum InfoCategory {
   JOB = "JOB",
   SCHOLARSHIP = "SCHOLARSHIP",
@@ -44,12 +32,6 @@ export enum ExperienceLevel {
   INTERMEDIATE = "INTERMEDIATE",
 }
 
-export enum ApplicationStatus {
-  PENDING = "PENDING",
-  ACCEPTED = "ACCEPTED",
-  REJECTED = "REJECTED",
-}
-
 export enum AdminRole {
   SUPER_ADMIN = "SUPER_ADMIN",
   ADMIN = "ADMIN",
@@ -69,8 +51,10 @@ export interface CreateEGovRequest {
   tasker?: string;
 }
 
-export interface UpdateEGovRequest extends CreateEGovRequest{}
+export interface UpdateEGovRequest extends CreateEGovRequest {}
 
+// ===============================
+// APPLICATION DOC REQUEST
 // ===============================
 export interface CreateApplicationDocRequest {
   customerName: string;
@@ -84,7 +68,7 @@ export interface CreateApplicationDocRequest {
 }
 
 export interface UpdateApplicationDocRequest {
-    customerName: string;
+  customerName: string;
   customerPhone: string;
   customerEmail?: string;
   service?: string;
@@ -94,6 +78,8 @@ export interface UpdateApplicationDocRequest {
   tasker?: string;
 }
 
+// ===============================
+// CREATIVE MEDIA REQUEST
 // ===============================
 export interface CreateCreativeMediaRequest {
   customerName: string;
@@ -106,8 +92,10 @@ export interface CreateCreativeMediaRequest {
   tasker?: string;
 }
 
-export interface UpdateCreativeMediaRequest extends CreativeMediaRequest{}
+export interface UpdateCreativeMediaRequest extends CreativeMediaRequest {}
 
+// ===============================
+// WEB DIGITAL REQUEST
 // ===============================
 export interface CreateWebDigitalRequest {
   customerName: string;
@@ -120,8 +108,10 @@ export interface CreateWebDigitalRequest {
   tasker?: string;
 }
 
-export interface UpdateWebDigitalRequest extends CreateWebDigitalRequest{}
+export interface UpdateWebDigitalRequest extends CreateWebDigitalRequest {}
 
+// ===============================
+// LEGAL OFFICIAL REQUEST
 // ===============================
 export interface CreateLegalOfficialRequest {
   customerName: string;
@@ -134,7 +124,7 @@ export interface CreateLegalOfficialRequest {
   tasker?: string;
 }
 
-export interface UpdateLegalOfficialRequest extends CreateLegalOfficialRequest{}
+export interface UpdateLegalOfficialRequest extends CreateLegalOfficialRequest {}
 
 // ===============================
 // ORDER
@@ -148,17 +138,6 @@ export interface CreateOrderRequest {
   paymentMethod?: string;
   note?: string;
   productId: number;
-}
-
-export interface CreateApplicationDocRequest {
-  customerName: string;
-  customerPhone: string;
-  customerEmail?: string;
-  service?: string;
-  description: string;
-  documentUrl?: string;
-  preferredDate?: string;
-  tasker?: string;
 }
 
 // ===============================
@@ -186,6 +165,9 @@ export interface CreateInfoPostRequest {
   contactInfo?: string;
 }
 
+// ===============================
+// TASKER
+// ===============================
 export interface CreateTaskerRequest {
   name: string;
   phone: string;
@@ -194,11 +176,12 @@ export interface CreateTaskerRequest {
   isActive?: boolean;
 }
 
-export interface UpdateTaskerRequest extends CreateTaskerRequest{}
+export interface UpdateTaskerRequest extends CreateTaskerRequest {}
+
 // ===============================
 // TRAINING
 // ===============================
-export interface  CreateTrainingRequest {
+export interface CreateTrainingRequest {
   fullName: string;
   phone: string;
   email?: string;
@@ -207,4 +190,4 @@ export interface  CreateTrainingRequest {
   experienceLevel?: ExperienceLevel;
 }
 
-export interface  UpdateTrainingRequest  extends CreateTrainingRequest{}
+export interface UpdateTrainingRequest extends CreateTrainingRequest {}
