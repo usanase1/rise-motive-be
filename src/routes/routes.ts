@@ -8,8 +8,9 @@ import { WebDigitalController } from './../controller/WebController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { TrainingController } from './../controller/TrainingController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { TaskerController } from './../controller/TaskerController';
+import { TrackingController } from './../controller/TrackingCodeController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { TaskerController } from './../controller/TaskerController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { ReportController } from './../controller/ReportController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -75,6 +76,11 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "RequestStatus": {
+        "dataType": "refAlias",
+        "type": {"ref":"_36_Enums.RequestStatus","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "_36_Enums.ApplicationStatus": {
         "dataType": "refAlias",
         "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["PENDING"]},{"dataType":"enum","enums":["ACCEPTED"]},{"dataType":"enum","enums":["REJECTED"]}],"validators":{}},
@@ -128,13 +134,26 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ApplicationStatus": {
         "dataType": "refAlias",
-        "type": {"ref":"_36_Enums.ApplicationStatus","validators":{}},
+        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["PENDING"]},{"dataType":"enum","enums":["APPROVED"]},{"dataType":"enum","enums":["REJECTED"]},{"dataType":"enum","enums":["COMPLETED"]}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "UpdateStatusBody": {
         "dataType": "refObject",
         "properties": {
             "status": {"ref":"ApplicationStatus","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TrackingUpdateRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "customerName": {"dataType":"string"},
+            "customerPhone": {"dataType":"string"},
+            "customerEmail": {"dataType":"string"},
+            "service": {"dataType":"string"},
+            "description": {"dataType":"string"},
+            "preferredDate": {"dataType":"string"},
         },
         "additionalProperties": false,
     },
@@ -190,19 +209,6 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["PENDING"]},{"dataType":"enum","enums":["CANCELLED"]},{"dataType":"enum","enums":["CONFIRMED"]},{"dataType":"enum","enums":["OUT_FOR_DELIVERY"]},{"dataType":"enum","enums":["DELIVERED"]}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UpdateProductRequest": {
-        "dataType": "refObject",
-        "properties": {
-            "name": {"dataType":"string"},
-            "description": {"dataType":"string"},
-            "price": {"dataType":"string"},
-            "category": {"dataType":"string"},
-            "imageUrl": {"dataType":"string"},
-            "inStock": {"dataType":"boolean"},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "CreateOrderRequest": {
         "dataType": "refObject",
         "properties": {
@@ -256,31 +262,6 @@ const models: TsoaRoute.Models = {
             "documentUrl": {"dataType":"string"},
             "preferredDate": {"dataType":"string"},
             "tasker": {"dataType":"string"},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "DefaultSelection_Prisma._36_CreativeMediaRequestPayload_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"double","required":true},"updatedAt":{"dataType":"datetime","required":true},"createdAt":{"dataType":"datetime","required":true},"tasker":{"dataType":"string","required":true},"status":{"ref":"_36_Enums.RequestStatus","required":true},"preferredDate":{"dataType":"string","required":true},"documentUrl":{"dataType":"string","required":true},"description":{"dataType":"string","required":true},"service":{"dataType":"string","required":true},"customerEmail":{"dataType":"string","required":true},"customerPhone":{"dataType":"string","required":true},"customerName":{"dataType":"string","required":true},"trackingCode":{"dataType":"string","required":true}},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UpdateCreativeMediaRequest": {
-        "dataType": "refObject",
-        "properties": {
-            "id": {"dataType":"double","required":true},
-            "updatedAt": {"dataType":"datetime","required":true},
-            "createdAt": {"dataType":"datetime","required":true},
-            "tasker": {"dataType":"string","required":true},
-            "status": {"ref":"_36_Enums.RequestStatus","required":true},
-            "preferredDate": {"dataType":"string","required":true},
-            "documentUrl": {"dataType":"string","required":true},
-            "description": {"dataType":"string","required":true},
-            "service": {"dataType":"string","required":true},
-            "customerEmail": {"dataType":"string","required":true},
-            "customerPhone": {"dataType":"string","required":true},
-            "customerName": {"dataType":"string","required":true},
-            "trackingCode": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -606,6 +587,37 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsWebDigitalController_updateStatus: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"ref":"RequestStatus","required":true}}},
+        };
+        app.patch('/web-digital/:id/status',
+            ...(fetchMiddlewares<RequestHandler>(WebDigitalController)),
+            ...(fetchMiddlewares<RequestHandler>(WebDigitalController.prototype.updateStatus)),
+
+            async function WebDigitalController_updateStatus(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsWebDigitalController_updateStatus, request, response });
+
+                const controller = new WebDigitalController();
+
+              await templateService.apiHandler({
+                methodName: 'updateStatus',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsWebDigitalController_delete: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
@@ -817,6 +829,67 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsTrackingController_getByTrackingCode: Record<string, TsoaRoute.ParameterSchema> = {
+                trackingCode: {"in":"path","name":"trackingCode","required":true,"dataType":"string"},
+        };
+        app.get('/track/:trackingCode',
+            ...(fetchMiddlewares<RequestHandler>(TrackingController)),
+            ...(fetchMiddlewares<RequestHandler>(TrackingController.prototype.getByTrackingCode)),
+
+            async function TrackingController_getByTrackingCode(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsTrackingController_getByTrackingCode, request, response });
+
+                const controller = new TrackingController();
+
+              await templateService.apiHandler({
+                methodName: 'getByTrackingCode',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsTrackingController_updateByTrackingCode: Record<string, TsoaRoute.ParameterSchema> = {
+                trackingCode: {"in":"path","name":"trackingCode","required":true,"dataType":"string"},
+                body: {"in":"body","name":"body","required":true,"ref":"TrackingUpdateRequest"},
+        };
+        app.patch('/track/:trackingCode',
+            ...(fetchMiddlewares<RequestHandler>(TrackingController)),
+            ...(fetchMiddlewares<RequestHandler>(TrackingController.prototype.updateByTrackingCode)),
+
+            async function TrackingController_updateByTrackingCode(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsTrackingController_updateByTrackingCode, request, response });
+
+                const controller = new TrackingController();
+
+              await templateService.apiHandler({
+                methodName: 'updateByTrackingCode',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsTaskerController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/taskers',
@@ -997,8 +1070,6 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsReportController_generate: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.post('/reports/generate',
@@ -1157,7 +1228,6 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"CreateProductRequest"},
         };
         app.post('/products',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ProductController)),
             ...(fetchMiddlewares<RequestHandler>(ProductController.prototype.create)),
 
@@ -1246,7 +1316,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsProductController_update: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
-                body: {"in":"body","name":"body","required":true,"ref":"UpdateProductRequest"},
+                body: {"in":"body","name":"body","required":true,"ref":"CreateProductRequest"},
         };
         app.put('/products/:id',
             authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
@@ -1646,7 +1716,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsCreativeMediaController_update: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
-                body: {"in":"body","name":"body","required":true,"ref":"UpdateCreativeMediaRequest"},
+                body: {"in":"body","name":"body","required":true,"dataType":"any"},
         };
         app.put('/creative-media/:id',
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController)),
@@ -1664,6 +1734,37 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'update',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsCreativeMediaController_updateStatus: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
+        };
+        app.patch('/creative-media/:id/status',
+            ...(fetchMiddlewares<RequestHandler>(CreativeMediaController)),
+            ...(fetchMiddlewares<RequestHandler>(CreativeMediaController.prototype.updateStatus)),
+
+            async function CreativeMediaController_updateStatus(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsCreativeMediaController_updateStatus, request, response });
+
+                const controller = new CreativeMediaController();
+
+              await templateService.apiHandler({
+                methodName: 'updateStatus',
                 controller,
                 response,
                 next,
@@ -1814,6 +1915,37 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'update',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsLegalOfficialController_updateStatus: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
+        };
+        app.patch('/legal/:id/status',
+            ...(fetchMiddlewares<RequestHandler>(LegalOfficialController)),
+            ...(fetchMiddlewares<RequestHandler>(LegalOfficialController.prototype.updateStatus)),
+
+            async function LegalOfficialController_updateStatus(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsLegalOfficialController_updateStatus, request, response });
+
+                const controller = new LegalOfficialController();
+
+              await templateService.apiHandler({
+                methodName: 'updateStatus',
                 controller,
                 response,
                 next,
@@ -2161,6 +2293,37 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsEGovController_updateStatus: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
+        };
+        app.patch('/egov/:id/status',
+            ...(fetchMiddlewares<RequestHandler>(EGovController)),
+            ...(fetchMiddlewares<RequestHandler>(EGovController.prototype.updateStatus)),
+
+            async function EGovController_updateStatus(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsEGovController_updateStatus, request, response });
+
+                const controller = new EGovController();
+
+              await templateService.apiHandler({
+                methodName: 'updateStatus',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsEGovController_delete: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
@@ -2456,6 +2619,37 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'update',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsApplicationDocController_updateStatus: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
+        };
+        app.patch('/application-docs/:id/status',
+            ...(fetchMiddlewares<RequestHandler>(ApplicationDocController)),
+            ...(fetchMiddlewares<RequestHandler>(ApplicationDocController.prototype.updateStatus)),
+
+            async function ApplicationDocController_updateStatus(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsApplicationDocController_updateStatus, request, response });
+
+                const controller = new ApplicationDocController();
+
+              await templateService.apiHandler({
+                methodName: 'updateStatus',
                 controller,
                 response,
                 next,

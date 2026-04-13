@@ -33,8 +33,9 @@ app.post("/upload", upload.single("file"), (req, res) => {
 });
 
 app.use(cors());
-app.use(bodyParser.json({ limit: "10mb" }));
-app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // ========================
@@ -56,6 +57,24 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // tsoa routes
 // ========================
 RegisterRoutes(app);
+
+// the error codes
+
+app.use((err: any, req: any, res: any, next: any) => {
+  if (err?.name === "ValidateError") {
+    console.error(" Validation Error:", err.fields);
+
+    return res.status(400).json({
+      message: "Validation Failed",
+      errors: err.fields,
+    });
+  }
+
+  console.error(" Server Error:", err);
+  res.status(500).json({
+    message: "Internal Server Error",
+  });
+});
 
 // ========================
 // Cron jobs

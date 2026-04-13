@@ -87,6 +87,9 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"RequestStatus": {
+				"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+			},
 			"_36_Enums.ApplicationStatus": {
 				"type": "string",
 				"enum": [
@@ -194,7 +197,13 @@
 				"additionalProperties": false
 			},
 			"ApplicationStatus": {
-				"$ref": "#/components/schemas/_36_Enums.ApplicationStatus"
+				"type": "string",
+				"enum": [
+					"PENDING",
+					"APPROVED",
+					"REJECTED",
+					"COMPLETED"
+				]
 			},
 			"UpdateStatusBody": {
 				"properties": {
@@ -205,6 +214,30 @@
 				"required": [
 					"status"
 				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TrackingUpdateRequest": {
+				"properties": {
+					"customerName": {
+						"type": "string"
+					},
+					"customerPhone": {
+						"type": "string"
+					},
+					"customerEmail": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"preferredDate": {
+						"type": "string"
+					}
+				},
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -309,30 +342,6 @@
 					"OUT_FOR_DELIVERY",
 					"DELIVERED"
 				]
-			},
-			"UpdateProductRequest": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"price": {
-						"type": "string"
-					},
-					"category": {
-						"type": "string"
-					},
-					"imageUrl": {
-						"type": "string"
-					},
-					"inStock": {
-						"type": "boolean"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
 			},
 			"CreateOrderRequest": {
 				"properties": {
@@ -446,131 +455,6 @@
 					"customerName",
 					"customerPhone",
 					"description"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"DefaultSelection_Prisma._36_CreativeMediaRequestPayload_": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"tasker": {
-						"type": "string"
-					},
-					"status": {
-						"$ref": "#/components/schemas/_36_Enums.RequestStatus"
-					},
-					"preferredDate": {
-						"type": "string"
-					},
-					"documentUrl": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"service": {
-						"type": "string"
-					},
-					"customerEmail": {
-						"type": "string"
-					},
-					"customerPhone": {
-						"type": "string"
-					},
-					"customerName": {
-						"type": "string"
-					},
-					"trackingCode": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id",
-					"updatedAt",
-					"createdAt",
-					"tasker",
-					"status",
-					"preferredDate",
-					"documentUrl",
-					"description",
-					"service",
-					"customerEmail",
-					"customerPhone",
-					"customerName",
-					"trackingCode"
-				],
-				"type": "object"
-			},
-			"UpdateCreativeMediaRequest": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"tasker": {
-						"type": "string"
-					},
-					"status": {
-						"$ref": "#/components/schemas/_36_Enums.RequestStatus"
-					},
-					"preferredDate": {
-						"type": "string"
-					},
-					"documentUrl": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"service": {
-						"type": "string"
-					},
-					"customerEmail": {
-						"type": "string"
-					},
-					"customerPhone": {
-						"type": "string"
-					},
-					"customerName": {
-						"type": "string"
-					},
-					"trackingCode": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id",
-					"updatedAt",
-					"createdAt",
-					"tasker",
-					"status",
-					"preferredDate",
-					"documentUrl",
-					"description",
-					"service",
-					"customerEmail",
-					"customerPhone",
-					"customerName",
-					"trackingCode"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1447,6 +1331,115 @@
 				]
 			}
 		},
+		"/web-digital/{id}/status": {
+			"patch": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Web & Digital"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"status": {
+										"$ref": "#/components/schemas/RequestStatus"
+									}
+								},
+								"required": [
+									"status"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/training": {
 			"post": {
 				"operationId": "Apply",
@@ -1911,6 +1904,212 @@
 				}
 			}
 		},
+		"/track/{trackingCode}": {
+			"get": {
+				"operationId": "GetByTrackingCode",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"tasker": {
+													"type": "string"
+												},
+												"status": {
+													"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+												},
+												"preferredDate": {
+													"type": "string"
+												},
+												"documentUrl": {
+													"type": "string"
+												},
+												"description": {
+													"type": "string"
+												},
+												"service": {
+													"type": "string"
+												},
+												"customerEmail": {
+													"type": "string"
+												},
+												"customerPhone": {
+													"type": "string"
+												},
+												"customerName": {
+													"type": "string"
+												},
+												"trackingCode": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"id",
+												"updatedAt",
+												"createdAt",
+												"tasker",
+												"status",
+												"preferredDate",
+												"documentUrl",
+												"description",
+												"service",
+												"customerEmail",
+												"customerPhone",
+												"customerName",
+												"trackingCode"
+											],
+											"type": "object"
+										},
+										"canUpdate": {
+											"type": "boolean"
+										},
+										"serviceType": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"data",
+										"canUpdate",
+										"serviceType"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"description": "Search for any request using its tracking code.\r\nReturns full details, service type, status, and whether updates are allowed.",
+				"tags": [
+					"Tracking"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "trackingCode",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "UpdateByTrackingCode",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"description": "Update a request using its tracking code.\r\nNot allowed if status is COMPLETED or CANCELLED.",
+				"tags": [
+					"Tracking"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "trackingCode",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TrackingUpdateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/taskers": {
 			"get": {
 				"operationId": "GetAll",
@@ -2315,183 +2514,6 @@
 						}
 					}
 				]
-			}
-		},
-		"/services": {
-			"post": {
-				"operationId": "Create",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Service Requests"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			},
-			"get": {
-				"operationId": "GetAll",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Service Requests"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/services/{id}": {
-			"get": {
-				"operationId": "GetOne",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Service Requests"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/services/{id}/assign/{taskerId}": {
-			"put": {
-				"operationId": "AssignTasker",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Service Requests"
-				],
-				"security": [
-					{
-						"jwt": [
-							"ADMIN",
-							"SUPER_ADMIN"
-						]
-					}
-				],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "path",
-						"name": "taskerId",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/services/{id}/status": {
-			"put": {
-				"operationId": "UpdateStatus",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Service Requests"
-				],
-				"security": [
-					{
-						"jwt": [
-							"ADMIN",
-							"SUPER_ADMIN"
-						]
-					}
-				],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"properties": {
-									"status": {
-										"type": "string"
-									}
-								},
-								"required": [
-									"status"
-								],
-								"type": "object"
-							}
-						}
-					}
-				}
 			}
 		},
 		"/reports/generate": {
@@ -2952,14 +2974,7 @@
 				"tags": [
 					"Products"
 				],
-				"security": [
-					{
-						"jwt": [
-							"SUPER_ADMIN",
-							"ADMIN"
-						]
-					}
-				],
+				"security": [],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -3283,7 +3298,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UpdateProductRequest"
+								"$ref": "#/components/schemas/CreateProductRequest"
 							}
 						}
 					}
@@ -4842,9 +4857,7 @@
 					"required": true,
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UpdateCreativeMediaRequest"
-							}
+							"schema": {}
 						}
 					}
 				}
@@ -4937,6 +4950,115 @@
 						}
 					}
 				]
+			}
+		},
+		"/creative-media/{id}/status": {
+			"patch": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Creative Media"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"status": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"status"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/legal": {
@@ -5404,6 +5526,115 @@
 				]
 			}
 		},
+		"/legal/{id}/status": {
+			"patch": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Legal & Official"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"status": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"status"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/info-posts": {
 			"post": {
 				"operationId": "Create",
@@ -5429,11 +5660,11 @@
 										"category": {
 											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
 										},
-										"title": {
-											"type": "string"
-										},
 										"isActive": {
 											"type": "boolean"
+										},
+										"title": {
+											"type": "string"
 										},
 										"id": {
 											"type": "number",
@@ -5453,8 +5684,8 @@
 										"location",
 										"deadline",
 										"category",
-										"title",
 										"isActive",
+										"title",
 										"id",
 										"createdAt",
 										"description"
@@ -5515,11 +5746,11 @@
 													"category": {
 														"$ref": "#/components/schemas/_36_Enums.InfoCategory"
 													},
-													"title": {
-														"type": "string"
-													},
 													"isActive": {
 														"type": "boolean"
+													},
+													"title": {
+														"type": "string"
 													},
 													"id": {
 														"type": "number",
@@ -5539,8 +5770,8 @@
 													"location",
 													"deadline",
 													"category",
-													"title",
 													"isActive",
+													"title",
 													"id",
 													"createdAt",
 													"description"
@@ -5613,11 +5844,11 @@
 										"category": {
 											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
 										},
-										"title": {
-											"type": "string"
-										},
 										"isActive": {
 											"type": "boolean"
+										},
+										"title": {
+											"type": "string"
 										},
 										"id": {
 											"type": "number",
@@ -5637,8 +5868,8 @@
 										"location",
 										"deadline",
 										"category",
-										"title",
 										"isActive",
+										"title",
 										"id",
 										"createdAt",
 										"description"
@@ -5689,11 +5920,11 @@
 										"category": {
 											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
 										},
-										"title": {
-											"type": "string"
-										},
 										"isActive": {
 											"type": "boolean"
+										},
+										"title": {
+											"type": "string"
 										},
 										"id": {
 											"type": "number",
@@ -5713,8 +5944,8 @@
 										"location",
 										"deadline",
 										"category",
-										"title",
 										"isActive",
+										"title",
 										"id",
 										"createdAt",
 										"description"
@@ -5782,11 +6013,11 @@
 										"category": {
 											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
 										},
-										"title": {
-											"type": "string"
-										},
 										"isActive": {
 											"type": "boolean"
+										},
+										"title": {
+											"type": "string"
 										},
 										"id": {
 											"type": "number",
@@ -5806,8 +6037,8 @@
 										"location",
 										"deadline",
 										"category",
-										"title",
 										"isActive",
+										"title",
 										"id",
 										"createdAt",
 										"description"
@@ -5867,11 +6098,11 @@
 										"category": {
 											"$ref": "#/components/schemas/_36_Enums.InfoCategory"
 										},
-										"title": {
-											"type": "string"
-										},
 										"isActive": {
 											"type": "boolean"
+										},
+										"title": {
+											"type": "string"
 										},
 										"id": {
 											"type": "number",
@@ -5891,8 +6122,8 @@
 										"location",
 										"deadline",
 										"category",
-										"title",
 										"isActive",
+										"title",
 										"id",
 										"createdAt",
 										"description"
@@ -6390,6 +6621,115 @@
 						}
 					}
 				]
+			}
+		},
+		"/egov/{id}/status": {
+			"patch": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"E-Government"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"status": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"status"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/auth/login": {
@@ -7149,6 +7489,115 @@
 						}
 					}
 				]
+			}
+		},
+		"/application-docs/{id}/status": {
+			"patch": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"id": {
+											"type": "number",
+											"format": "double"
+										},
+										"updatedAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"createdAt": {
+											"type": "string",
+											"format": "date-time"
+										},
+										"tasker": {
+											"type": "string"
+										},
+										"status": {
+											"$ref": "#/components/schemas/_36_Enums.RequestStatus"
+										},
+										"preferredDate": {
+											"type": "string"
+										},
+										"documentUrl": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"service": {
+											"type": "string"
+										},
+										"customerEmail": {
+											"type": "string"
+										},
+										"customerPhone": {
+											"type": "string"
+										},
+										"customerName": {
+											"type": "string"
+										},
+										"trackingCode": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"updatedAt",
+										"createdAt",
+										"tasker",
+										"status",
+										"preferredDate",
+										"documentUrl",
+										"description",
+										"service",
+										"customerEmail",
+										"customerPhone",
+										"customerName",
+										"trackingCode"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Application Documents"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"status": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"status"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/admin": {
