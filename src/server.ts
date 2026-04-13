@@ -20,6 +20,16 @@ const app = express();
 // Middlewares
 // ========================
 
+// cors
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+  }),
+);
+
 // CREATE + UPLOAD (uses on upload service)
 app.post(
   "/application-docs",
@@ -39,14 +49,6 @@ app.post(
       res.status(500).json({ error: err.message });
     }
   },
-);
-
-app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true,
-  }),
 );
 
 app.use(express.json({ limit: "10mb" }));
