@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 import path from "path";
+import { upload } from "./lib/upload"; //
 
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../build/swagger.json";
@@ -17,6 +18,20 @@ const app = express();
 // ========================
 // Middlewares
 // ========================
+
+app.post("/upload", upload.single("file"), (req, res) => {
+  try {
+    const fileUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+    res.status(200).json({
+      message: "File uploaded successfully",
+      fileUrl,
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
