@@ -14,6 +14,7 @@ import { EGovService } from "./services/Egov";
 import { CreativeMediaService } from "./services/Media";
 import { WebDigitalService } from "./services/Web";
 import { LegalOfficialService } from "./services/legal";
+import { ProductService } from "./services/ProductService";
 
 dotenv.config();
 
@@ -24,10 +25,7 @@ const app = express();
 // ========================
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://rise-motive-app.vercel.app", 
-    ],
+    origin: ["http://localhost:5173", "https://rise-motive-app.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   }),
@@ -121,6 +119,27 @@ app.post("/egov", upload.single("documentUrl"), async (req, res) => {
   }
 });
 
+// Product
+
+// ========================
+// Product image upload
+// ========================
+app.post("/products", upload.single("imageUrl"), async (req, res) => {
+  try {
+    const result = await ProductService.create({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      inStock: req.body.inStock === "true", // ✅ FormData sends booleans as strings
+      imageUrl: getFileUrl(req.file), // ✅ Cloudinary URL
+    });
+    res.status(201).json(result);
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
 // ========================
 // Health check
 // ========================
