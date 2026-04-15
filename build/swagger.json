@@ -1048,7 +1048,14 @@
 				"tags": [
 					"Web & Digital"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},
@@ -1218,7 +1225,14 @@
 				"tags": [
 					"Web & Digital"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1317,7 +1331,14 @@
 				"tags": [
 					"Web & Digital"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1408,7 +1429,14 @@
 				"tags": [
 					"Web & Digital"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1588,7 +1616,14 @@
 				"tags": [
 					"Training"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},
@@ -1806,7 +1841,14 @@
 				"tags": [
 					"Training"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1880,7 +1922,14 @@
 				"tags": [
 					"Training"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2178,7 +2227,14 @@
 				"tags": [
 					"Taskers"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": []
 			},
 			"post": {
@@ -2232,7 +2288,14 @@
 				"tags": [
 					"Taskers"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -2298,7 +2361,14 @@
 				"tags": [
 					"Taskers"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2362,7 +2432,14 @@
 				"tags": [
 					"Taskers"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2436,7 +2513,14 @@
 				"tags": [
 					"Taskers"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2502,7 +2586,14 @@
 				"tags": [
 					"Taskers"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2974,7 +3065,13 @@
 				"tags": [
 					"Products"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN"
+						]
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -4052,14 +4149,7 @@
 				"tags": [
 					"Orders"
 				],
-				"security": [
-					{
-						"jwt": [
-							"SUPER_ADMIN",
-							"ADMIN"
-						]
-					}
-				],
+				"security": [],
 				"parameters": [
 					{
 						"in": "path",
@@ -4327,7 +4417,7 @@
 			}
 		},
 		"/orders/{id}/status": {
-			"put": {
+			"patch": {
 				"operationId": "UpdateStatus",
 				"responses": {
 					"200": {
@@ -4671,7 +4761,14 @@
 				"tags": [
 					"Creative Media"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},
@@ -4841,7 +4938,14 @@
 				"tags": [
 					"Creative Media"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -4938,7 +5042,14 @@
 				"tags": [
 					"Creative Media"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -5029,7 +5140,14 @@
 				"tags": [
 					"Creative Media"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -5243,7 +5361,14 @@
 				"tags": [
 					"Legal & Official"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},
@@ -5324,7 +5449,14 @@
 				"tags": [
 					"Legal & Official"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -5413,7 +5545,14 @@
 				"tags": [
 					"Legal & Official"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -5512,7 +5651,14 @@
 				"tags": [
 					"Legal & Official"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -5603,7 +5749,14 @@
 				"tags": [
 					"Legal & Official"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -6340,7 +6493,14 @@
 				"tags": [
 					"E-Government"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},
@@ -6421,7 +6581,14 @@
 				"tags": [
 					"E-Government"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -6510,7 +6677,14 @@
 				"tags": [
 					"E-Government"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -6609,7 +6783,14 @@
 				"tags": [
 					"E-Government"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -6700,7 +6881,14 @@
 				"tags": [
 					"E-Government"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -7208,7 +7396,14 @@
 				"tags": [
 					"Application Documents"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": []
 			}
 		},
@@ -7289,7 +7484,14 @@
 				"tags": [
 					"Application Documents"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -7378,7 +7580,14 @@
 				"tags": [
 					"Application Documents"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -7477,7 +7686,14 @@
 				"tags": [
 					"Application Documents"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -7568,7 +7784,14 @@
 				"tags": [
 					"Application Documents"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": [
+							"SUPER_ADMIN",
+							"ADMIN"
+						]
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",

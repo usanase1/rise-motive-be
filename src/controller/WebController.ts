@@ -8,6 +8,7 @@ import {
   Tags,
   Body,
   Path,
+  Security,
   SuccessResponse,
 } from "tsoa";
 //import { RequestStatus } from "@prisma/client"; //  import the enum
@@ -27,6 +28,7 @@ export class WebDigitalController {
     return WebDigitalService.create(body);
   }
 
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Get("/")
   public async getAll() {
     return WebDigitalService.getAll();
@@ -37,6 +39,7 @@ export class WebDigitalController {
     return WebDigitalService.getById(id);
   }
 
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Put("/{id}")
   public async update(
     @Path() id: number,
@@ -46,6 +49,7 @@ export class WebDigitalController {
   }
 
   // New: dedicated status update endpoint
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Patch("/{id}/status")
   public async updateStatus(
     @Path() id: number,
@@ -58,6 +62,7 @@ export class WebDigitalController {
     return WebDigitalService.updateStatus(id, body.status);
   }
 
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Delete("/{id}")
   public async delete(@Path() id: number) {
     return WebDigitalService.delete(id);

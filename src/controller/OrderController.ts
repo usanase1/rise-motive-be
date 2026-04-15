@@ -3,14 +3,16 @@ import {
   Delete,
   Get,
   Path,
+  Patch,
   Post,
   Put,
+  Security,
   Route,
   Tags,
-  Security,
   Query,
   SuccessResponse,
 } from "tsoa";
+
 import { OrderService } from "../services/OrderService";
 import { OrderStatus } from "@prisma/client";
 
@@ -42,43 +44,42 @@ interface UpdateOrderStatusBody {
 @Route("orders")
 @Tags("Orders")
 export class OrderController {
-  // CREATE (public — customers place orders)
+  // CREATE (public)
   @SuccessResponse(201, "Created")
   @Post("/")
   public async create(@Body() body: CreateOrderRequest) {
     return OrderService.create(body);
   }
 
-  // GET ALL (admin only — optional status filter)
-  // @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
+  // GET ALL (public)
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Get("/")
   public async getAll(@Query() status?: OrderStatus) {
     return OrderService.getAll(status);
   }
 
-  // GET ONE BY ID
-  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
+  // GET ONE (public)
+ @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Get("/{id}")
   public async getById(@Path() id: number) {
     return OrderService.getById(id);
   }
 
-  // TRACK BY TRACKING CODE (public)
+  // TRACK (public)
   @Get("/track/{trackingCode}")
   public async track(@Path() trackingCode: string) {
     return OrderService.getByTrackingCode(trackingCode);
   }
 
-  // UPDATE
-  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
+  // UPDATE (public)
   @Put("/{id}")
   public async update(@Path() id: number, @Body() body: UpdateOrderRequest) {
     return OrderService.update(id, body);
   }
 
-  // UPDATE STATUS
-  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
-  @Put("/{id}/status")
+  // UPDATE STATUS (public)
+ @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
+  @Patch("/{id}/status")
   public async updateStatus(
     @Path() id: number,
     @Body() body: UpdateOrderStatusBody,
@@ -86,7 +87,7 @@ export class OrderController {
     return OrderService.updateStatus(id, body.status);
   }
 
-  // DELETE
+  // DELETE (public)
   @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Delete("/{id}")
   public async delete(@Path() id: number) {

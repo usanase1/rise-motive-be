@@ -8,6 +8,7 @@ import {
   Tags,
   Body,
   Path,
+  Security,
   SuccessResponse,
 } from "tsoa";
 import { CreativeMediaService } from "../services/Media";
@@ -22,6 +23,7 @@ export class CreativeMediaController {
     return CreativeMediaService.create(body);
   }
 
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Get("/")
   public async getAll() {
     return CreativeMediaService.getAll();
@@ -32,11 +34,13 @@ export class CreativeMediaController {
     return CreativeMediaService.getById(id);
   }
 
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Put("/{id}")
   public async update(@Path() id: number, @Body() body: any) {
     return CreativeMediaService.update(id, body);
   }
 
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Patch("/{id}/status")
   public async updateStatus(
     @Path() id: number,
@@ -45,6 +49,7 @@ export class CreativeMediaController {
     return CreativeMediaService.updateStatus(id, body.status);
   }
 
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Delete("/{id}")
   public async delete(@Path() id: number) {
     return CreativeMediaService.delete(id);

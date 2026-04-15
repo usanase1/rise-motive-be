@@ -17,18 +17,23 @@ import { CreateProductRequest } from "../types";
 @Route("products")
 @Tags("Products")
 export class ProductController {
+
+  @Security("jwt", ["SUPER_ADMIN"])
   @SuccessResponse(201, "Created")
   @Post("/")
   public async create(@Body() body: CreateProductRequest) {
     return ProductService.create(body);
   }
 
+  
   @Get("/")
   public async getAll(@Query() category?: string) {
     return ProductService.getAll(category);
   }
 
+  
   @Get("/{id}")
+
   public async getById(@Path() id: number) {
     return ProductService.getById(id);
   }

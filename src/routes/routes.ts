@@ -500,6 +500,7 @@ export function RegisterRoutes(app: Router) {
         const argsWebDigitalController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/web-digital',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(WebDigitalController)),
             ...(fetchMiddlewares<RequestHandler>(WebDigitalController.prototype.getAll)),
 
@@ -561,6 +562,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateWebDigitalRequest"},
         };
         app.put('/web-digital/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(WebDigitalController)),
             ...(fetchMiddlewares<RequestHandler>(WebDigitalController.prototype.update)),
 
@@ -592,6 +594,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"ref":"RequestStatus","required":true}}},
         };
         app.patch('/web-digital/:id/status',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(WebDigitalController)),
             ...(fetchMiddlewares<RequestHandler>(WebDigitalController.prototype.updateStatus)),
 
@@ -622,6 +625,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.delete('/web-digital/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(WebDigitalController)),
             ...(fetchMiddlewares<RequestHandler>(WebDigitalController.prototype.delete)),
 
@@ -681,6 +685,7 @@ export function RegisterRoutes(app: Router) {
         const argsTrainingController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/training',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TrainingController)),
             ...(fetchMiddlewares<RequestHandler>(TrainingController.prototype.getAll)),
 
@@ -773,6 +778,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateStatusBody"},
         };
         app.put('/training/:id/status',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TrainingController)),
             ...(fetchMiddlewares<RequestHandler>(TrainingController.prototype.updateStatus)),
 
@@ -803,6 +809,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.delete('/training/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TrainingController)),
             ...(fetchMiddlewares<RequestHandler>(TrainingController.prototype.delete)),
 
@@ -893,6 +900,7 @@ export function RegisterRoutes(app: Router) {
         const argsTaskerController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/taskers',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TaskerController)),
             ...(fetchMiddlewares<RequestHandler>(TaskerController.prototype.getAll)),
 
@@ -923,6 +931,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.get('/taskers/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TaskerController)),
             ...(fetchMiddlewares<RequestHandler>(TaskerController.prototype.getOne)),
 
@@ -953,6 +962,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"CreateTaskerRequest"},
         };
         app.post('/taskers',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TaskerController)),
             ...(fetchMiddlewares<RequestHandler>(TaskerController.prototype.create)),
 
@@ -984,6 +994,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateTaskerRequest"},
         };
         app.put('/taskers/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TaskerController)),
             ...(fetchMiddlewares<RequestHandler>(TaskerController.prototype.update)),
 
@@ -1014,6 +1025,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.delete('/taskers/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TaskerController)),
             ...(fetchMiddlewares<RequestHandler>(TaskerController.prototype.delete)),
 
@@ -1044,6 +1056,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.put('/taskers/:id/toggle-active',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TaskerController)),
             ...(fetchMiddlewares<RequestHandler>(TaskerController.prototype.toggleActive)),
 
@@ -1228,6 +1241,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"CreateProductRequest"},
         };
         app.post('/products',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ProductController)),
             ...(fetchMiddlewares<RequestHandler>(ProductController.prototype.create)),
 
@@ -1535,7 +1549,6 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateOrderRequest"},
         };
         app.put('/orders/:id',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(OrderController)),
             ...(fetchMiddlewares<RequestHandler>(OrderController.prototype.update)),
 
@@ -1566,7 +1579,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateOrderStatusBody"},
         };
-        app.put('/orders/:id/status',
+        app.patch('/orders/:id/status',
             authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(OrderController)),
             ...(fetchMiddlewares<RequestHandler>(OrderController.prototype.updateStatus)),
@@ -1658,6 +1671,7 @@ export function RegisterRoutes(app: Router) {
         const argsCreativeMediaController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/creative-media',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController)),
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController.prototype.getAll)),
 
@@ -1719,6 +1733,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"dataType":"any"},
         };
         app.put('/creative-media/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController)),
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController.prototype.update)),
 
@@ -1750,6 +1765,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
         };
         app.patch('/creative-media/:id/status',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController)),
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController.prototype.updateStatus)),
 
@@ -1780,6 +1796,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.delete('/creative-media/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController)),
             ...(fetchMiddlewares<RequestHandler>(CreativeMediaController.prototype.delete)),
 
@@ -1839,6 +1856,7 @@ export function RegisterRoutes(app: Router) {
         const argsLegalOfficialController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/legal',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController)),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController.prototype.getAll)),
 
@@ -1869,6 +1887,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.get('/legal/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController)),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController.prototype.getById)),
 
@@ -1900,6 +1919,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateLegalOfficialRequest"},
         };
         app.put('/legal/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController)),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController.prototype.update)),
 
@@ -1931,6 +1951,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
         };
         app.patch('/legal/:id/status',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController)),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController.prototype.updateStatus)),
 
@@ -1961,6 +1982,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.delete('/legal/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController)),
             ...(fetchMiddlewares<RequestHandler>(LegalOfficialController.prototype.delete)),
 
@@ -2206,6 +2228,7 @@ export function RegisterRoutes(app: Router) {
         const argsEGovController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/egov',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(EGovController)),
             ...(fetchMiddlewares<RequestHandler>(EGovController.prototype.getAll)),
 
@@ -2236,6 +2259,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.get('/egov/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(EGovController)),
             ...(fetchMiddlewares<RequestHandler>(EGovController.prototype.getById)),
 
@@ -2267,6 +2291,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateEGovRequest"},
         };
         app.put('/egov/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(EGovController)),
             ...(fetchMiddlewares<RequestHandler>(EGovController.prototype.update)),
 
@@ -2298,6 +2323,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
         };
         app.patch('/egov/:id/status',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(EGovController)),
             ...(fetchMiddlewares<RequestHandler>(EGovController.prototype.updateStatus)),
 
@@ -2328,6 +2354,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.delete('/egov/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(EGovController)),
             ...(fetchMiddlewares<RequestHandler>(EGovController.prototype.delete)),
 
@@ -2543,6 +2570,7 @@ export function RegisterRoutes(app: Router) {
         const argsApplicationDocController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/application-docs',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController)),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController.prototype.getAll)),
 
@@ -2573,6 +2601,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.get('/application-docs/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController)),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController.prototype.getById)),
 
@@ -2604,6 +2633,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateApplicationDocRequest"},
         };
         app.put('/application-docs/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController)),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController.prototype.update)),
 
@@ -2635,6 +2665,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
         };
         app.patch('/application-docs/:id/status',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController)),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController.prototype.updateStatus)),
 
@@ -2665,6 +2696,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.delete('/application-docs/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController)),
             ...(fetchMiddlewares<RequestHandler>(ApplicationDocController.prototype.delete)),
 

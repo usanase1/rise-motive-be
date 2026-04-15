@@ -7,6 +7,7 @@ import {
   Put,
   Route,
   Tags,
+  Security,
   SuccessResponse,
 } from "tsoa";
 
@@ -30,12 +31,14 @@ export class TrainingController {
   }
 
   // GET ALL
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Get("/")
   public async getAll() {
     return TrainingService.getAll();
   }
 
   // GET ONE
+  
   @Get("/{id}")
   public async getOne(@Path() id: number) {
     return TrainingService.getOne(id);
@@ -48,6 +51,7 @@ export class TrainingController {
   }
 
   // UPDATE STATUS
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Put("/{id}/status")
   public async updateStatus(
     @Path() id: number,
@@ -57,6 +61,7 @@ export class TrainingController {
   }
 
   // DELETE
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Delete("/{id}")
   public async delete(@Path() id: number) {
     return TrainingService.delete(id);

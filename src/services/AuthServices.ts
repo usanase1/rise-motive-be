@@ -1,11 +1,13 @@
-import {prisma} from "../lib/prisma";
+import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export class AuthService {
-
   // LOGIN
   static async login(email: string, password: string) {
+    const ALLOWED_ROLES = ["ADMIN", "SUPER_ADMIN"] as const;
+    type AdminRole = (typeof ALLOWED_ROLES)[number];
+
     const admin = await prisma.admin.findUnique({ where: { email } });
 
     if (!admin) throw new Error("Invalid credentials");
@@ -13,21 +15,34 @@ export class AuthService {
     if (!admin.isActive) throw new Error("Account is disabled");
 
     if (admin.lockedUntil && admin.lockedUntil > new Date()) {
-      throw new Error("Account temporarily locked");
+      const minutesLeft = Math.ceil(
+        (admin.lockedUntil.getTime() - Date.now()) / 60_000,
+      );
+      throw new Error(`Account locked. Try again in ${minutesLeft} minute(s)`);
+    }
+
+    //  Validate role before even checking the password
+    if (!ALLOWED_ROLES.includes(admin.role as AdminRole)) {
+      throw new Error("Invalid credentials"); // don't leak "role not permitted"
     }
 
     const isMatch = await bcrypt.compare(password, admin.password);
 
     if (!isMatch) {
       const attempts = admin.loginAttempts + 1;
+      const MAX_ATTEMPTS = 5;
+      const LOCK_MINUTES = 30;
 
-      const update: any = { loginAttempts: attempts };
-
-      if (attempts >= 3) {
-        update.isActive = false;
-      }
-
-      await prisma.admin.update({ where: { email }, data: update });
+      await prisma.admin.update({
+        where: { email },
+        data: {
+          loginAttempts: attempts,
+          ...(attempts >= MAX_ATTEMPTS && {
+            lockedUntil: new Date(Date.now() + LOCK_MINUTES * 60_000),
+            loginAttempts: 0,
+          }),
+        },
+      });
 
       throw new Error("Invalid credentials");
     }
@@ -40,11 +55,10 @@ export class AuthService {
     const token = jwt.sign(
       { id: admin.id, role: admin.role },
       process.env.JWT_SECRET!,
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     const { password: _, ...adminWithoutPassword } = admin;
-
     return { token, admin: adminWithoutPassword };
   }
 
@@ -71,7 +85,7 @@ export class AuthService {
   // UPDATE PROFILE
   static async updateProfile(
     adminId: number,
-    data: { fullName?: string; email?: string }
+    data: { fullName?: string; email?: string },
   ) {
     if (data.email) {
       const existing = await prisma.admin.findUnique({
@@ -100,7 +114,7 @@ export class AuthService {
   static async changePassword(
     adminId: number,
     currentPassword: string,
-    newPassword: string
+    newPassword: string,
   ) {
     const admin = await prisma.admin.findUnique({ where: { id: adminId } });
 
