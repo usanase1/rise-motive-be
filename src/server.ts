@@ -15,6 +15,10 @@ import { CreativeMediaService } from "./services/Media";
 import { WebDigitalService } from "./services/Web";
 import { LegalOfficialService } from "./services/legal";
 import { ProductService } from "./services/ProductService";
+import { AuthService } from "./services/AuthServices";
+import { RequestWithUser } from "./types/index";
+import { expressAuthMiddleware } from "./middleware/ExpressMiddleWARE";
+import { SearchService } from "./services/SearchService";
 
 dotenv.config();
 
@@ -23,10 +27,12 @@ const app = express();
 // ========================
 // Middlewares
 // ========================
+// With this:
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://rise-motive-app.vercel.app"],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   }),
 );
@@ -77,6 +83,46 @@ app.post("/web-digital", upload.single("documentUrl"), async (req, res) => {
   } catch (err: any) {
     console.error(err);
     res.status(500).json({ error: err.message });
+  }
+});
+
+// update
+app.put(
+  "/auth/profile-picture",
+  expressAuthMiddleware,
+  upload.single("profilePicture"),
+  async (req: RequestWithUser, res) => {
+    try {
+      const adminId = req.user?.id;
+      if (!adminId) return res.status(401).json({ error: "Unauthorized" });
+      if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+      // Build full accessible URL
+      const imageUrl = req.file.path.startsWith("http")
+        ? req.file.path // Cloudinary already returns full URL
+        : `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+
+      const result = await AuthService.updateProfilePicture(adminId, imageUrl);
+      res.status(200).json(result);
+    } catch (err: unknown) {
+      const e = err as Error;
+      console.error(e);
+      res.status(500).json({ error: e.message });
+    }
+  },
+);
+
+// search by tracking code
+
+app.get("/search/tracking/:code", async (req, res) => {
+  try {
+    const { code } = req.params;
+    if (!code) return res.status(400).json({ error: "Tracking code required" });
+    const result = await SearchService.searchByTrackingCode(code);
+    res.status(200).json(result);
+  } catch (err: unknown) {
+    const e = err as Error;
+    res.status(500).json({ error: e.message });
   }
 });
 

@@ -38,7 +38,6 @@ export function expressAuthentication(
         return reject(new AppError("Token verification failed", 401));
       }
 
-      // Role-based access check
       if (isProtected) {
         const userRole: string = decoded?.role ?? "";
         const hasRequiredRole = scopes!.includes(userRole);

@@ -3,6 +3,7 @@ import {
   Delete,
   Get,
   Path,
+  Patch,
   Post,
   Put,
   Route,
@@ -46,7 +47,7 @@ export class TaskerController {
   }
 
   // DELETE
- @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
+  @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
   @Delete("/{id}")
   public async delete(@Path() id: number) {
     return TaskerService.delete(id);
@@ -54,7 +55,7 @@ export class TaskerController {
 
   // TOGGLE ACTIVE
   @Security("jwt", ["SUPER_ADMIN", "ADMIN"])
-  @Put("/{id}/toggle-active")
+  @Patch("/{id}/toggle-active")
   public async toggleActive(@Path() id: number) {
     return TaskerService.toggleActive(id);
   }

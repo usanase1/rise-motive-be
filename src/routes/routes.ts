@@ -428,6 +428,15 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ErrorResponse": {
+        "dataType": "refObject",
+        "properties": {
+            "message": {"dataType":"string","required":true},
+            "code": {"dataType":"string"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "CreateAdminBody": {
         "dataType": "refObject",
         "properties": {
@@ -1055,7 +1064,7 @@ export function RegisterRoutes(app: Router) {
         const argsTaskerController_toggleActive: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
-        app.put('/taskers/:id/toggle-active',
+        app.patch('/taskers/:id/toggle-active',
             authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(TaskerController)),
             ...(fetchMiddlewares<RequestHandler>(TaskerController.prototype.toggleActive)),
@@ -2478,7 +2487,7 @@ export function RegisterRoutes(app: Router) {
                 request: {"in":"request","name":"request","required":true,"dataType":"object"},
                 body: {"in":"body","name":"body","required":true,"ref":"ChangePasswordRequest"},
         };
-        app.put('/auth/change-password',
+        app.patch('/auth/change-password',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(AuthController)),
             ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.changePassword)),
@@ -2726,7 +2735,7 @@ export function RegisterRoutes(app: Router) {
         const argsAdminController_getAllAdmins: Record<string, TsoaRoute.ParameterSchema> = {
         };
         app.get('/admin',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN"]}]),
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(AdminController)),
             ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.getAllAdmins)),
 
@@ -2757,7 +2766,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.get('/admin/:id',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN"]}]),
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(AdminController)),
             ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.getAdminById)),
 
@@ -2788,7 +2797,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"CreateAdminBody"},
         };
         app.post('/admin',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN"]}]),
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(AdminController)),
             ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.createAdmin)),
 
@@ -2820,7 +2829,7 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateAdminBody"},
         };
         app.put('/admin/:id',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN"]}]),
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(AdminController)),
             ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.updateAdmin)),
 
@@ -2850,8 +2859,8 @@ export function RegisterRoutes(app: Router) {
         const argsAdminController_activate: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
-        app.put('/admin/activate/:id',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN"]}]),
+        app.patch('/admin/activate/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(AdminController)),
             ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.activate)),
 
@@ -2881,8 +2890,8 @@ export function RegisterRoutes(app: Router) {
         const argsAdminController_deactivate: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
-        app.put('/admin/deactivate/:id',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN"]}]),
+        app.patch('/admin/deactivate/:id',
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(AdminController)),
             ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.deactivate)),
 
@@ -2913,7 +2922,7 @@ export function RegisterRoutes(app: Router) {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
         };
         app.delete('/admin/:id',
-            authenticateMiddleware([{"jwt":["SUPER_ADMIN"]}]),
+            authenticateMiddleware([{"jwt":["SUPER_ADMIN","ADMIN"]}]),
             ...(fetchMiddlewares<RequestHandler>(AdminController)),
             ...(fetchMiddlewares<RequestHandler>(AdminController.prototype.deleteAdmin)),
 

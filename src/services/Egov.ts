@@ -12,23 +12,34 @@ export class EGovService {
     const result = await prisma.eGovRequest.create({
       data: {
         ...data,
-        documentUrl: data.documentUrl || null, // ADD THIS
+        documentUrl: data.documentUrl || null,
         trackingCode: EGovService.generateTrackingCode(),
       },
     });
 
+    console.log("📧 customerEmail:", result.customerEmail);
+    console.log("📧 trackingCode:", result.trackingCode);
+    console.log("📧 customerName:", result.customerName);
+
     if (result.customerEmail) {
-      await sendTrackingEmail(
-        result.customerEmail,
-        result.customerName,
-        result.trackingCode,
-        "E-Government Services",
-      ).catch(console.error);
+      console.log("📧 Attempting to send email to:", result.customerEmail);
+      try {
+        await sendTrackingEmail(
+          result.customerEmail,
+          result.customerName,
+          result.trackingCode,
+          "E-Government Services",
+        );
+        console.log("✅ Email sent successfully");
+      } catch (error) {
+        console.error("❌ Email sending failed:", error);
+      }
+    } else {
+      console.log("⚠️ No customerEmail — email not sent");
     }
 
     return result;
   }
-
   static async getAll() {
     const [items, total] = await Promise.all([
       prisma.eGovRequest.findMany({ orderBy: { createdAt: "desc" } }),

@@ -4,9 +4,16 @@ import dotenv from "dotenv";
 dotenv.config();
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,  // add ! to assert not undefined
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
   api_key: process.env.CLOUDINARY_API_KEY!,
   api_secret: process.env.CLOUDINARY_API_SECRET!,
+  timeout: 60000, // ← add this
 });
+
+// Test connection
+cloudinary.api
+  .ping()
+  .then(() => console.log(" Cloudinary connected"))
+  .catch((err) => console.error(" Cloudinary failed:", err));
 
 export default cloudinary;

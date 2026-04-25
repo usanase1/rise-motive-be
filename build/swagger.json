@@ -798,6 +798,21 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"ErrorResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"code": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"CreateAdminBody": {
 				"properties": {
 					"fullName": {
@@ -2535,7 +2550,7 @@
 			}
 		},
 		"/taskers/{id}/toggle-active": {
-			"put": {
+			"patch": {
 				"operationId": "ToggleActive",
 				"responses": {
 					"200": {
@@ -7137,7 +7152,7 @@
 			}
 		},
 		"/auth/change-password": {
-			"put": {
+			"patch": {
 				"operationId": "ChangePassword",
 				"responses": {
 					"200": {
@@ -7832,45 +7847,52 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"items": {
-										"properties": {
-											"role": {
-												"$ref": "#/components/schemas/_36_Enums.AdminRole"
+									"anyOf": [
+										{
+											"items": {
+												"properties": {
+													"role": {
+														"$ref": "#/components/schemas/_36_Enums.AdminRole"
+													},
+													"isActive": {
+														"type": "boolean"
+													},
+													"email": {
+														"type": "string"
+													},
+													"fullName": {
+														"type": "string"
+													},
+													"id": {
+														"type": "number",
+														"format": "double"
+													},
+													"updatedAt": {
+														"type": "string",
+														"format": "date-time"
+													},
+													"createdAt": {
+														"type": "string",
+														"format": "date-time"
+													}
+												},
+												"required": [
+													"role",
+													"isActive",
+													"email",
+													"fullName",
+													"id",
+													"updatedAt",
+													"createdAt"
+												],
+												"type": "object"
 											},
-											"isActive": {
-												"type": "boolean"
-											},
-											"email": {
-												"type": "string"
-											},
-											"fullName": {
-												"type": "string"
-											},
-											"id": {
-												"type": "number",
-												"format": "double"
-											},
-											"updatedAt": {
-												"type": "string",
-												"format": "date-time"
-											},
-											"createdAt": {
-												"type": "string",
-												"format": "date-time"
-											}
+											"type": "array"
 										},
-										"required": [
-											"role",
-											"isActive",
-											"email",
-											"fullName",
-											"id",
-											"updatedAt",
-											"createdAt"
-										],
-										"type": "object"
-									},
-									"type": "array"
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
+										}
+									]
 								}
 							}
 						}
@@ -7882,7 +7904,8 @@
 				"security": [
 					{
 						"jwt": [
-							"SUPER_ADMIN"
+							"SUPER_ADMIN",
+							"ADMIN"
 						]
 					}
 				],
@@ -7896,42 +7919,59 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"role": {
-											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
 										},
-										"isActive": {
-											"type": "boolean"
-										},
-										"email": {
-											"type": "string"
-										},
-										"fullName": {
-											"type": "string"
-										},
-										"id": {
-											"type": "number",
-											"format": "double"
-										},
-										"updatedAt": {
-											"type": "string",
-											"format": "date-time"
-										},
-										"createdAt": {
-											"type": "string",
-											"format": "date-time"
+										{
+											"properties": {
+												"role": {
+													"$ref": "#/components/schemas/_36_Enums.AdminRole"
+												},
+												"isActive": {
+													"type": "boolean"
+												},
+												"email": {
+													"type": "string"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												}
+											},
+											"required": [
+												"role",
+												"isActive",
+												"email",
+												"fullName",
+												"id",
+												"updatedAt",
+												"createdAt"
+											],
+											"type": "object"
 										}
-									},
-									"required": [
-										"role",
-										"isActive",
-										"email",
-										"fullName",
-										"id",
-										"updatedAt",
-										"createdAt"
-									],
-									"type": "object"
+									]
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Email already exists",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
 								}
 							}
 						}
@@ -7943,7 +7983,8 @@
 				"security": [
 					{
 						"jwt": [
-							"SUPER_ADMIN"
+							"SUPER_ADMIN",
+							"ADMIN"
 						]
 					}
 				],
@@ -7969,42 +8010,59 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"role": {
-											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
 										},
-										"isActive": {
-											"type": "boolean"
-										},
-										"email": {
-											"type": "string"
-										},
-										"fullName": {
-											"type": "string"
-										},
-										"id": {
-											"type": "number",
-											"format": "double"
-										},
-										"updatedAt": {
-											"type": "string",
-											"format": "date-time"
-										},
-										"createdAt": {
-											"type": "string",
-											"format": "date-time"
+										{
+											"properties": {
+												"role": {
+													"$ref": "#/components/schemas/_36_Enums.AdminRole"
+												},
+												"isActive": {
+													"type": "boolean"
+												},
+												"email": {
+													"type": "string"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												}
+											},
+											"required": [
+												"role",
+												"isActive",
+												"email",
+												"fullName",
+												"id",
+												"updatedAt",
+												"createdAt"
+											],
+											"type": "object"
 										}
-									},
-									"required": [
-										"role",
-										"isActive",
-										"email",
-										"fullName",
-										"id",
-										"updatedAt",
-										"createdAt"
-									],
-									"type": "object"
+									]
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Admin not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
 								}
 							}
 						}
@@ -8016,7 +8074,8 @@
 				"security": [
 					{
 						"jwt": [
-							"SUPER_ADMIN"
+							"SUPER_ADMIN",
+							"ADMIN"
 						]
 					}
 				],
@@ -8040,42 +8099,59 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"role": {
-											"$ref": "#/components/schemas/_36_Enums.AdminRole"
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
 										},
-										"isActive": {
-											"type": "boolean"
-										},
-										"email": {
-											"type": "string"
-										},
-										"fullName": {
-											"type": "string"
-										},
-										"id": {
-											"type": "number",
-											"format": "double"
-										},
-										"updatedAt": {
-											"type": "string",
-											"format": "date-time"
-										},
-										"createdAt": {
-											"type": "string",
-											"format": "date-time"
+										{
+											"properties": {
+												"role": {
+													"$ref": "#/components/schemas/_36_Enums.AdminRole"
+												},
+												"isActive": {
+													"type": "boolean"
+												},
+												"email": {
+													"type": "string"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												},
+												"updatedAt": {
+													"type": "string",
+													"format": "date-time"
+												},
+												"createdAt": {
+													"type": "string",
+													"format": "date-time"
+												}
+											},
+											"required": [
+												"role",
+												"isActive",
+												"email",
+												"fullName",
+												"id",
+												"updatedAt",
+												"createdAt"
+											],
+											"type": "object"
 										}
-									},
-									"required": [
-										"role",
-										"isActive",
-										"email",
-										"fullName",
-										"id",
-										"updatedAt",
-										"createdAt"
-									],
-									"type": "object"
+									]
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Admin not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
 								}
 							}
 						}
@@ -8087,7 +8163,8 @@
 				"security": [
 					{
 						"jwt": [
-							"SUPER_ADMIN"
+							"SUPER_ADMIN",
+							"ADMIN"
 						]
 					}
 				],
@@ -8121,60 +8198,17 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"lockedUntil": {
-											"type": "string",
-											"format": "date-time"
-										},
-										"loginAttempts": {
-											"type": "number",
-											"format": "double"
-										},
-										"role": {
-											"$ref": "#/components/schemas/_36_Enums.AdminRole"
-										},
-										"password": {
-											"type": "string"
-										},
-										"profilePicture": {
-											"type": "string"
-										},
-										"isActive": {
-											"type": "boolean"
-										},
-										"email": {
-											"type": "string"
-										},
-										"fullName": {
-											"type": "string"
-										},
-										"id": {
-											"type": "number",
-											"format": "double"
-										},
-										"updatedAt": {
-											"type": "string",
-											"format": "date-time"
-										},
-										"createdAt": {
-											"type": "string",
-											"format": "date-time"
-										}
-									},
-									"required": [
-										"lockedUntil",
-										"loginAttempts",
-										"role",
-										"password",
-										"profilePicture",
-										"isActive",
-										"email",
-										"fullName",
-										"id",
-										"updatedAt",
-										"createdAt"
-									],
-									"type": "object"
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Admin not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
 								}
 							}
 						}
@@ -8186,7 +8220,8 @@
 				"security": [
 					{
 						"jwt": [
-							"SUPER_ADMIN"
+							"SUPER_ADMIN",
+							"ADMIN"
 						]
 					}
 				],
@@ -8204,7 +8239,7 @@
 			}
 		},
 		"/admin/activate/{id}": {
-			"put": {
+			"patch": {
 				"operationId": "Activate",
 				"responses": {
 					"200": {
@@ -8212,24 +8247,31 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"isActive": {
-											"type": "boolean"
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
 										},
-										"fullName": {
-											"type": "string"
-										},
-										"id": {
-											"type": "number",
-											"format": "double"
+										{
+											"properties": {
+												"isActive": {
+													"type": "boolean"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												}
+											},
+											"required": [
+												"isActive",
+												"fullName",
+												"id"
+											],
+											"type": "object"
 										}
-									},
-									"required": [
-										"isActive",
-										"fullName",
-										"id"
-									],
-									"type": "object"
+									]
 								}
 							}
 						}
@@ -8241,7 +8283,8 @@
 				"security": [
 					{
 						"jwt": [
-							"SUPER_ADMIN"
+							"SUPER_ADMIN",
+							"ADMIN"
 						]
 					}
 				],
@@ -8259,7 +8302,7 @@
 			}
 		},
 		"/admin/deactivate/{id}": {
-			"put": {
+			"patch": {
 				"operationId": "Deactivate",
 				"responses": {
 					"200": {
@@ -8267,24 +8310,31 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"isActive": {
-											"type": "boolean"
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/ErrorResponse"
 										},
-										"fullName": {
-											"type": "string"
-										},
-										"id": {
-											"type": "number",
-											"format": "double"
+										{
+											"properties": {
+												"isActive": {
+													"type": "boolean"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"id": {
+													"type": "number",
+													"format": "double"
+												}
+											},
+											"required": [
+												"isActive",
+												"fullName",
+												"id"
+											],
+											"type": "object"
 										}
-									},
-									"required": [
-										"isActive",
-										"fullName",
-										"id"
-									],
-									"type": "object"
+									]
 								}
 							}
 						}
@@ -8296,7 +8346,8 @@
 				"security": [
 					{
 						"jwt": [
-							"SUPER_ADMIN"
+							"SUPER_ADMIN",
+							"ADMIN"
 						]
 					}
 				],

@@ -1,6 +1,7 @@
 import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import cloudinary from "../lib/cloudinary";
 
 export class AuthService {
   // LOGIN
@@ -70,6 +71,7 @@ export class AuthService {
         id: true,
         fullName: true,
         email: true,
+        profilePicture: true, // make sure this is included
         role: true,
         isActive: true,
         createdAt: true,
@@ -151,5 +153,14 @@ export class AuthService {
   static async isTokenBlacklisted(token: string): Promise<boolean> {
     const entry = await prisma.tokenBlacklist.findUnique({ where: { token } });
     return !!entry;
+  }
+
+  // UPDATE PROFILE PICTURE
+  static async updateProfilePicture(adminId: number, imageUrl: string) {
+    return prisma.admin.update({
+      where: { id: adminId },
+      data: { profilePicture: imageUrl },
+      select: { id: true, profilePicture: true },
+    });
   }
 }

@@ -3,9 +3,18 @@
 // ===============================
 
 import { CreativeMediaRequest } from "@prisma/client";
+import { Request } from "express";
 
 //  Re-export from Prisma — single source of truth
 export { RequestStatus, OrderStatus, ApplicationStatus } from "@prisma/client";
+
+export interface RequestWithUser extends Request {
+  user?: {
+    id: number;
+    email: string;
+    role: string;
+  };
+}
 
 // Local enums not in Prisma
 export enum InfoCategory {
@@ -151,6 +160,8 @@ export interface CreateProductRequest {
   imageUrl?: string;
   inStock?: boolean;
 }
+
+
 
 // ===============================
 // INFO POST

@@ -41,33 +41,36 @@ export class AdminServices {
     });
   }
 
-  // CREATE ADMIN
   static async createAdmin(data: {
     fullName: string;
     email: string;
     password: string;
     role?: "ADMIN" | "SUPER_ADMIN";
   }) {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    return prisma.admin.create({
-      data: {
-        fullName: data.fullName,
-        email: data.email,
-        password: hashedPassword,
-        role: data.role ?? "ADMIN",
-      },
-      select: {
-        id: true,
-        fullName: true,
-        email: true,
-        role: true,
-        isActive: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+    try {
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+      return await prisma.admin.create({
+        data: {
+          fullName: data.fullName,
+          email: data.email,
+          password: hashedPassword,
+          role: data.role ?? "ADMIN",
+        },
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          role: true,
+          isActive: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
+    } catch (error) {
+      console.error("❌ createAdmin error:", JSON.stringify(error, null, 2)); //
+      throw error; // re-throw so controller catches it
+    }
   }
-
   // UPDATE ADMIN
   static async updateAdmin(
     id: number,

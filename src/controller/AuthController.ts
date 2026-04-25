@@ -1,4 +1,14 @@
-import { Body, Get, Post, Put, Route, Tags, Security, Request } from "tsoa";
+import {
+  Body,
+  Get,
+  Post,
+  Put,
+  Route,
+  Tags,
+  Security,
+  Request,
+  Patch,
+} from "tsoa";
 import { AuthService } from "../services/AuthServices";
 import type { Request as ExpressRequest } from "express";
 
@@ -20,7 +30,6 @@ interface ChangePasswordRequest {
 @Route("auth")
 @Tags("Auth")
 export class AuthController {
-
   // LOGIN
   @Post("/login")
   public async login(@Body() body: LoginRequest) {
@@ -40,7 +49,7 @@ export class AuthController {
   @Put("/profile")
   public async updateProfile(
     @Request() request: ExpressRequest,
-    @Body() body: UpdateProfileRequest
+    @Body() body: UpdateProfileRequest,
   ) {
     const adminId = (request as any).user.id;
     return AuthService.updateProfile(adminId, body);
@@ -48,16 +57,16 @@ export class AuthController {
 
   // CHANGE PASSWORD (requires auth)
   @Security("jwt")
-  @Put("/change-password")
+  @Patch("/change-password")
   public async changePassword(
     @Request() request: ExpressRequest,
-    @Body() body: ChangePasswordRequest
+    @Body() body: ChangePasswordRequest,
   ) {
     const adminId = (request as any).user.id;
     return AuthService.changePassword(
       adminId,
       body.currentPassword,
-      body.newPassword
+      body.newPassword,
     );
   }
 
@@ -69,4 +78,8 @@ export class AuthController {
     const token = (request as any).headers.authorization?.split(" ")[1];
     return AuthService.logout(adminId, token);
   }
+
+  // Profile picture controller
+
+ 
 }
