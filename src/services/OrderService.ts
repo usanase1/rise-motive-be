@@ -1,6 +1,7 @@
 import { prisma } from "../lib/prisma";
 import { randomBytes } from "crypto";
 import { OrderStatus } from "@prisma/client";
+import { sendTrackingEmail } from "../utils/email";
 
 interface CreateOrderRequest {
   customerName: string;
@@ -24,20 +25,32 @@ interface UpdateOrderRequest {
 }
 
 export class OrderService {
-
   private static generateTrackingCode(): string {
     return `ORD-${randomBytes(4).toString("hex").toUpperCase()}`; // e.g. ORD-3F9A1C2B
   }
 
   // CREATE
   static async create(data: CreateOrderRequest) {
-    return prisma.order.create({
+    const order = await prisma.order.create({
       data: {
         ...data,
         trackingCode: OrderService.generateTrackingCode(),
       },
       include: { product: true },
     });
+
+    //  Send email only if customer provided one
+    if (order.customerEmail) {
+      await sendTrackingEmail(
+        order.customerEmail,
+        order.customerName,
+        order.trackingCode,
+        order.product.name,
+        // or whatever field represents the service/product name
+      );
+    }
+
+    return order;
   }
 
   // GET ALL
